@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # @author Giuseppe Filippone
 
-from gamma import encode as gamma_encode
 from math import log2
+
+from .gamma import encode as gamma_encode
 
 
 class DeltaCoder():
