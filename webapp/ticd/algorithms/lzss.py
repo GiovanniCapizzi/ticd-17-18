@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 # @author Giuseppe Filippone
 
-from timeit import default_timer
-
 
 class LZss(object):
 
