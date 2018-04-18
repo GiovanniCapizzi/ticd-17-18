@@ -54,3 +54,21 @@ class DeltaCoder():
         for codeword in codewords:
             plainwords[codeword] = self.decode(codeword)
         return plainwords
+
+
+def test(tries=10000, intrange=(1, 10000000)):
+    from random import randint
+
+    dc = DeltaCoder()
+    dc_text = "00101000100100010001010001001010001001010001001010001"
+    print(dc_text, dc.decode_text(dc_text))
+    low, high = intrange
+    for i in range(tries):
+        integer = randint(low, high)
+        if dc.decode(dc.encode(integer)) != integer:
+            raise Exception("DeltaCoder error for {}".format(integer))
+    print("Success")
+
+
+if __name__ == '__main__':
+    test()
