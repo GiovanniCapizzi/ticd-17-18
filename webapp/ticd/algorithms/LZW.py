@@ -9,13 +9,12 @@
 #                        | |
 #                        |_|
 
-#in_text = "La signora Aurora ha programmato in Java un software per la gestione dei ristoranti."
+in_text = "La signora Aurora ha programmato in Java un software per la gestione dei ristoranti."
 
-in_text = "bcababbcbcbaaaabbc"
+#in_text = "bcababbcbcbaaaabbc"
 
 
 def encode(i_text, logging=False):
-
     """
     >>> encode("bcababbcbcbaaaabbc")
     ([2, 3, 1, 2, 6, 4, 9, 1, 11, 8, 3], {1: 'a', 2: 'b', 3: 'c'})
@@ -24,8 +23,6 @@ def encode(i_text, logging=False):
     :param logging:
     :return output:
     """
-
-
 
     # Initialization -----------------------
     in_alph = sorted(set(i_text))
@@ -66,7 +63,7 @@ def encode(i_text, logging=False):
 
         # add this new word to the codebook
         word = i_text[cursor:relative_index]
-        codebook[word] = len(codebook)+1
+        codebook[word] = len(codebook) + 1
         # outputting value
         coding_word = i_text[cursor:relative_index - 1]
         output.append(codebook[coding_word])
@@ -80,7 +77,6 @@ def encode(i_text, logging=False):
 
 
 def decode(i_coded_text, codebook, logging=False):
-
     """
     >>> decode([2, 3, 1, 2, 6, 4, 9, 1, 11, 8, 3], {1: 'a', 2: 'b', 3: 'c'})
     'bcababbcbcbaaaabbc'
@@ -105,7 +101,7 @@ def decode(i_coded_text, codebook, logging=False):
             output += current_item
 
             # adding new key to codebook
-            candidate = last+current_item
+            candidate = last + current_item
             c_len = len(candidate)
             if c_len > 1:
                 # searching the longest word in the dictionary
@@ -115,13 +111,13 @@ def decode(i_coded_text, codebook, logging=False):
                     relative_index += 1
 
                 # O(1) len sui dict
-                codebook[len(codebook)+1] = candidate[0:relative_index]
+                codebook[len(codebook) + 1] = candidate[0:relative_index]
 
             last = current_item
         else:
             adding = last + last[0]
             output += adding
-            codebook[len(codebook)+1] = adding
+            codebook[len(codebook) + 1] = adding
             last = adding
 
         if logging:
@@ -133,8 +129,6 @@ def decode(i_coded_text, codebook, logging=False):
 # TEST CODE --------------
 
 if __name__ == '__main__':
-
     print("Testing code ")
-    code, inverted_codebook = encode(in_text)
-    print(decode(code, inverted_codebook ))
-
+    code, inverted_cb = encode(in_text)
+    print(code, "\n", decode(code, inverted_cb))
