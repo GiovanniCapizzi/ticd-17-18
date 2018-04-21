@@ -1,52 +1,51 @@
 import time
 
 
-def lz78_encoded(s: str):
-    dict_ = dict()
-    dict_[''] = 0
+def encode(s: str):
+    codebook = dict()
+    codebook[''] = 0
     i = 0
+    count = 1
     output = list()
     N = len(s)
     while i < N:
-        sb = s[i:]
-        pos, succ, l = search(dict_, sb)
-        i += l
-        output.append((pos, succ))
+        ii = i
+        while ii < N:
+            pattern = s[i:(ii + 1)]
+            if pattern in codebook:
+                ii += 1
+            else:
+                break
+        codebook[pattern] = count
+        output.append((codebook[pattern[:-1]], s[ii] if ii < N else s[ii - 1]))
+        count += 1
+        i += len(pattern)
     return output
 
 
-def search(dict_, sb):
-    a = ''
-    for c in sb:
-        a += c
-        if a not in dict_:
-            break
-    dict_[a] = len(dict_)
-    return dict_[a[:-1]], a[-1], len(a)
-
-
-def lz78_decoded(list_: list):
-    dict_ = dict()
-    dict_[0] = ''
+def decode(list_: list):
+    codebook = dict()
+    codebook[0] = ''
     s = ''
     for t in list_:
-        tmp = dict_[t[0]] + t[1]
-        dict_[len(dict_)] = tmp
+        tmp = codebook[t[0]] + t[1]
+        codebook[len(codebook)] = tmp
         s += tmp
     return s
 
 
 def main():
-    lines = 'abababababab'
+    lines = 'ababababababab'
     start = time.time()
-    encoded = lz78_encoded(lines)
+    encoded = encode(lines)
     step = time.time()
-    decoded = lz78_decoded(encoded)
+    decoded = decode(encoded)
     end = time.time()
     print('encoding :' + str(step - start))
     print('decoding :' + str(end - step))
     print('total :' + str(end - start))
     assert lines == decoded
+
 
 
 if __name__ == '__main__':
