@@ -6,9 +6,6 @@ def rle(s: str) -> List[Tuple[str, int]]:
     """
     >>> rle("aaaaaaaaaabbbbb")
     [('a', 10), ('b', 5)]
-
-    :param s:
-    :return:
     """
     result: List[Tuple[str, int]] = []
     as_list = list(s)
@@ -28,6 +25,10 @@ def rle(s: str) -> List[Tuple[str, int]]:
 
 
 def rle_i(encoded: List[Tuple[str, int]]) -> str:
+    """
+    >>> rle_i([('a', 10), ('b', 5)])
+    'aaaaaaaaaabbbbb'
+    """
     result: List[str] = []
     for item in encoded:
         result.append(item[0] * item[1])
@@ -35,6 +36,9 @@ def rle_i(encoded: List[Tuple[str, int]]) -> str:
 
 
 def rho(s: str) -> int:
+    """
+    >>> assert rho("aaaaaaaaaabbbbb") == 2
+    """
     return len(rle(s))
 
 
