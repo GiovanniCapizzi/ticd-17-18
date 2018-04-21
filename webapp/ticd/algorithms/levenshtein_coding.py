@@ -1,7 +1,13 @@
+from typing import List
+
 from bitstring import BitArray
 
 
-def levenshtein_encode(x):
+def encode(x: int)-> str:
+    """
+    >>> encode(10231)
+    '1111011010011111110111'
+    """
     if x == 0:
         return str(BitArray(bin='0').bin)
     else:
@@ -17,7 +23,11 @@ def levenshtein_encode(x):
         return str(BitArray(bin=result).bin)
 
 
-def levenshtein_decode(b):
+def decode(b: str) -> List[int]:
+    """
+    >>> decode('11110000000011110000000011100111110011')
+    [16, 16, 7, 7]
+    """
     in_list = list(b)
     # print(in_list)
     results = list()
@@ -44,11 +54,15 @@ def levenshtein_decode(b):
     return results
 
 
-if __name__ == '__main__':
+def main():
     print('-----Levenshtein-----')
     print('encode')
-    bits = levenshtein_encode(10231)
+    bits = encode(10231)
     print(bits)
     print('decode')
-    integers = levenshtein_decode('11110000000011110000000011100111110011')
+    integers = decode('11110000000011110000000011100111110011')
     print(integers)
+
+
+if __name__ == '__main__':
+    main()
