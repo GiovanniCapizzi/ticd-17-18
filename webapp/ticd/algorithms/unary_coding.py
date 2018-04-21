@@ -6,9 +6,7 @@ def unary_coding(n: int) -> str:
     """
     >>> unary_coding(13)
     '0000000000001'
-
-    :param n:
-    :return:
+    >>> assert [unary_decoding(unary_coding(i))[0] for i in range(1, 100)] == [i for i in range(1, 100)]
     """
     return "0" * (n - 1) + "1"
 
@@ -17,9 +15,6 @@ def unary_decoding(s: str) -> List[int]:
     """
     >>> unary_decoding('00000000000010000000000001')
     [13, 13]
-
-    :param s:
-    :return:
     """
     as_list = list(s)
     result = []

@@ -1,10 +1,12 @@
 # coding=utf-8
+import random
+import string
 from typing import List
 
 
 def mtf(s: str) -> List[int]:
     L = s
-    X = list(sorted(list(set(L))))
+    X = sorted(set(L))
     output = []
     for c in L:
         output.append(X.index(c))
@@ -26,11 +28,17 @@ def mtf_i(r: List[int], alphabet: List[str]) -> str:
     return "".join(tmp)
 
 
+def test():
+    for _ in range(100):
+        w = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(128))
+        alphabet = sorted(set(w))
+        encoded = mtf(w)
+        decoded = mtf_i(encoded, alphabet)
+        assert w == decoded
+
+
 def main():
-    w = "broood"
-    encoded = mtf(w)
-    decoded = mtf_i(encoded, sorted(set(w)))
-    print(encoded, decoded)
+    test()
 
 
 if __name__ == '__main__':
