@@ -1,6 +1,6 @@
 import time
 from typing import List, Tuple
-
+from .utils import timer
 
 def encode(s: str) -> List[Tuple[int, str]]:
     """
@@ -45,16 +45,12 @@ def decode(list_: list) -> str:
 
 def main():
     lines = 'ccaccbcabcaba'
-    start = time.time()
-    encoded = encode(lines)
-    print(encoded)
-    step = time.time()
-    decoded = decode(encoded)
-    print(decoded)
-    end = time.time()
-    print('encoding :' + str(step - start))
-    print('decoding :' + str(end - step))
-    print('total :' + str(end - start))
+    with timer('encoding lz78'):
+        encoded = encode(lines)
+        #print(encoded)
+    with timer('decoding lz78'):
+        decoded = decode(encoded)
+        #print(decoded)
     assert lines == decoded
 
 
