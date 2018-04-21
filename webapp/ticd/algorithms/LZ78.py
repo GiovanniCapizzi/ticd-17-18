@@ -35,7 +35,7 @@ def decode(list_: list):
 
 
 def main():
-    lines = 'ababababababab'
+    lines = 'ciao a tutti'
     start = time.time()
     encoded = encode(lines)
     step = time.time()
@@ -45,7 +45,6 @@ def main():
     print('decoding :' + str(end - step))
     print('total :' + str(end - start))
     assert lines == decoded
-
 
 
 if __name__ == '__main__':
