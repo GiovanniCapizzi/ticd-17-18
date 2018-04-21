@@ -1,7 +1,12 @@
 import time
+from typing import List, Tuple
 
 
-def encode(s: str):
+def encode(s: str) -> List[Tuple[int, str]]:
+    """
+    >>> encode('ccaccbcabcaba')
+    [(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')]
+    """
     codebook = dict()
     codebook[''] = 0
     i = 0
@@ -23,7 +28,11 @@ def encode(s: str):
     return output
 
 
-def decode(list_: list):
+def decode(list_: list) -> str:
+    """
+    >>> decode([(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')])
+    'ccaccbcabcaba'
+    """
     codebook = dict()
     codebook[0] = ''
     s = ''
@@ -35,11 +44,13 @@ def decode(list_: list):
 
 
 def main():
-    lines = 'ciao a tutti'
+    lines = 'ccaccbcabcaba'
     start = time.time()
     encoded = encode(lines)
+    print(encoded)
     step = time.time()
     decoded = decode(encoded)
+    print(decoded)
     end = time.time()
     print('encoding :' + str(step - start))
     print('decoding :' + str(end - step))
