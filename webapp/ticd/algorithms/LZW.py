@@ -96,22 +96,18 @@ def decode(i_coded_text, codebook, logging=False):
     # End of Initialization -----------------
 
     for item in i_coded_text:
-        if item in codebook.keys():
+        if item in codebook:
             current_item = codebook[item]
             output += current_item
 
             # adding new key to codebook
-            candidate = last + current_item
+            candidate = last + current_item[0]
+            temp_len_last = len(last)
             c_len = len(candidate)
             if c_len > 1:
-                # searching the longest word in the dictionary
-                relative_index = 1
-
-                while relative_index <= c_len and candidate[0: relative_index] in codebook.values():
-                    relative_index += 1
-
+                # For initials characters
                 # O(1) len sui dict
-                codebook[len(codebook) + 1] = candidate[0:relative_index]
+                codebook[len(codebook) + 1] = candidate
 
             last = current_item
         else:
