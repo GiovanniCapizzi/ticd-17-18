@@ -18,6 +18,15 @@ class timer(object):
             print("Total time: {}s".format(self.total_time))
 
 
+def open_file(file_name, size=None):
+    with open(file_name) as f:
+        lines = f.readlines()
+        if size is None:
+            size = len(lines)
+        lines = ''.join(lines[:size])
+    return lines
+
+
 if __name__ == '__main__':
     with timer():
         time.sleep(1)
