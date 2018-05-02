@@ -17,7 +17,11 @@ def encode(text, use_suffix_array=False):
     text += chr(ord(min(text)) - 1)
 
     if use_suffix_array:
-        sa = KS(text)
+        try:
+            sa = KS(text)
+        except OSError:
+            from .suffix_array import suffix_array
+            sa = suffix_array(text)
         return ''.join([text[sa[i] - 1] if sa[i] > 0 else text[-1] for i in range(len(text))]), text[-1]
 
     rotations = []

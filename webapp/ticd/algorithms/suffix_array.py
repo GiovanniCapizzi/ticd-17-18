@@ -13,15 +13,13 @@ def KS(s: str) -> List[int]:
     alphabet = sorted(set(s))
     alphabet = {v: k for k, v in zip(range(1, len(alphabet) + 1), alphabet)}
     new_s = [alphabet[s[i]] for i in range(len(s))] + ([0] * 3)
-    library = None
     try:
         library = CDLL('webapp/ticd/algorithms/compiled_libraries/KS.so')
     except OSError as e:
         logging.critical(e)
-        exit(1)
+        raise
 
     library.suffixArray.argtypes = [POINTER(c_int), POINTER(c_int), c_int, c_int]
-    library.suffixArray.restype = c_int
     s1 = (c_int * len(new_s))(*new_s)
     s2 = (c_int * len(new_s))(*([0] * len(new_s)))
     library.suffixArray(s1, s2, len(s), len(s) + 3)
