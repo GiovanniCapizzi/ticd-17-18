@@ -4,7 +4,7 @@ from typing import List
 from bitstring import BitArray
 
 
-def encode(x: int)-> str:
+def encode(x: int) -> str:
     """
     >>> encode(10231)
     '1111011010011111110111'
@@ -32,6 +32,7 @@ def decode(b: str) -> List[int]:
     in_list = list(b)
     # print(in_list)
     results = list()
+    s = None
     while len(in_list) != 0:
         N = 0
         while in_list[0] == '1':

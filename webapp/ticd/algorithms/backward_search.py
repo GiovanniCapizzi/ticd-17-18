@@ -4,7 +4,7 @@
 from collections import Counter
 
 
-class BackwardSearch():
+class BackwardSearch:
 
     def __init__(self, word):
         self.counter = {}
@@ -41,7 +41,7 @@ class BackwardSearch():
             i -= 1
         if first > last:
             raise Exception("No prefix {} found".format(word))
-        return (first, last)
+        return first, last
 
     @staticmethod
     def searchin(string, text):

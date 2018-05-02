@@ -6,7 +6,7 @@ from math import log2
 from .gamma import encode as gamma_encode
 
 
-class DeltaCoder():
+class DeltaCoder:
 
     def __init__(self):
         pass

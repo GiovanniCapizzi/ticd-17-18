@@ -1,14 +1,13 @@
 # coding=utf-8
-import sys
 import queue
-from math import ceil
 from collections import Counter
+from math import ceil
 
-import networkx as nx
 import matplotlib
+import matplotlib.pyplot as plt
+import networkx as nx
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
 in_text = "La signora Aurora si ricorda che Mario cerca Giacomino ogni giorno alle 14"
 
@@ -96,7 +95,7 @@ def encode(d, intext, path=""):
     # Group them by d elements
     while pq.qsize() >= d:
         # Take d nodes
-        group = [pq.get() for i in range(d)]
+        group = [pq.get() for _ in range(d)]
         # For each Node n in group
         probabilities = map(lambda n: n.p, group)
         pq.put(Node("Internal Node", sum(probabilities), group))
@@ -128,7 +127,11 @@ def decode(encoded, encode_by):
     return output
 
 
-if __name__ == '__main__':
+def main():
     encoded, encoded_by = encode(4, in_text, "D:\\graph.jpg")
     print(encoded, "\n", encoded_by)
     print(decode(encoded, encoded_by))
+
+
+if __name__ == '__main__':
+    main()

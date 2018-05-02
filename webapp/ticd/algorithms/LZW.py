@@ -12,7 +12,7 @@
 in_text = "La signora Aurora ha programmato in Java un software per la gestione dei ristoranti."
 
 
-# in_text = "bcababbcbcbaaaabbc"
+# _in_text = "bcababbcbcbaaaabbc"
 
 
 def encode(i_text, logging=False):
@@ -103,7 +103,6 @@ def decode(i_coded_text, codebook, logging=False):
 
             # adding new key to codebook
             candidate = last + current_item[0]
-            temp_len_last = len(last)
             c_len = len(candidate)
             if c_len > 1:
                 # For initials characters

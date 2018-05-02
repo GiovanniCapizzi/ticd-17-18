@@ -11,7 +11,7 @@ def prefix(a, b):
     return pref
 
 
-class ArithmeticCoder():
+class ArithmeticCoder:
 
     def encode(self, alphabet, text):
         n = len(alphabet)
@@ -39,7 +39,7 @@ class ArithmeticCoder():
                 low = float("0." + str(low)[len(pref):])
                 high = float("0." + str(high)[len(pref):])
         pref = prefix(low, high)[:2]
-        return (encoded + str(low)[len(pref):], encoded + str(high)[len(pref):])
+        return encoded + str(low)[len(pref):], encoded + str(high)[len(pref):]
 
     def decode(self, codeword, alphabet):
         n = len(alphabet)
@@ -71,4 +71,3 @@ class ArithmeticCoder():
                 lw, hg = "0." + lw[len(pref):], "0." + hg[len(pref):]
                 low = float("0." + str(low)[len(pref):])
                 high = float("0." + str(high)[len(pref):])
-        return None

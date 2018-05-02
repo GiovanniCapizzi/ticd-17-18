@@ -28,13 +28,13 @@ def open_file(file_name, size=None):
     return lines
 
 
-def SturmGen(Dn, MAX_R):
-    d_list = [randint(0, MAX_R)] + [randint(1, MAX_R) for i in range(Dn)]
+def SturmGen(d_n, max_random):
+    d_list = [randint(0, max_random)] + [randint(1, max_random) for _ in range(d_n)]
 
     S0 = '0'
     S1 = '1'
 
-    for i in range(len(S1), Dn + 1):
+    for i in range(len(S1), d_n + 1):
         temp = S1
         S1 = S1 * d_list[i] + S0
         S0 = temp

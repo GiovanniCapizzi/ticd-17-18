@@ -1,3 +1,5 @@
+colorlog
+mpmath
 matplotlib
 networkx
 bitstring

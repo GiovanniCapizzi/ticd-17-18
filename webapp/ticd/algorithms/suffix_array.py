@@ -39,7 +39,7 @@ def suffix_array(text):
 def test():
     times = 100
     random_word_length = 1000
-    strings = [''.join(random.choices(string.ascii_letters + string.digits, k=random_word_length)) \
+    strings = [''.join(random.choices(string.ascii_letters + string.digits, k=random_word_length))
                for _ in range(times)]
     for str_ in strings:
         a = KS(str_)
