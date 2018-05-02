@@ -1,5 +1,6 @@
+# coding=utf-8
 from math import log
-from collections import deque # https://docs.python.org/2/library/collections.html#collections.deque
+from collections import deque  # https://docs.python.org/2/library/collections.html#collections.deque
 
 values = [3, 53, 64, 73, 42, 128]
 

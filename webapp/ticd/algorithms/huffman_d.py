@@ -1,3 +1,4 @@
+# coding=utf-8
 import sys
 import queue
 from math import ceil
@@ -5,9 +6,9 @@ from collections import Counter
 
 import networkx as nx
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-
 
 in_text = "La signora Aurora si ricorda che Mario cerca Giacomino ogni giorno alle 14"
 
@@ -26,7 +27,7 @@ class Node:
     # To String
     def __str__(self):
         return ""
-        #return "(%s %s)" % (self.c, self.p)
+        # return "(%s %s)" % (self.c, self.p)
 
     def __repr__(self):
         return str(self)
@@ -38,7 +39,7 @@ def graph_maker(node, v_graph):
         if child.children is None:
             v_graph.add_edge(node, child.c)
         else:
-            v_graph.add_edge(node, child, length = 100)
+            v_graph.add_edge(node, child, length=100)
             graph_maker(child, v_graph)
 
 
@@ -55,7 +56,6 @@ def generate_graph(node, path):
 
 # Extract the encoding dict
 def code_maker(node, index, encode_by):
-
     if type(index) is not str:
         return
     # index is used for building the
@@ -82,10 +82,10 @@ def encode(d, intext, path=""):
     print("Numero di simboli", freq_len, "prima del fix")
 
     # Fix Nodes
-    x = int(ceil((len(freq) - d)/(d-1)))
-    fake_nodes = (d+x*(d-1)) - freq_len
+    x = int(ceil((len(freq) - d) / (d - 1)))
+    fake_nodes = (d + x * (d - 1)) - freq_len
     for i in range(fake_nodes):
-        pq.put(Node("fake"+str(i), 0.0))
+        pq.put(Node("fake" + str(i), 0.0))
 
     # Enqueuing all nodes
     for key, value in freq.items():
@@ -98,7 +98,7 @@ def encode(d, intext, path=""):
         # Take d nodes
         group = [pq.get() for i in range(d)]
         # For each Node n in group
-        probabilities = map(lambda n : n.p, group)
+        probabilities = map(lambda n: n.p, group)
         pq.put(Node("Internal Node", sum(probabilities), group))
 
     # Creating the relative code
@@ -119,11 +119,11 @@ def decode(encoded, encode_by):
     decode_by = {v: k for k, v in encode_by.items()}
     # Decoding
     buffer = ""
-    output=""
+    output = ""
     for encoded_char in encoded:
         buffer += encoded_char
         if buffer in decode_by.keys():
-            output+=decode_by[buffer]
+            output += decode_by[buffer]
             buffer = ""
     return output
 
@@ -132,4 +132,3 @@ if __name__ == '__main__':
     encoded, encoded_by = encode(4, in_text, "D:\\graph.jpg")
     print(encoded, "\n", encoded_by)
     print(decode(encoded, encoded_by))
-

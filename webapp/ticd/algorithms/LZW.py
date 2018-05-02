@@ -11,7 +11,8 @@
 
 in_text = "La signora Aurora ha programmato in Java un software per la gestione dei ristoranti."
 
-#in_text = "bcababbcbcbaaaabbc"
+
+# in_text = "bcababbcbcbaaaabbc"
 
 
 def encode(i_text, logging=False):

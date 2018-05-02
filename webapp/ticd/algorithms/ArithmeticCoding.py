@@ -4,6 +4,8 @@ from typing import Dict, List
 from mpmath import mp, mpf
 
 mp.prec = 80  # 1000000
+
+
 # increase value up to very high values to increase precision
 
 def entropy_from_prob_list(p_list, base: int = 2) -> float:
