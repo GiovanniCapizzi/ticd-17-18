@@ -2,13 +2,7 @@
 from collections import deque
 from functools import reduce
 
-
-def suffix_array(text):
-    sa = [text[i:] for i in range(len(text))]
-    ordered = {word: [] for word in set(sa)}
-    for pos, word in enumerate(sa):
-        ordered[word].append(pos)
-    return reduce(list.__add__, map(lambda x: x[1], sorted(ordered.items())))
+from .suffix_array import KS
 
 
 def encode(text, use_suffix_array=False):
@@ -23,7 +17,7 @@ def encode(text, use_suffix_array=False):
     text += chr(ord(min(text)) - 1)
 
     if use_suffix_array:
-        sa = suffix_array(text)
+        sa = KS(text)
         return ''.join([text[sa[i] - 1] if sa[i] > 0 else text[-1] for i in range(len(text))]), text[-1]
 
     rotations = []

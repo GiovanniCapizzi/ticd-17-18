@@ -7,7 +7,7 @@ from .LZ77 import lz77_c
 from .LZ78 import encode as lz78_c
 from .Lyndon import DeBruijnSequence
 from .bwt import encode as bwt_enc
-from .utils import SturmGen, timer
+from .utils import timer
 
 
 def main():
