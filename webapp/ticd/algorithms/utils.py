@@ -35,10 +35,7 @@ def SturmGen(Dn, MAX_R):
     S1 = '1'
 
     for i in range(len(Si), Dn + 1):
-        temp = S1
-        S1 = S1 * d_list[i] + S0
-        S0 = temp
-
+        S0,S1 = S1, S1 * d_list[i] + S0
     return S1
 
 
