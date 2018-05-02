@@ -58,8 +58,11 @@ def main():
         ax.set(xlabel='length', ylabel='LZ7*', title=f'|alphabet|={alphabet_size}, lengths in [{a}, {b}]')
         ax.grid()
         ax.legend()
-        mng = plt.get_current_fig_manager()
-        mng.window.state('zoomed')
+        try:
+            mng = plt.get_current_fig_manager()
+            mng.window.state('zoomed')
+        except AttributeError:
+            pass
         plt.show()
 
 
