@@ -34,11 +34,12 @@ def SturmGen(Dn, MAX_R):
     S0 = '0'
     S1 = '1'
 
-    for i in range(len(Si), Dn + 1):
-        S0,S1 = S1, S1 * d_list[i] + S0
+    for i in range(len(S1), Dn + 1):
+        S0, S1 = S1, S1 * d_list[i] + S0
     return S1
 
 
 if __name__ == '__main__':
+    SturmGen(5, 5)
     with timer():
         time.sleep(1)
