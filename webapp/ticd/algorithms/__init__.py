@@ -1,9 +1,10 @@
 # coding=utf-8
-from os import path, listdir
-from . import unary_coding
 import importlib
+from os import listdir, path
 
-excluded = ['compiled_libraries', 'utils.py', 'divina_commedia.txt', 'pytest.ini', 'test_file.py']
+from . import unary_coding
+
+excluded = ['compiled_libraries', 'utils.py', 'divina_commedia.txt', 'pytest.ini', 'test_file.py', '.pytest_cache']
 
 files = [file for file in listdir(path.dirname(__file__)) if '__' not in file and file not in excluded]
 
