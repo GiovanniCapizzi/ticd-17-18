@@ -8,11 +8,11 @@ from typing import List
 from .logging_utils import logging
 
 
-def KS(s: str) -> List[int]:
+def KS(input_string: str) -> List[int]:
     # [2, 1, 4, 4, 1, 4, 4, 1, 3, 3, 1, 0, 0, 0] mississippi
-    alphabet = sorted(set(s))
+    alphabet = sorted(set(input_string))
     alphabet = {v: k for k, v in zip(range(1, len(alphabet) + 1), alphabet)}
-    new_s = [alphabet[s[i]] for i in range(len(s))] + ([0] * 3)
+    new_s = [alphabet[input_string[i]] for i in range(len(input_string))] + ([0] * 3)
     try:
         library = CDLL('webapp/ticd/algorithms/compiled_libraries/KS.so')
     except OSError as e:
@@ -22,8 +22,8 @@ def KS(s: str) -> List[int]:
     library.suffixArray.argtypes = [POINTER(c_int), POINTER(c_int), c_int, c_int]
     s1 = (c_int * len(new_s))(*new_s)
     s2 = (c_int * len(new_s))(*([0] * len(new_s)))
-    library.suffixArray(s1, s2, len(s), len(s) + 3)
-    return s2[:len(s)]
+    library.suffixArray(s1, s2, len(input_string), len(input_string) + 3)
+    return s2[:len(input_string)]
 
 
 def suffix_array(text):
