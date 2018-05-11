@@ -8,20 +8,9 @@ mp.prec = 80  # 1000000
 
 # increase value up to very high values to increase precision
 
-def entropy_from_prob_list(p_list, base: int = 2) -> float:
-    """
-    This method returns entropy from a probabilities list.
-    \sum ( p_i log_2(1 / p_i) )
 
-    :param p_list: probabilities
-    :param base: logarithm base
-    :return: entropy
-    """
-    entropy = 0
-    for p in p_list:
-        entropy += p * log(1 / p, base)
-    return entropy
-
+__algorithm__ = "Arithmetic Coding"
+__group__ = "miscellaneous"
 
 class Range(object):
     def __init__(self, low: mpf, high: mpf):
@@ -60,9 +49,9 @@ def source_prob(s: str):
     return _dict
 
 
-def encode_dyn(s: str) -> (List[str], mpf):
+def encode_dynamic(s: str) -> (List[str], mpf):
     """
-    >>> encode_dyn('aaaabaaaa')
+    >>> encode_dynamic('aaaabaaaa')
     (['$', 'a', 'b'], mpf('0.5263107263107262766304979'))
     """
     s += '$'
@@ -82,9 +71,9 @@ def encode_dyn(s: str) -> (List[str], mpf):
     return A, current_range.get_low()
 
 
-def decode_dyn(enc: mpf, list_sym: list) -> str:
+def decode_dynamic(enc: mpf, list_sym: list) -> str:
     """
-    >>> decode_dyn(mpf('0.5263107263107262766304979'), ['$', 'a', 'b'])
+    >>> decode_dynamic(mpf('0.5263107263107262766304979'), ['$', 'a', 'b'])
     'aaaabaaaa'
     """
     current_range = Range(mpf(0), mpf(1))
@@ -113,9 +102,9 @@ def decode_dyn(enc: mpf, list_sym: list) -> str:
     return s
 
 
-def encode_s(s: str) -> (Dict[str, mpf], mpf):
+def encode_static(s: str) -> (Dict[str, mpf], mpf):
     """
-    >>> encode_s('aaaabaaaa')
+    >>> encode_static('aaaabaaaa')
     ({'a': 0.7999999999999999, 'b': 0.1, '$': 0.1}, mpf('0.67593139199999975394545314'))
     """
     s += '$'
@@ -128,9 +117,9 @@ def encode_s(s: str) -> (Dict[str, mpf], mpf):
     return source, current_range.get_low()
 
 
-def decode_s(enc: mpf, source: dict) -> str:
+def decode_static(enc: mpf, source: dict) -> str:
     """
-    >>> decode_s(mpf('0.67593139199999975394545314'), {'a': 0.7999999999999999, 'b': 0.1, '$': 0.1})
+    >>> decode_static(mpf('0.67593139199999975394545314'), {'a': 0.7999999999999999, 'b': 0.1, '$': 0.1})
     'aaaabaaaa'
     """
     current_range = Range(mpf(0), mpf(1))
@@ -182,16 +171,16 @@ def split_interval(current_range, zip_sym_prob):
 def main():
     s = 'aaaabaaaa'
     print('static')
-    source_s, f = encode_s(s)
+    source_s, f = encode_static(s)
     print(source_s, f)
     print('dynamic')
-    source_d, a = encode_dyn(s)
+    source_d, a = encode_dynamic(s)
     print(source_d, a)
     print('static')
-    s = decode_s(f, source_s)
+    s = decode_static(f, source_s)
     print(s)
     print('dynamic')
-    sd = decode_dyn(a, source_d)
+    sd = decode_dynamic(a, source_d)
     print(sd)
 
 

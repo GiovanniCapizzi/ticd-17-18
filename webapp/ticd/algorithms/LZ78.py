@@ -1,7 +1,10 @@
 # coding=utf-8
-import time
 from typing import List, Tuple
+
 from .utils import timer
+
+__algorithm__ = "LZ 78"
+__group__ = "LZ"
 
 
 def encode(s: str) -> List[Tuple[int, str]]:

@@ -3,6 +3,8 @@ from typing import List
 
 from bitstring import BitArray
 
+__algorithm__ = "Levenshtein Coding"
+__group__ = "integer"
 
 def encode(x: int) -> str:
     """
