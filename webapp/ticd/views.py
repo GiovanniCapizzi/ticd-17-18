@@ -6,6 +6,7 @@ from .algorithms import algs, modules
 from dotmap import DotMap
 from typing import List
 import json
+import time
 
 
 def get_algorithms(request):
@@ -13,7 +14,7 @@ def get_algorithms(request):
 
 
 def extract_info(fun):
-    return [(name, clazz.__name__.lower(), False if clazz.__name__ == 'bool' else '') for name, clazz in
+    return [(name, str(clazz), False if clazz.__name__ == 'bool' else '') for name, clazz in
             fun.__annotations__.items() if name is not 'return']
 
 
@@ -34,7 +35,10 @@ def post_algorithm(request, algorithm):
     alg = modules[algorithm]
     try:
         body = DotMap(json.loads(request.body))
-        return {'result': getattr(alg, body.function)(*body.args)}
+        start_time = time.time()
+        result = getattr(alg, body.function)(*body.args)
+        duration = time.time() - start_time
+        return {'result': result, 'time': duration}
     except Exception:
         return HttpResponse(status=400)
 

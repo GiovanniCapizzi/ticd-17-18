@@ -3,7 +3,6 @@
 
 from typing import List, Tuple
 
-
 __algorithm__ = "LZss"
 __group__ = "lz family"
 

@@ -3,9 +3,12 @@ import random
 import string
 from typing import List
 
+__algorithm__ = "Move To Front"
+__group__ = "miscellaneous"
 
-def mtf(s: str) -> List[int]:
-    L = s
+
+def encode_mtf(input_string: str) -> List[int]:
+    L = input_string
     X = sorted(set(L))
     output = []
     for c in L:
@@ -16,12 +19,12 @@ def mtf(s: str) -> List[int]:
     return output
 
 
-def mtf_i(r: List[int], alphabet: List[str]) -> str:
+def decode_mtf(integer_list: List[int], alphabet: List[str]) -> str:
     x = alphabet
-    tmp: List[str] = [""] * len(r)
+    tmp: List[str] = [""] * len(integer_list)
     for i in range(0, len(tmp)):
-        tmp[i] = x[r[i]]
-        j = x[r[i]]
+        tmp[i] = x[integer_list[i]]
+        j = x[integer_list[i]]
         x.remove(j)
         x.insert(0, j)
 
@@ -32,8 +35,8 @@ def test():
     for _ in range(100):
         w = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(128))
         alphabet = sorted(set(w))
-        encoded = mtf(w)
-        decoded = mtf_i(encoded, alphabet)
+        encoded = encode_mtf(w)
+        decoded = decode_mtf(encoded, alphabet)
         assert w == decoded
 
 
