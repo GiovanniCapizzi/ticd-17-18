@@ -3,7 +3,7 @@ from typing import List, Tuple
 
 from .utils import timer
 
-__algorithm__ = "LZ 78"
+__algorithm__ = "LZ78"
 __group__ = "LZ"
 
 

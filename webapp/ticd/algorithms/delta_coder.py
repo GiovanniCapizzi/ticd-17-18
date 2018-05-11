@@ -6,7 +6,6 @@ from typing import List
 
 from .gamma import encode as gamma_encode
 
-
 __algorithm__ = "Delta Coder"
 __group__ = "integers"
 

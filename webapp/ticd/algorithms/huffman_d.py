@@ -7,9 +7,12 @@ import matplotlib
 import matplotlib.pyplot as plt
 import networkx as nx
 
-matplotlib.use("Agg")
+# matplotlib.use("Agg")
 
 in_text = "La signora Aurora si ricorda che Mario cerca Giacomino ogni giorno alle 14"
+
+__algorithm__ = 'Huffman'
+__group__ = "miscellaneous"
 
 
 class Node:

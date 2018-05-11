@@ -3,6 +3,9 @@ from collections import deque  # https://docs.python.org/2/library/collections.h
 from math import log
 from typing import List
 
+__algorithm__ = 'Gamma'
+__group__ = "integers"
+
 
 def encode(input_integers_list: List[int]) -> str:
     """

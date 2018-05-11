@@ -1,7 +1,7 @@
 # coding=utf-8
 from typing import List
 
-__algorithm__ = "Unary coding"
+__algorithm__ = "Unary Coding"
 __group__ = "integers"
 
 
