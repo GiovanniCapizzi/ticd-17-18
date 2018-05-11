@@ -5,12 +5,12 @@ from mpmath import mp, mpf
 
 mp.prec = 80  # 1000000
 
-
 # increase value up to very high values to increase precision
 
 
 __algorithm__ = "Arithmetic Coding"
 __group__ = "miscellaneous"
+
 
 class Range(object):
     def __init__(self, low: mpf, high: mpf):
@@ -49,11 +49,12 @@ def source_prob(s: str):
     return _dict
 
 
-def encode_dynamic(s: str) -> (List[str], mpf):
+def encode_dynamic(input_text: str) -> (List[str], mpf):
     """
     >>> encode_dynamic('aaaabaaaa')
     (['$', 'a', 'b'], mpf('0.5263107263107262766304979'))
     """
+    s = input_text
     s += '$'
     current_range = Range(mpf(0), mpf(1))
     A = sorted(set(s))
@@ -68,14 +69,15 @@ def encode_dynamic(s: str) -> (List[str], mpf):
         current_range = new_ranges[c]
         dict_prob[c] += 1
         num_ele += 1
-    return A, current_range.get_low()
+    return A, str(current_range.get_low())
 
 
-def decode_dynamic(enc: mpf, list_sym: list) -> str:
+def decode_dynamic(enc: str, list_sym: list) -> str:
     """
-    >>> decode_dynamic(mpf('0.5263107263107262766304979'), ['$', 'a', 'b'])
+    >>> decode_dynamic('0.5263107263107262766304979', ['$', 'a', 'b'])
     'aaaabaaaa'
     """
+    enc = mpf(enc)
     current_range = Range(mpf(0), mpf(1))
     A = sorted(list_sym)
     dict_prob = dict()
