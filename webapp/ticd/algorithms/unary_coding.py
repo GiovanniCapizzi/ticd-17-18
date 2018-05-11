@@ -1,22 +1,26 @@
 # coding=utf-8
 from typing import List
 
-
-def unary_coding(n: int) -> str:
-    """
-    >>> unary_coding(13)
-    '0000000000001'
-    >>> assert [unary_decoding(unary_coding(i))[0] for i in range(1, 100)] == [i for i in range(1, 100)]
-    """
-    return "0" * (n - 1) + "1"
+__algorithm__ = "Unary coding"
+__group__ = "integers"
 
 
-def unary_decoding(s: str) -> List[int]:
+def encode_unary(list_of_integers: List[int]) -> str:
     """
-    >>> unary_decoding('00000000000010000000000001')
+    >>> encode_unary([13, 13])
+    '00000000000010000000000001'
+    >>> assert [decode_unary(encode_unary([i]))[0] for i in range(1, 100)] == [i for i in range(1, 100)]
+    """
+
+    return "".join(["0" * (n - 1) + "1" for n in list_of_integers])
+
+
+def decode_unary(binary_string: str) -> List[int]:
+    """
+    >>> decode_unary('00000000000010000000000001')
     [13, 13]
     """
-    as_list = list(s)
+    as_list = list(binary_string)
     result = []
     while len(as_list) != 0:
         zeros = 0
