@@ -11,7 +11,7 @@ __group__ = "miscellaneous"
 def encode(text: str, use_suffix_array: bool = False) -> str:
     """
     >>> encode('mississippi', True)
-    ('ipssmhpissii', 'h')
+    'ipssmhpissii'
 
     :param text:
     :param use_suffix_array:

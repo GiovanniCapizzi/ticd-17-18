@@ -3,6 +3,7 @@
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .algorithms import algs, modules
+from django.shortcuts import render
 from dotmap import DotMap
 from typing import List
 import json
@@ -41,6 +42,10 @@ def post_algorithm(request, algorithm):
         return {'result': result, 'time': duration}
     except Exception:
         return HttpResponse(status=400)
+
+
+def get_index(request):
+    return render(request, 'index.html', context={})
 
 
 @csrf_exempt
