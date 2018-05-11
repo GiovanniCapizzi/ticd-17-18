@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 # @author Giuseppe Filippone
 
+from typing import Tuple
 from collections import Counter
+
+
+__algorithm__ = "BackwardSearch"
+__group__ = "miscellaneous"
 
 
 class BackwardSearch:
@@ -40,10 +45,14 @@ class BackwardSearch:
             last = self.counter[c] + self.__occ(c, last) - 1
             i -= 1
         if first > last:
-            raise Exception("No prefix {} found".format(word))
+            raise -1, -1
         return first, last
 
     @staticmethod
     def searchin(string, text):
         bs = BackwardSearch(text)
         return bs.search(string)
+
+
+def search(word: str, text: str) -> Tuple[int]:
+    return BackwardSearch.searchin(word, text)

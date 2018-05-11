@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 # @author Giuseppe Filippone
 
+from typing import Set, Tuple
+
+
+__algorithm__ = "Arithmetic Coding Adaptive"
+__group__ = "miscellaneous"
+
 
 def prefix(a, b):
     pref = ""
@@ -71,3 +77,11 @@ class ArithmeticCoder:
                 lw, hg = "0." + lw[len(pref):], "0." + hg[len(pref):]
                 low = float("0." + str(low)[len(pref):])
                 high = float("0." + str(high)[len(pref):])
+
+
+def encode(alphabet: Set[str], text: str) -> Tuple[str]:
+    return ArithmeticCoder().encode(alphabet, text)
+
+
+def decode(codeword: Tuple[str], alphabet: Set[str]) -> str:
+    return ArithmeticCoder().decode(codeword, alphabet)

@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 # @author Giuseppe Filippone
 
+from typing import List, Tuple
+
+
+__algorithm__ = "LZss"
+__group__ = "lz family"
+
 
 class LZss(object):
 
@@ -50,3 +56,11 @@ class LZss(object):
                     decoded += tmp[j % len(tmp)]
                 decoded += character
         return decoded
+
+
+def encode(text: str) -> List[Tuple[str]]:
+    return LZss.encode(text)
+
+
+def decode(code: List[Tuple[str]]) -> str:
+    return LZss.decode(code)

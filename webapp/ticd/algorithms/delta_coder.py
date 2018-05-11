@@ -2,8 +2,13 @@
 # @author Giuseppe Filippone
 
 from math import log2
+from typing import List
 
 from .gamma import encode as gamma_encode
+
+
+__algorithm__ = "Delta Coder"
+__group__ = "integers"
 
 
 class DeltaCoder:
@@ -56,19 +61,9 @@ class DeltaCoder:
         return plainwords
 
 
-def test(tries=10000, intrange=(1, 10000000)):
-    from random import randint
-
-    dc = DeltaCoder()
-    dc_text = "00101000100100010001010001001010001001010001001010001"
-    print(dc_text, dc.decode_text(dc_text))
-    low, high = intrange
-    for i in range(tries):
-        integer = randint(low, high)
-        if dc.decode(dc.encode(integer)) != integer:
-            raise Exception("DeltaCoder error for {}".format(integer))
-    print("Success")
+def encode(integers: List[int]) -> str:
+    return DeltaCoder().encode_sequence(integers)
 
 
-if __name__ == '__main__':
-    test()
+def decode(text: str) -> List[int]:
+    return DeltaCoder().decode_text(text)
