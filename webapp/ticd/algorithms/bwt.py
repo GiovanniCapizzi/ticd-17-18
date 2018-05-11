@@ -5,6 +5,7 @@ from functools import reduce
 from .suffix_array import KS
 
 __algorithm__ = 'BWT'
+__group__ = "miscellaneous"
 
 
 def encode(text: str, use_suffix_array: bool = False) -> str:
