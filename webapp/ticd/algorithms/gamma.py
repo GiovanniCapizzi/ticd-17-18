@@ -1,18 +1,24 @@
 # coding=utf-8
-from math import log
 from collections import deque  # https://docs.python.org/2/library/collections.html#collections.deque
-
-values = [3, 53, 64, 73, 42, 128]
-
-
-# PEP8
+from math import log
+from typing import List
 
 
-def encode(val): return '0' * int(log(val, 2)) + "{0:b}".format(val)
+def encode(input_integers_list: List[int]) -> str:
+    """
+    >>> encode([12, 12])
+    '00011000001100'
+    >>> assert decode(encode(list(range(1, 1000)))) == list(range(1, 1000))
+    """
+    return "".join(['0' * int(log(n, 2)) + "{0:b}".format(n) for n in input_integers_list])
 
 
-def decode(bin_str):
-    queue = deque(bin_str)
+def decode(input_binary_string: str) -> List[int]:
+    """
+    >>> decode('00011000001100')
+    [12, 12]
+    """
+    queue = deque(input_binary_string)
     output = []
     N = 0
     while len(queue):
@@ -20,7 +26,6 @@ def decode(bin_str):
         if bit is '0':
             N += 1
         else:
-            # Per avere N + 1
             temp = '1'
             while N:
                 temp += queue.popleft()
@@ -29,13 +34,5 @@ def decode(bin_str):
     return output
 
 
-# TEST CODE ------------------
 if __name__ == '__main__':
-    toDecode = ""
-    for v in values:
-        print(encode(v))
-        toDecode += encode(v)
-
-    print("DECODING:", toDecode)
-
-    print(decode(toDecode))
+    pass
