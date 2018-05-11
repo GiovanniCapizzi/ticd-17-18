@@ -6,24 +6,28 @@ from bitstring import BitArray
 __algorithm__ = "Levenshtein Coding"
 __group__ = "integer"
 
-def encode(x: int) -> str:
+
+def encode(list_int: List) -> str:
     """
-    >>> encode(10231)
+    >>> encode([10231])
     '1111011010011111110111'
     """
-    if x == 0:
-        return str(BitArray(bin='0').bin)
-    else:
-        C = 1
-        b_n = '{0:b}'.format(x)
-        tmp = b_n[1:]
-        M = tmp
-        while len(M) != 0:
-            M = '{0:b}'.format(len(M))[1:]
-            tmp = M + tmp
-            C += 1
-        result = ('1' * C) + '0' + tmp
-        return str(BitArray(bin=result).bin)
+    output = ''
+    for x in list_int:
+        if x == 0:
+            output += str(BitArray(bin='0').bin)
+        else:
+            C = 1
+            b_n = '{0:b}'.format(x)
+            tmp = b_n[1:]
+            M = tmp
+            while len(M) != 0:
+                M = '{0:b}'.format(len(M))[1:]
+                tmp = M + tmp
+                C += 1
+            result = ('1' * C) + '0' + tmp
+            output += str(BitArray(bin=result).bin)
+    return output
 
 
 def decode(b: str) -> List[int]:
@@ -61,10 +65,10 @@ def decode(b: str) -> List[int]:
 def main():
     print('-----Levenshtein-----')
     print('encode')
-    bits = encode(10231)
+    bits = encode([10231, 11])
     print(bits)
     print('decode')
-    integers = decode('11110000000011110000000011100111110011')
+    integers = decode(bits)
     print(integers)
 
 
