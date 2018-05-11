@@ -15,12 +15,12 @@ def encode_unary(list_of_integers: List[int]) -> str:
     return "".join(["0" * (n - 1) + "1" for n in list_of_integers])
 
 
-def decode_unary(s: str) -> List[int]:
+def decode_unary(binary_string: str) -> List[int]:
     """
     >>> decode_unary('00000000000010000000000001')
     [13, 13]
     """
-    as_list = list(s)
+    as_list = list(binary_string)
     result = []
     while len(as_list) != 0:
         zeros = 0
