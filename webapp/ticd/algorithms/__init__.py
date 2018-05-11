@@ -4,7 +4,7 @@ from os import listdir, path
 
 from . import unary_coding
 
-excluded = ['compiled_libraries', 'utils.py', 'divina_commedia.txt', 'pytest.ini', 'test_file.py', '.pytest_cache', 'Eratosthenes.py']
+excluded = open(path.dirname(__file__) + '/.algorithmsignore', 'r').read().split('\n')
 
 files = [file for file in listdir(path.dirname(__file__)) if '__' not in file and file not in excluded]
 

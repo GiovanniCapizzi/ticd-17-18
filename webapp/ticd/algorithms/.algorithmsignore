@@ -1,0 +1,12 @@
+compiled_libraries
+utils.py
+LZ_Comparison.py
+test_file.py
+Eratosthenes.py
+suffix_array
+pytest.ini
+.pytest_cache
+divina_commedia.txt
+logging_utils.py
+suffix_array.py
+.algorithmsignore
