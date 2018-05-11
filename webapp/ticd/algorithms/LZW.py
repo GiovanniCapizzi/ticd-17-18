@@ -1,5 +1,8 @@
 # coding=utf-8
 
+from typing import Dict, List
+
+
 #    _                               _      _______              _    _      _      _
 #   | |                             | |    |___  (_)            | |  | |    | |    | |
 #   | |     ___ _ __ ___  _ __   ___| |______ / / ___   ________| |  | | ___| | ___| |__
@@ -12,10 +15,14 @@
 in_text = "La signora Aurora ha programmato in Java un software per la gestione dei ristoranti."
 
 
-# _in_text = "bcababbcbcbaaaabbc"
+
+# _in_text = "bcababbcbcbaaaabbc
+
+__algorithm__ = "LZW"
+__group__ = "LZ"
 
 
-def encode(i_text, logging=False):
+def encode(i_text : str, logging : bool =False) -> (List[int], Dict) :
     """
     >>> encode("bcababbcbcbaaaabbc")
     ([2, 3, 1, 2, 6, 4, 9, 1, 11, 8, 3], {1: 'a', 2: 'b', 3: 'c'})
@@ -77,7 +84,7 @@ def encode(i_text, logging=False):
         cursor += len(coding_word)
 
 
-def decode(i_coded_text, codebook, logging=False):
+def decode(i_coded_text : str, codebook : Dict, logging : bool =False) -> str:
     """
     >>> decode([2, 3, 1, 2, 6, 4, 9, 1, 11, 8, 3], {1: 'a', 2: 'b', 3: 'c'})
     'bcababbcbcbaaaabbc'
