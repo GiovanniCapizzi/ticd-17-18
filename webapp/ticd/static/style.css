@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+
+* {
+	font-family: 'Roboto', sans-serif;
+}
+
+body {
+	background: #212121;
+}
+
+.category {
+    font-weight: bold;
+    color: #fff !important;
+}
+
+.category:hover {
+	background: none !important;
+}
+
+.algorithm {
+	border-right: 3px solid rgba(0,0,0,0);
+	color: rgba(255,255,255,0.6) !important;
+	padding-left: 56px !important; 
+}
+
+.algorithm:hover {
+	background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.mdl-layout-title {
+
+}
+
+.mdl-layout__drawer {
+	background: #363636;
+	border: none;
+}
+
+.card-algorithm {
+	min-width: calc(50% - 24px);
+	vertical-align: top;
+	display: inline-block;
+	margin-top: 16px;
+	margin-left: 16px;
+	padding-bottom: 16px;
+	background: #363636;
+	border-radius: 4px;
+}
+
+.card-algorithm .content {
+	padding: 16px;
+	padding-bottom: 0;
+	padding-top: 8px;
+}
+
+.mdl-textfield__label,
+.mdl-textfield__input,
+.mdl-switch__label {
+	color: white;
+}
+
+textarea,
+.alg-input {
+	width: calc(100% - 30px);
+	border: 2px solid rgba(255, 255, 255, 0.1);
+	outline: none;
+	padding: 8px;
+	margin-top: 8px;
+	background: rgba(255, 255, 255, 0.1);
+	padding-left: 8px;
+	border-radius: 4px;
+	color: white;
+}
+
+.option-title {
+	padding: 8px;
+	background: #3F51B5;
+	color: white;
+	display: inline-block;
+	margin-left: 16px;
+}
+
+.option-description {
+	padding: 8px;
+	background: rgba(255, 255, 255, 0.05);
+	color: rgba(255, 255, 255, 0.9);
+	display: inline-block;
+}
+
+.option-title:first-of-type {
+	margin-top: 16px;
+}
+
+textarea:focus,
+.alg-input:focus {
+	border-color: #3F51B5;
+}
+
+.active {
+	background: rgba(255, 255, 255, 0.05);
+	border-color: #3F51B5;
+	color: white !important;
+}
+
+.mdl-switch.is-checked .mdl-switch__track {
+		background: #5C6BC0 !important;
+}
+
+.mdl-switch.is-checked .mdl-switch__thumb {
+	background: #3F51B5 !important;
+}
+
+.output .mdl-switch.is-checked .mdl-switch__track {
+	background: #FF8A65 !important;
+}
+
+.output .mdl-switch.is-checked .mdl-switch__thumb {
+	background: #FF5722 !important;
+}
+
+.output .option-title {
+	background: #FF5722 !important;
+}
+
+.mdl-layout-title {
+	color: white;
+	background: #3F51B5;
+}
