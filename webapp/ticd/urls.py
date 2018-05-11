@@ -4,5 +4,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('<algorithm>/', views.algorithm_view),
+    path('', views.get_algorithms),
+    path('<algorithm>', views.algorithm_execute),
 ]
