@@ -29,7 +29,7 @@ def encode(integers: List[int]) -> str:
 
         while tmp > 0:
             value = max(filter(lambda x: x <= tmp, sequences))
-            fns.append(sequences.index(value) - 2)
+            fns.append(max(0, sequences.index(value) - 2))
             tmp -= value
 
         symbols[integer] = ''.join(['1' if x in fns else '0' for x in range(max(fns) + 1)]) + '1'

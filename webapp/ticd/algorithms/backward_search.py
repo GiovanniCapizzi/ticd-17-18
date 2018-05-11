@@ -2,9 +2,8 @@
 # @author Giuseppe Filippone
 
 from typing import Tuple
-from .bwt import encode
-from collections import Counter
 
+from .bwt import encode as bwt_encode
 
 __algorithm__ = "BackwardSearch"
 __group__ = "miscellaneous"
@@ -14,7 +13,7 @@ class BackwardSearch:
 
     def __init__(self, word):
         self.counter = {}
-        word = encode(word, use_suffix_array=True)
+        word = bwt_encode(word, use_suffix_array=True)
         self.alph = sorted(set(word))
         i = 0
         for c, index in sorted([(c, i) for c, i in zip(word, range(len(word)))]):
