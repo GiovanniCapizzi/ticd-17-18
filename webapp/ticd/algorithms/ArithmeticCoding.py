@@ -107,7 +107,7 @@ def decode_dynamic(input_number: mpf, set_of_symblols: list) -> str:
 def encode_static(s: str) -> (str, Dict[str, float]):
     """
     >>> encode_static('aaaabaaaa')
-    (mpf('0.67593139199999975394545314'),{'a': 0.7999999999999999, 'b': 0.1, '$': 0.1})
+    (mpf('0.67593139199999975394545314'), {'a': 0.7999999999999999, 'b': 0.1, '$': 0.1})
     """
     s += '$'
     source = source_prob(s)
@@ -121,7 +121,7 @@ def encode_static(s: str) -> (str, Dict[str, float]):
 
 def decode_static(input_number: mpf, source: Dict[str, float]) -> str:
     """
-    >>> decode_static('0.67593139199999975394545314', {'a': 0.7999999999999999, 'b': 0.1, '$': 0.1})
+    >>> decode_static(mpf('0.67593139199999975394545314'), {'a': 0.7999999999999999, 'b': 0.1, '$': 0.1})
     'aaaabaaaa'
     """
     enc = input_number
