@@ -2,7 +2,7 @@
 # @author Giuseppe Filippone
 
 from typing import Tuple
-from bwt import encode
+from .bwt import encode
 from collections import Counter
 
 
@@ -47,7 +47,7 @@ class BackwardSearch:
             last = self.counter[c] + self.__occ(c, last) - 1
             i -= 1
         if first > last:
-            raise -1, -1
+            return -1, -1
         return first, last
 
     @staticmethod
