@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @author Giuseppe Filippone
 
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 __algorithm__ = "LZss"
 __group__ = "lz family"
@@ -57,9 +57,9 @@ class LZss(object):
         return decoded
 
 
-def encode(text: str) -> List[Tuple[str]]:
-    return LZss.encode(text)
+def encode(text: str) -> Dict:
+    return {'pairs': LZss.encode(text)}
 
 
-def decode(code: List[Tuple[str]]) -> str:
+def decode(code: List[Tuple[int, str]]) -> str:
     return LZss.decode(code)

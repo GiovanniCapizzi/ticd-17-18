@@ -2,7 +2,6 @@
 
 from typing import Dict, List
 
-
 #    _                               _      _______              _    _      _      _
 #   | |                             | |    |___  (_)            | |  | |    | |    | |
 #   | |     ___ _ __ ___  _ __   ___| |______ / / ___   ________| |  | | ___| | ___| |__
@@ -14,15 +13,13 @@ from typing import Dict, List
 
 in_text = "La signora Aurora ha programmato in Java un software per la gestione dei ristoranti."
 
-
-
 # _in_text = "bcababbcbcbaaaabbc
 
 __algorithm__ = "LZW"
 __group__ = "LZ"
 
 
-def encode(i_text : str, logging : bool =False) -> (List[int], Dict) :
+def encode(i_text: str, logging: bool = False) -> Dict:
     """
     >>> encode("bcababbcbcbaaaabbc")
     ([2, 3, 1, 2, 6, 4, 9, 1, 11, 8, 3], {1: 'a', 2: 'b', 3: 'c'})
@@ -52,6 +49,7 @@ def encode(i_text : str, logging : bool =False) -> (List[int], Dict) :
 
     while cursor < limit:
         current = i_text[cursor]
+
         if logging:
             print("The current word is", current, 'at index', cursor)
 
@@ -67,7 +65,7 @@ def encode(i_text : str, logging : bool =False) -> (List[int], Dict) :
                 output.append(codebook[coding_word])
                 if logging:
                     print("and outputting the remaining", codebook[coding_word], "value")
-                return output, inverted_codebook
+                return {'result': ''.join([str(out) for out in output]), 'codebook': inverted_codebook}
 
         # add this new word to the codebook
         word = i_text[cursor:relative_index]
@@ -84,7 +82,7 @@ def encode(i_text : str, logging : bool =False) -> (List[int], Dict) :
         cursor += len(coding_word)
 
 
-def decode(i_coded_text : str, codebook : Dict, logging : bool =False) -> str:
+def decode(i_coded_text: str, codebook: Dict, logging: bool = False) -> str:
     """
     >>> decode([2, 3, 1, 2, 6, 4, 9, 1, 11, 8, 3], {1: 'a', 2: 'b', 3: 'c'})
     'bcababbcbcbaaaabbc'

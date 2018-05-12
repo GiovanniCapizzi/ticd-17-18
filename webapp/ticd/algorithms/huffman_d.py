@@ -2,8 +2,7 @@
 import queue
 from collections import Counter
 from math import ceil
-
-import matplotlib
+from typing import Dict
 import matplotlib.pyplot as plt
 import networkx as nx
 
@@ -70,9 +69,9 @@ def code_maker(node, index, encode_by):
             code_maker(child, index + str(i), encode_by)
 
 
-def encode(d, intext, path=""):
+def encode(d: int, text: str, path=''):
     # Text Length
-    length = len(intext)
+    length = len(text)
     # Queue
     pq = queue.PriorityQueue()
     # Produced encoding dict
@@ -81,7 +80,7 @@ def encode(d, intext, path=""):
     freq = Counter(in_text)
     freq_len = len(freq)
 
-    print("Numero di simboli", freq_len, "prima del fix")
+    # print("Numero di simboli", freq_len, "prima del fix")
 
     # Fix Nodes
     x = int(ceil((len(freq) - d) / (d - 1)))
@@ -93,7 +92,7 @@ def encode(d, intext, path=""):
     for key, value in freq.items():
         pq.put(Node(key, round(value / length, 5)))
 
-    print("Numero di simboli", pq.qsize(), "dopo il fix")
+    # print("Numero di simboli", pq.qsize(), "dopo il fix")
 
     # Group them by d elements
     while pq.qsize() >= d:
@@ -114,11 +113,14 @@ def encode(d, intext, path=""):
     for c in in_text:
         encoded += encode_by[c]
 
-    return encoded, encode_by
+    return {
+        'encoded': encoded,
+        'codebook': encode_by
+    }
 
 
-def decode(encoded, encode_by):
-    decode_by = {v: k for k, v in encode_by.items()}
+def decode(encoded: str, codebook: Dict):
+    decode_by = {v: k for k, v in codebook.items()}
     # Decoding
     buffer = ""
     output = ""

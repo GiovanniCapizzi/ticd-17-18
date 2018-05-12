@@ -1,5 +1,5 @@
 # coding=utf-8
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 from .utils import timer
 
@@ -7,7 +7,7 @@ __algorithm__ = "LZ78"
 __group__ = "LZ"
 
 
-def encode(s: str) -> List[Tuple[int, str]]:
+def encode(text: str) -> Dict[str, List[Tuple[int, str]]]:
     """
     >>> encode('ccaccbcabcaba')
     [(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')]
@@ -17,23 +17,23 @@ def encode(s: str) -> List[Tuple[int, str]]:
     i = 0
     count = 1
     output = list()
-    N = len(s)
+    N = len(text)
     while i < N:
         ii = i
         while ii < N:
-            pattern = s[i:(ii + 1)]
+            pattern = text[i:(ii + 1)]
             if pattern in codebook:
                 ii += 1
             else:
                 break
         codebook[pattern] = count
-        output.append((codebook[pattern[:-1]], s[ii] if ii < N else s[ii - 1]))
+        output.append((codebook[pattern[:-1]], text[ii] if ii < N else text[ii - 1]))
         count += 1
         i += len(pattern)
-    return output
+    return {'pairs': output}
 
 
-def decode(list_: list) -> str:
+def decode(list_: List[Tuple[int, str]]) -> str:
     """
     >>> decode([(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')])
     'ccaccbcabcaba'

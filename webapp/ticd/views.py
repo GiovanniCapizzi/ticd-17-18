@@ -37,10 +37,12 @@ def post_algorithm(request, algorithm):
     try:
         body = DotMap(json.loads(request.body))
         start_time = time.time()
+        print(*body.args)
         result = getattr(alg, body.function)(*body.args)
         duration = time.time() - start_time
         return {'result': result, 'time': duration}
-    except Exception:
+    except Exception as e:
+        print(e)
         return HttpResponse(status=400)
 
 
@@ -53,4 +55,8 @@ def algorithm_execute(request, algorithm=None):
     if request.method == 'GET':
         return JsonResponse(get_algorithm(algorithm))
     if request.method == 'POST':
-        return JsonResponse(post_algorithm(request, algorithm))
+        res = post_algorithm(request, algorithm)
+        if type(res) is dict:
+            return JsonResponse(res)
+        else:
+            return res

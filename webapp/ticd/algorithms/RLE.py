@@ -1,10 +1,10 @@
 # coding=utf-8
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 
-def rle(input_string: str) -> List[Tuple[str, int]]:
+def encode(input_string: str) -> Dict:
     """
-    >>> rle("aaaaaaaaaabbbbb")
+    >>> encode("aaaaaaaaaabbbbb")
     [('a', 10), ('b', 5)]
     """
     result: List[Tuple[str, int]] = []
@@ -21,12 +21,12 @@ def rle(input_string: str) -> List[Tuple[str, int]]:
             prev = as_list[0]
     result.append((prev, counter))
 
-    return result
+    return {'pairs': result}
 
 
-def rle_i(encoded: List[Tuple[str, int]]) -> str:
+def decode(encoded: List[Tuple[str, int]]) -> str:
     """
-    >>> rle_i([('a', 10), ('b', 5)])
+    >>> decode([('a', 10), ('b', 5)])
     'aaaaaaaaaabbbbb'
     """
     result: List[str] = []
@@ -44,8 +44,8 @@ def rho(input_string: str) -> int:
 
 def main():
     s = "aabbbaabbbbbbaaabbaaaa"
-    encoded = rle(s)
-    decoded = rle_i(encoded)
+    encoded = encode(s)
+    decoded = decode(encoded)
     print(s, encoded, decoded)
     print(rho(s))
 

@@ -83,5 +83,5 @@ def encode(alphabet: Set[str], text: str) -> Tuple[str]:
     return ArithmeticCoder().encode(alphabet, text)
 
 
-def decode(codeword: Tuple[str], alphabet: Set[str]) -> str:
+def decode(codeword: Tuple[str, str], alphabet: Set[str]) -> str:
     return ArithmeticCoder().decode(codeword, alphabet)

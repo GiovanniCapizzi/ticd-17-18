@@ -7,7 +7,7 @@ __algorithm__ = "Levenshtein Coding"
 __group__ = "integer"
 
 
-def encode(list_int: List) -> str:
+def encode(list_int: List[int]) -> str:
     """
     >>> encode([10231])
     '1111011010011111110111'
