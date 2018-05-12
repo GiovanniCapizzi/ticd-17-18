@@ -8,6 +8,7 @@ from dotmap import DotMap
 from typing import List
 import json
 import time
+import traceback
 
 
 def get_algorithms(request):
@@ -43,6 +44,7 @@ def post_algorithm(request, algorithm):
         return {'result': result, 'time': duration}
     except Exception as e:
         print(e)
+        print(traceback.format_exc())
         return HttpResponse(status=400)
 
 

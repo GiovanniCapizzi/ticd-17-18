@@ -84,4 +84,4 @@ def encode(alphabet: Set[str], text: str) -> Tuple[str]:
 
 
 def decode(codeword: Tuple[str, str], alphabet: Set[str]) -> str:
-    return ArithmeticCoder().decode(codeword, [a.encode("unicode-escape") for a in alphabet])
+    return ArithmeticCoder().decode(codeword, [a.encode("unicode-escape") for a in alphabet]).decode()
