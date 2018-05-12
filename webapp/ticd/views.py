@@ -29,7 +29,7 @@ def starts_with(text: str, items: List[str]):
 
 def get_algorithm(algorithm):
     alg = modules[algorithm]
-    functions = [getattr(alg, x) for x in dir(alg) if starts_with(x, ['encode', 'decode', 'search', 'verify'])]
+    functions = [getattr(alg, x) for x in dir(alg) if starts_with(x, ['encode', 'decode', 'search', 'verify', 'compare'])]
     return {fun.__name__: extract_info(fun) for fun in functions}
 
 

@@ -4,6 +4,7 @@ import string
 from ctypes import CDLL, POINTER, c_int
 from functools import reduce
 from typing import List
+from os import path
 
 from .logging_utils import logging
 
@@ -14,7 +15,7 @@ def KS(input_string: str) -> List[int]:
     alphabet = {v: k for k, v in zip(range(1, len(alphabet) + 1), alphabet)}
     new_s = [alphabet[input_string[i]] for i in range(len(input_string))] + ([0] * 3)
     try:
-        library = CDLL('webapp/ticd/algorithms/compiled_libraries/KS.so')
+        library = CDLL(path.dirname(__file__) + '/compiled_libraries/KS.so')
     except OSError as e:
         logging.critical(e)
         raise

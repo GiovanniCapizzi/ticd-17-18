@@ -110,6 +110,4 @@ int main(int argc, char** argv) {
     //int n = 8;
     //int s1[] = {2,1,3,1,3,1,0,0,0}; // banana
     //int s2[] = {0,0,0,0,0,0,0,0,0};
-
-    printV(s2, n, "SA");
 }

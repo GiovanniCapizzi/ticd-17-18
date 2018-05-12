@@ -32,7 +32,7 @@ def main():
                 lz78_lengths.append(len(lz78word))
 
             with timer("LZ77\\78(bwt(DeBruijn))"):
-                encoded_sa, _ = bwt_enc(de_bruijn_word, True)
+                encoded_sa = bwt_enc(de_bruijn_word, True)
                 lz77word_bwt = lz77_encode(encoded_sa)
                 lz78word_bwt = lz78_c(encoded_sa)
                 lz77_lengths_bwt.append(len(lz77word_bwt))

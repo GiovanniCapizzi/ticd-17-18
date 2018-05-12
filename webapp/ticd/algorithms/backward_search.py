@@ -5,7 +5,7 @@ from typing import Tuple
 
 from .bwt import encode as bwt_encode
 
-__algorithm__ = "BackwardSearch"
+__algorithm__ = "Backward-Search"
 __group__ = "miscellaneous"
 
 
