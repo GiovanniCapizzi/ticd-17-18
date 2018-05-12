@@ -7,13 +7,13 @@ __algorithm__ = "Levenshtein Coding"
 __group__ = "integer"
 
 
-def encode(list_int: List[int]) -> str:
+def encode(integers_list: List[int]) -> str:
     """
     >>> encode([10231])
     '1111011010011111110111'
     """
     output = ''
-    for x in list_int:
+    for x in integers_list:
         if x == 0:
             output += str(BitArray(bin='0').bin)
         else:
@@ -30,12 +30,12 @@ def encode(list_int: List[int]) -> str:
     return output
 
 
-def decode(b: str) -> List[int]:
+def decode(binary_string: str) -> List[int]:
     """
     >>> decode('11110000000011110000000011100111110011')
     [16, 16, 7, 7]
     """
-    in_list = list(b)
+    in_list = list(binary_string)
     # print(in_list)
     results = list()
     s = None
