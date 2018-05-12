@@ -1,10 +1,10 @@
 # coding=utf-8
-from typing import List, Tuple, Dict
+from typing import Dict, List, Tuple
 
 
 def encode(input_string: str) -> Dict:
     """
-    >>> encode("aaaaaaaaaabbbbb")
+    >>> encode("aaaaaaaaaabbbbb")['pairs']
     [('a', 10), ('b', 5)]
     """
     result: List[Tuple[str, int]] = []
@@ -39,15 +39,11 @@ def rho(input_string: str) -> int:
     """
     >>> assert rho("aaaaaaaaaabbbbb") == 2
     """
-    return len(rle(input_string))
+    return len(encode(input_string)['pairs'])
 
 
 def main():
-    s = "aabbbaabbbbbbaaabbaaaa"
-    encoded = encode(s)
-    decoded = decode(encoded)
-    print(s, encoded, decoded)
-    print(rho(s))
+    pass
 
 
 if __name__ == '__main__':
