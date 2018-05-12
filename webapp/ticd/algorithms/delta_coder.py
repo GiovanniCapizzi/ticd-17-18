@@ -16,7 +16,7 @@ class DeltaCoder:
         pass
 
     def encode(self, integer):
-        return gamma_encode(int(log2(integer)) + 1) + bin(integer)[3:]
+        return gamma_encode([int(log2(integer)) + 1]) + bin(integer)[3:]
 
     def encode_sequence(self, integers):
         encoded = ""
