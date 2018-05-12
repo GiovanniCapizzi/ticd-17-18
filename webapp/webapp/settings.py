@@ -25,7 +25,7 @@ SECRET_KEY = 'ed5$3$5o!w8^#d!2tbceufy0f^%mrc^j!iov0m4rv9s1f5rwam'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['fcannizzaro.com']
 
 # Application definition
 

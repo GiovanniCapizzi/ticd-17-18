@@ -14,3 +14,5 @@ algs = {module.__group__: [] for name, module in modules.items()}
 
 for name, module in modules.items():
     algs[module.__group__].append((module.__algorithm__ if hasattr(module, '__algorithm__') else name, name))
+
+algs = {name: sorted(value, key=lambda x: x[0]) for name, value in algs.items()}
