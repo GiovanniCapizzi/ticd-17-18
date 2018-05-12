@@ -22,11 +22,7 @@ __group__ = "LZ"
 def encode(text: str, logging: bool = False) -> Dict:
     """
     >>> encode("bcababbcbcbaaaabbc")
-    ([2, 3, 1, 2, 6, 4, 9, 1, 11, 8, 3], {1: 'a', 2: 'b', 3: 'c'})
-
-    :param text:
-    :param logging:
-    :return output:
+    {'result': [2, 3, 1, 2, 6, 4, 9, 1, 11, 8, 3], 'codebook': {1: 'a', 2: 'b', 3: 'c'}}
     """
 
     # Initialization -----------------------
