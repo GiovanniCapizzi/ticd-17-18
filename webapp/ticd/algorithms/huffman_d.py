@@ -8,7 +8,6 @@ import networkx as nx
 
 # matplotlib.use("Agg")
 
-in_text = "La signora Aurora si ricorda che Mario cerca Giacomino ogni giorno alle 14"
 
 __algorithm__ = 'Huffman'
 __group__ = "miscellaneous"
@@ -77,7 +76,7 @@ def encode(d: int, text: str, path=''):
     # Produced encoding dict
     encode_by = {}
     # Frequency Dict
-    freq = Counter(in_text)
+    freq = Counter(text)
     freq_len = len(freq)
 
     # print("Numero di simboli", freq_len, "prima del fix")
@@ -110,7 +109,7 @@ def encode(d: int, text: str, path=''):
 
     code_maker(root, "", encode_by)
     encoded = ""
-    for c in in_text:
+    for c in text:
         encoded += encode_by[c]
 
     return {
@@ -133,6 +132,7 @@ def decode(encoded: str, codebook: Dict):
 
 
 def main():
+    in_text = "La signora Aurora si ricorda che Mario cerca Giacomino ogni giorno alle 14"
     encoded, encoded_by = encode(4, in_text, "D:\\graph.jpg")
     print(encoded, "\n", encoded_by)
     print(decode(encoded, encoded_by))

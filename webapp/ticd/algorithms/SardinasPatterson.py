@@ -2,7 +2,7 @@
 """
 Sardinas-Patterson algorithm.
 """
-from typing import Tuple, Union
+from typing import List, Dict, Set
 
 
 class Code(object):
@@ -34,7 +34,17 @@ def is_proper_prefix(s: str, word: str) -> bool:
     return word.startswith(s) and s != word
 
 
-def sardinas_patterson(code: Code) -> Union[Tuple[bool, str, set], Tuple[bool, str], Tuple[bool, str, str]]:
+def expose(status: bool, message: str, columns: List, extra: str = None, intersection: Set = set()) -> Dict:
+    return {
+        'status': status,
+        'message': message,
+        'info': extra,
+        'columns': [list(column.words) for column in columns],
+        'intersection': list(intersection)
+    }
+
+
+def sardinas_patterson(code: Code) -> Dict:
     """
     SardinasPatterson algorithm.
     :param code:
@@ -58,7 +68,7 @@ def sardinas_patterson(code: Code) -> Union[Tuple[bool, str, set], Tuple[bool, s
     print("s_{} = {}".format(0, s[0]))
     print("s_{} = {}".format(1, s[1]))
     if s[1] == set():
-        return True, "Empty set found!", "Prefix Code - Decoding delay LIMITED"
+        return expose(True, "Empty set found!", s, "Prefix Code - Decoding delay LIMITED")
 
     i = 2
     while True:
@@ -66,15 +76,21 @@ def sardinas_patterson(code: Code) -> Union[Tuple[bool, str, set], Tuple[bool, s
         print("s_{} = {}".format(i, result))
         intersection = result.words.intersection(s[0].words)
         if len(intersection) != 0:
-            return False, "Intersection with s_0 not empty!", intersection
+            return expose(False, "Intersection with s_0 not empty!", s, intersection=intersection)
         if len(result.words) == 0:
-            return True, "Empty set found!", "Decoding delay LIMITED"
+            return expose(True, "Empty set found!", s, "Decoding delay LIMITED")
         for _s in s:
             if _s.words == result:
-                return True, "Duplicate set found!", "Decoding delay UNLIMITED"
+                return expose(True, "Duplicate set found!", s, "Decoding delay UNLIMITED")
 
         s.append(result)
         i += 1
+
+
+def verify(code: List[str]) -> Dict:
+    res = sardinas_patterson(Code(set(code)))
+    print(res)
+    return res
 
 
 def main():

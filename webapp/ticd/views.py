@@ -17,7 +17,7 @@ def get_algorithms(request):
 
 def extract_info(fun):
     return [(name, str(clazz), False if clazz.__name__ == 'bool' else '') for name, clazz in
-            fun.__annotations__.items() if name is not 'return']
+            fun.__annotations__.items() if name not in ['logging', 'return']]
 
 
 def starts_with(text: str, items: List[str]):
@@ -29,7 +29,7 @@ def starts_with(text: str, items: List[str]):
 
 def get_algorithm(algorithm):
     alg = modules[algorithm]
-    functions = [getattr(alg, x) for x in dir(alg) if starts_with(x, ['encode', 'decode', 'search'])]
+    functions = [getattr(alg, x) for x in dir(alg) if starts_with(x, ['encode', 'decode', 'search', 'verify'])]
     return {fun.__name__: extract_info(fun) for fun in functions}
 
 
@@ -38,7 +38,6 @@ def post_algorithm(request, algorithm):
     try:
         body = DotMap(json.loads(request.body))
         start_time = time.time()
-        print(*body.args)
         result = getattr(alg, body.function)(*body.args)
         duration = time.time() - start_time
         return {'result': result, 'time': duration}
