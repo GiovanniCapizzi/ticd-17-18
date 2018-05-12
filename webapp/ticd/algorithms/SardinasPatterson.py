@@ -91,6 +91,7 @@ def sardinas_patterson(code: Code) -> Dict:
 
 
 def verify(code: List[str]) -> Dict:
+    print(code)
     res = sardinas_patterson(Code(set(code)))
     print(res)
     return res
