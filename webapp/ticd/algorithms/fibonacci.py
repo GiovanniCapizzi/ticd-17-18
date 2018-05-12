@@ -4,7 +4,7 @@ from typing import List
 
 sequences = [0, 1]
 
-__algorithm__ = 'Fibonacci Encoding'
+__algorithm__ = 'Fibonacci'
 __group__ = 'integers'
 
 # initial computation

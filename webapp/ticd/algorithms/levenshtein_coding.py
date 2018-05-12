@@ -3,7 +3,7 @@ from typing import List
 
 from bitstring import BitArray
 
-__algorithm__ = "Levenshtein Coding"
+__algorithm__ = "Levenshtein"
 __group__ = "integers"
 
 
