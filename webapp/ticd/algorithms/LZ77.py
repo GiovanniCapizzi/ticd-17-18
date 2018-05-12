@@ -1,5 +1,8 @@
 # coding=utf-8
-from typing import List, Tuple
+from typing import List, Tuple, Dict
+
+__algorithm__ = "LZ77"
+__group__ = "LZ"
 
 
 def _get_index_length(sb: str, lab: str):
@@ -23,11 +26,11 @@ def _get_index_length(sb: str, lab: str):
         return len(sb) - index, len(tmp)
 
 
-def encode_lz77(input_string: str, window: int = 16) -> List[Tuple[int, int, str]]:
+def lz77_encode(input_string: str, window: int = 16) -> List[Tuple[int, int, str]]:
     """
-    >>> encode_lz77("abaababaabb")
+    >>> lz77_encode("abaababaabb")
     [(0, 0, 'a'), (0, 0, 'b'), (2, 1, 'a'), (3, 2, 'b'), (5, 3, 'b')]
-    >>> encode_lz77("010020$0110$$0111", 7)
+    >>> lz77_encode("010020$0110$$0111", 7)
     [(0, 0, '0'), (0, 0, '1'), (2, 1, '0'), (0, 0, '2'), (2, 1, '$'), (7, 2, '1'), (5, 2, '$'), (6, 3, '1')]
     """
     lab_limit = window
@@ -43,11 +46,11 @@ def encode_lz77(input_string: str, window: int = 16) -> List[Tuple[int, int, str
     return result
 
 
-def decode_lz77(input_tuples: List[Tuple[int, int, str]]) -> str:
+def lz77_decode(input_tuples: List[Tuple[int, int, str]]) -> str:
     """
-    >>> decode_lz77([(0, 0, 'a'), (0, 0, 'b'), (2, 1, 'a'), (3, 2, 'b'), (5, 3, 'b')])
+    >>> lz77_decode([(0, 0, 'a'), (0, 0, 'b'), (2, 1, 'a'), (3, 2, 'b'), (5, 3, 'b')])
     'abaababaabb'
-    >>> decode_lz77([(0, 0, '0'), (0, 0, '1'), (2, 1, '0'), (0, 0, '2'), (2, 1, '$'), (7, 2, '1'), (5, 2, '$'), (6, 3, '1')])
+    >>> lz77_decode([(0, 0, '0'), (0, 0, '1'), (2, 1, '0'), (0, 0, '2'), (2, 1, '$'), (7, 2, '1'), (5, 2, '$'), (6, 3, '1')])
     '010020$0110$$0111'
     """
     s, p = [], 0
@@ -57,6 +60,14 @@ def decode_lz77(input_tuples: List[Tuple[int, int, str]]) -> str:
         p = p + l + 1
 
     return "".join(s)
+
+
+def encode(input_string: str, window: int = 16) -> Dict:
+    return {'pairs': lz77_encode(input_string, window)}
+
+
+def decode(input_tuples: List[Tuple[int, int, str]]) -> str:
+    return lz77_decode(input_tuples)
 
 
 def main():

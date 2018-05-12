@@ -4,7 +4,7 @@
 from typing import List, Tuple, Dict
 
 __algorithm__ = "LZss"
-__group__ = "lz family"
+__group__ = "LZ"
 
 
 class LZss(object):

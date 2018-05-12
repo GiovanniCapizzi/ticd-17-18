@@ -10,4 +10,7 @@ files = [file for file in listdir(path.dirname(__file__)) if '__' not in file an
 
 modules = {file[:-3]: importlib.import_module('.' + file[:-3], package='ticd.algorithms') for file in files}
 
-algs = [(module.__algorithm__ if hasattr(module, '__algorithm__') else name, name) for name, module in modules.items()]
+algs = {module.__group__: [] for name, module in modules.items()}
+
+for name, module in modules.items():
+    algs[module.__group__].append((module.__algorithm__ if hasattr(module, '__algorithm__') else name, name))

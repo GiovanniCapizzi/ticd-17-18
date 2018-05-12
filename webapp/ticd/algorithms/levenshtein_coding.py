@@ -4,7 +4,7 @@ from typing import List
 from bitstring import BitArray
 
 __algorithm__ = "Levenshtein Coding"
-__group__ = "integer"
+__group__ = "integers"
 
 
 def encode(integers_list: List[int]) -> str:

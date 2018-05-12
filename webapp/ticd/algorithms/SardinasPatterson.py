@@ -4,6 +4,9 @@ Sardinas-Patterson algorithm.
 """
 from typing import List, Dict, Set
 
+__algorithm__ = 'Sardinas-Patterson'
+__group__ = "miscellaneous"
+
 
 class Code(object):
     """

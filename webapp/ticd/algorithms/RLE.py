@@ -1,6 +1,8 @@
 # coding=utf-8
 from typing import Dict, List, Tuple
 
+__algorithm__ = 'Run Length Encoding'
+__group__ = "miscellaneous"
 
 def encode(input_string: str) -> Dict:
     """
