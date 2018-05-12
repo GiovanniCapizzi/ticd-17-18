@@ -5,3 +5,4 @@ matplotlib
 networkx
 bitstring
 django
+dj_static
