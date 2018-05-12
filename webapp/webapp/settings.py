@@ -14,7 +14,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from os.path import normpath
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,7 +26,7 @@ SECRET_KEY = 'ed5$3$5o!w8^#d!2tbceufy0f^%mrc^j!iov0m4rv9s1f5rwam'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['fcannizzaro.com']
+ALLOWED_HOSTS = ['fcannizzaro.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -116,6 +115,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = normpath(os.path.join(BASE_DIR + '/ticd', "static"))
+STATIC_ROOT = os.path.join(BASE_DIR + '/ticd', "static")
 
 STATICFILES_DIRS = []
