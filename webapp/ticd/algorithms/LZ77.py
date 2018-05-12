@@ -23,35 +23,35 @@ def _get_index_length(sb: str, lab: str):
         return len(sb) - index, len(tmp)
 
 
-def lz77_c(s: str, w: int = 16) -> List[Tuple[int, int, str]]:
+def encode_lz77(input_string: str, window: int = 16) -> List[Tuple[int, int, str]]:
     """
-    >>> lz77_c("abaababaabb")
+    >>> encode_lz77("abaababaabb")
     [(0, 0, 'a'), (0, 0, 'b'), (2, 1, 'a'), (3, 2, 'b'), (5, 3, 'b')]
-    >>> lz77_c("010020$0110$$0111", 7)
+    >>> encode_lz77("010020$0110$$0111", 7)
     [(0, 0, '0'), (0, 0, '1'), (2, 1, '0'), (0, 0, '2'), (2, 1, '$'), (7, 2, '1'), (5, 2, '$'), (6, 3, '1')]
     """
-    lab_limit = w
+    lab_limit = window
     result: List[Tuple[int, int, str]] = list()
-    p, N = 0, len(s)
+    p, N = 0, len(input_string)
     while p < N:
-        sb = s[max(0, p - w):p - 1 + 1]
-        lab = s[p:p + lab_limit]
+        sb = input_string[max(0, p - window):p - 1 + 1]
+        lab = input_string[p:p + lab_limit]
         distance, length = _get_index_length(sb, lab[0:-1])
-        result_ = (distance, length, s[p + length])
+        result_ = (distance, length, input_string[p + length])
         result.append(result_)
         p = p + length + 1
     return result
 
 
-def lz77_d(input_: List[Tuple[int, int, str]]) -> str:
+def decode_lz77(input_tuples: List[Tuple[int, int, str]]) -> str:
     """
-    >>> lz77_d([(0, 0, 'a'), (0, 0, 'b'), (2, 1, 'a'), (3, 2, 'b'), (5, 3, 'b')])
+    >>> decode_lz77([(0, 0, 'a'), (0, 0, 'b'), (2, 1, 'a'), (3, 2, 'b'), (5, 3, 'b')])
     'abaababaabb'
-    >>> lz77_d([(0, 0, '0'), (0, 0, '1'), (2, 1, '0'), (0, 0, '2'), (2, 1, '$'), (7, 2, '1'), (5, 2, '$'), (6, 3, '1')])
+    >>> decode_lz77([(0, 0, '0'), (0, 0, '1'), (2, 1, '0'), (0, 0, '2'), (2, 1, '$'), (7, 2, '1'), (5, 2, '$'), (6, 3, '1')])
     '010020$0110$$0111'
     """
     s, p = [], 0
-    for f, l, c in input_:
+    for f, l, c in input_tuples:
         s[p:p + l - 1] = s[p - f:p - f + l - 1 + 1]
         s.append(c)
         p = p + l + 1
