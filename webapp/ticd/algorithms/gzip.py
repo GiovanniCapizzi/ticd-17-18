@@ -58,7 +58,7 @@ def encode(text: str, window: int = 0) -> Dict:
     return {'pairs': encoded, 'encoded': ' '.join([b if a is 0 else f'{b},{a}' for a, b in encoded])}
 
 
-def decode(encoded: List[Tuple]) -> str:
+def decode(encoded: List[Tuple[int, str]]) -> str:
     """
     >>> decode([(0, 'm'), (0, 'i'), (0, 's'), (0, 's'), (3, 4), (0, 'p'), (0, 'p'), (0, 'i')])
     'mississippi'
@@ -71,6 +71,7 @@ def decode(encoded: List[Tuple]) -> str:
 
     for a, b in encoded:
         if a:
+            b = int(b)
             start = size - a
             end = start + b
             tmp = decoded[start: end]
