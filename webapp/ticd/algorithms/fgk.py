@@ -262,11 +262,11 @@ class FGK(object):
 
 
 def encode(text: str):
-    return FGK(len(set(word))).encode(word)
+    return FGK(len(set(text))).encode(text)
 
 
-def decode(sequence: List[int]):
-    return FGK(len(set(sequence))).decode(sequence)
+def decode(number_of_symbols: int, sequence: List[int]):
+    return FGK(number_of_symbols).decode(sequence)
 
 
 def test(word, plot=False):
