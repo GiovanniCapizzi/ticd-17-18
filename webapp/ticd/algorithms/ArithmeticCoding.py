@@ -49,9 +49,19 @@ def source_prob(s: str):
     return _dict
 
 
-def encode_dynamic(input_text: str) -> (mpf, List[str]):
+def encode(text: str, is_static: bool = True) -> str:
+    if is_static:
+        real, codebook = enc_static(text)
+        output = dec_static(real, codebook)
+    else:
+        real, codebook = enc_static(text)
+        output = dec_static(real, codebook)
+    return 'real encode :' + str(real) + '\tcode book :' + str(codebook) + '\ndecode :' + str(output)
+
+
+def enc_dynamic(input_text: str) -> (mpf, List[str]):
     """
-    >>> encode_dynamic('aaaabaaaa')
+    >>> enc_dynamic('aaaabaaaa')
     (mpf('0.5263107263107262766304979'), ['$', 'a', 'b'])
     """
     s = input_text
@@ -72,9 +82,9 @@ def encode_dynamic(input_text: str) -> (mpf, List[str]):
     return current_range.get_low(), A
 
 
-def decode_dynamic(input_number: mpf, set_of_symblols: list) -> str:
+def dec_dynamic(input_number: mpf, set_of_symblols: list) -> str:
     """
-    >>> decode_dynamic(mpf('0.5263107263107262766304979'), ['$', 'a', 'b'])
+    >>> dec_dynamic(mpf('0.5263107263107262766304979'), ['$', 'a', 'b'])
     'aaaabaaaa'
     """
     enc = input_number
@@ -104,9 +114,9 @@ def decode_dynamic(input_number: mpf, set_of_symblols: list) -> str:
     return s
 
 
-def encode_static(s: str) -> (str, Dict[str, float]):
+def enc_static(s: str) -> (str, Dict[str, float]):
     """
-    >>> encode_static('aaaabaaaa')
+    >>> enc_static('aaaabaaaa')
     (mpf('0.67593139199999975394545314'), {'a': 0.7999999999999999, 'b': 0.1, '$': 0.1})
     """
     s += '$'
@@ -119,9 +129,9 @@ def encode_static(s: str) -> (str, Dict[str, float]):
     return current_range.get_low(), source
 
 
-def decode_static(input_number: mpf, source: Dict[str, float]) -> str:
+def dec_static(input_number: mpf, source: Dict[str, float]) -> str:
     """
-    >>> decode_static(mpf('0.67593139199999975394545314'), {'a': 0.7999999999999999, 'b': 0.1, '$': 0.1})
+    >>> dec_static(mpf('0.67593139199999975394545314'), {'a': 0.7999999999999999, 'b': 0.1, '$': 0.1})
     'aaaabaaaa'
     """
     enc = input_number
@@ -174,18 +184,20 @@ def split_interval(current_range, zip_sym_prob):
 def main():
     s = 'aaaabaaaa'
     print('static')
-    f, source_s = encode_static(s)
+    f, source_s = enc_static(s)
     print(source_s, f)
     print('dynamic')
-    a, source_d = encode_dynamic(s)
+    a, source_d = enc_dynamic(s)
     print(source_d, a)
     print('static')
-    s = decode_static(f, source_s)
+    s = dec_static(f, source_s)
     print(s)
     print('dynamic')
-    sd = decode_dynamic(a, source_d)
+    sd = dec_dynamic(a, source_d)
     print(sd)
 
 
 if __name__ == '__main__':
     main()
+    output = encode('aaaabaaaa')
+    print(output)
