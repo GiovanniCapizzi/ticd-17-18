@@ -49,14 +49,14 @@ def source_prob(s: str):
     return _dict
 
 
-def encode(text: str, is_static: bool = True) -> str:
+def encode(text: str, is_static: bool = True) -> Dict:
     if is_static:
         real, codebook = enc_static(text)
-        output = dec_static(real, codebook)
+        out = dec_static(real, codebook)
     else:
         real, codebook = enc_static(text)
-        output = dec_static(real, codebook)
-    return 'real encode :' + str(real) + '\tcode book :' + str(codebook) + '\ndecode :' + str(output)
+        out = dec_static(real, codebook)
+    return {'encoded': str(real), 'codebook': codebook, 'decoded': str(out)}
 
 
 def enc_dynamic(input_text: str) -> (mpf, List[str]):
