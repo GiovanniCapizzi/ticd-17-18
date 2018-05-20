@@ -3,7 +3,7 @@ from typing import Dict, List
 
 from mpmath import mp, mpf
 
-mp.prec = 80  # 1000000
+mp.prec = 1000000
 
 # increase value up to very high values to increase precision
 
@@ -199,5 +199,5 @@ def main():
 
 if __name__ == '__main__':
     main()
-    output = encode('aaaabaaaa')
+    output = encode('ciao come va bella bionda')
     print(output)
