@@ -104,8 +104,6 @@ def encode(d: int, text: str, path=''):
     # Creating the relative code
     root = pq.get()
 
-
-
     code_maker(root, "", encode_by)
     encoded = ""
     for c in text:
@@ -113,8 +111,6 @@ def encode(d: int, text: str, path=''):
 
     encode_by = dict(filter(lambda t: 'fake' not in t[0], encode_by.items()))
     edges = generate_graph(root)
-
-
 
     return {
         'encoded': encoded,
