@@ -43,15 +43,15 @@ def graph_maker(node, v_graph):
             graph_maker(child, v_graph)
 
 
-def generate_graph(node, path):
+def generate_graph(node, path=''):
     g = nx.Graph()
     graph_maker(node, g)
-    f = plt.figure()
+    return g.edges()
 
-    pos = nx.spring_layout(g, k=0.15, iterations=500)
-    nx.draw(g, ax=f.add_subplot(111), with_labels=True, pos=pos)
-
-    f.savefig(path)
+    # f = plt.figure()
+    # pos = nx.spring_layout(g, k=0.15, iterations=500)
+    # nx.draw(g, ax=f.add_subplot(111), with_labels=True, pos=pos)
+    # f.savefig(path)
 
 
 # Extract the encoding dict
@@ -104,17 +104,22 @@ def encode(d: int, text: str, path=''):
     # Creating the relative code
     root = pq.get()
 
-    if path:
-        generate_graph(root, path)
+
 
     code_maker(root, "", encode_by)
     encoded = ""
     for c in text:
         encoded += encode_by[c]
 
+    encode_by = dict(filter(lambda t: 'fake' not in t[0], encode_by.items()))
+    edges = generate_graph(root)
+
+
+
     return {
         'encoded': encoded,
-        'codebook': encode_by
+        'codebook': encode_by,
+        'edges': edges
     }
 
 
@@ -133,9 +138,9 @@ def decode(encoded: str, codebook: Dict):
 
 def main():
     in_text = "La signora Aurora si ricorda che Mario cerca Giacomino ogni giorno alle 14"
-    encoded, encoded_by = encode(4, in_text, "D:\\graph.jpg")
-    print(encoded, "\n", encoded_by)
-    print(decode(encoded, encoded_by))
+    output = encode(4, in_text, "D:\\graph.jpg")
+    print(output['encoded'], "\n", output['codebook'])
+    print(decode(output['encoded'], output['codebook']))
 
 
 if __name__ == '__main__':
