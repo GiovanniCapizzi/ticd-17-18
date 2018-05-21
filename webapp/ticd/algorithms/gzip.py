@@ -55,7 +55,7 @@ def encode(text: str, window: int = 0) -> Dict:
         if p == size:
             break
 
-    return {'pairs': encoded, 'encoded': ' '.join([b if a is 0 else f'{b},{a}' for a, b in encoded])}
+    return {'pairs': encoded }
 
 
 def decode(encoded: List[Tuple[int, str]]) -> str:

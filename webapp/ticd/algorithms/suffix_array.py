@@ -38,7 +38,7 @@ def suffix_array(text):
     return reduce(list.__add__, map(lambda x: x[1], sorted(ordered.items())))
 
 
-def sa(text: str):
+def calculate(text: str):
     try:
         return KS(text)
     except OSError:

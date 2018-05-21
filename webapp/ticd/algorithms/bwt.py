@@ -2,7 +2,7 @@
 from collections import deque
 from typing import Dict
 
-from .suffix_array import sa as suffix_array
+from .suffix_array import calculate as suffix_array
 
 __algorithm__ = 'BWT'
 __group__ = "miscellaneous"
