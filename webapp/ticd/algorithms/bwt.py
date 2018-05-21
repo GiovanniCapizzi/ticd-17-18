@@ -46,7 +46,7 @@ def decode(encoded: str) -> str:
     :return:
     """
     t = encoded.index(min(encoded))
-    pre = sorted(enumerate(encoded), key=lambda p, c: x[1])
+    pre = sorted(enumerate(encoded), key=lambda v: v[1])
     f = ''.join(c for p, c in pre)
     tao = [p for p, c in pre]
     w = f[t]
