@@ -58,6 +58,6 @@ class BackwardSearch:
 def search(word: str, text: str, text_is_bwt: bool=False) -> Dict:
     first, last = BackwardSearch.searchin(word, text) if not text_is_bwt else BackwardSearch(text, False).search(word)
     if (first, last) != (-1, -1):
-        return {"occurences": last - first + 1, "positions": (first, last)} 
+        return {"occurences": last - first + 1, "positions": (first, last) if first != last else first} 
     else:
         return {"error": f"{word} not found"} 
