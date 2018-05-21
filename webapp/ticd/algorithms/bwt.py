@@ -8,7 +8,7 @@ __algorithm__ = 'BWT'
 __group__ = "miscellaneous"
 
 
-def encode(text: str, use_suffix_array: bool = False) -> Dict:
+def encode(text: str, use_suffix_array: bool = False) -> str:
     """
     >>> encode('mississippi', True)
     'ipssmhpissii'
@@ -17,17 +17,11 @@ def encode(text: str, use_suffix_array: bool = False) -> Dict:
     :param use_suffix_array:
     :return:
     """
-    text += chr(ord(min(text)) - 1)
-
-    def ret(encoded):
-        return {
-            'encoded': encoded,
-            'EOS': text[-1]
-        }
+    text += '$'
 
     if use_suffix_array:
         sa = suffix_array(text)
-        return ret(''.join([text[sa[i] - 1] if sa[i] > 0 else text[-1] for i in range(len(text))]))
+        return ''.join([text[sa[i] - 1] if sa[i] > 0 else text[-1] for i in range(len(text))])
 
     rotations = []
     start = deque(text)
@@ -36,7 +30,7 @@ def encode(text: str, use_suffix_array: bool = False) -> Dict:
         start.rotate(1)
         rotations.append(''.join(start))
 
-    return ret(''.join(map(lambda rot: rot[-1], sorted(rotations))))
+    return ''.join(map(lambda rot: rot[-1], sorted(rotations)))
 
 
 def decode(encoded: str) -> str:
@@ -47,7 +41,7 @@ def decode(encoded: str) -> str:
     :param encoded:
     :return:
     """
-    t = encoded.index(min(encoded))
+    t = encoded.index('$')
     pre = sorted(enumerate(encoded), key=lambda v: v[1])
     f = ''.join(c for p, c in pre)
     tao = [p for p, c in pre]

@@ -11,6 +11,8 @@ def encode_unary(list_of_integers: List[int]) -> str:
     '00000000000010000000000001'
     >>> assert [decode_unary(encode_unary([i]))[0] for i in range(1, 100)] == [i for i in range(1, 100)]
     """
+    if 0 in list_of_integers:
+        return 'Cannot encode.'
 
     return "".join(["0" * (n - 1) + "1" for n in list_of_integers])
 

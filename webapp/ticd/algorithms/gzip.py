@@ -39,14 +39,23 @@ def encode(text: str, window: int = 0) -> Dict:
     size = len(text)
 
     while True:
+
         gram = text[p:p + 3]
+
+        if window and gram in table:
+            
+            ls = list(filter(lambda x: x >= p - window, table[gram]))
+
+            if not ls:
+                del table[gram]
+            else:
+                table[gram] = ls
+
         if gram not in table:
             table[gram] = [p]
             encoded.append((0, gram[0]))
             p += 1
         else:
-            if window:
-                table[gram] = list(filter(lambda x: x >= p - window, table[gram]))
             i, common = lcp(text, p, table[gram])
             encoded.append((p - i, common))
             table[gram].append(p)
@@ -55,7 +64,7 @@ def encode(text: str, window: int = 0) -> Dict:
         if p == size:
             break
 
-    return {'pairs': encoded }
+    return {'pairs': encoded}
 
 
 def decode(encoded: List[Tuple[int, str]]) -> str:
