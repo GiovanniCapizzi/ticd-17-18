@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @author Giuseppe Filippone
 
-from typing import Tuple
+from typing import Tuple, Dict
 
 from .bwt import encode as bwt_encode
 
@@ -11,21 +11,22 @@ __group__ = "miscellaneous"
 
 class BackwardSearch:
 
-    def __init__(self, word):
+    def __init__(self, text, use_bwt=False):
         self.counter = {}
-        word = bwt_encode(word, use_suffix_array=True)
-        self.alph = sorted(set(word))
+        if use_bwt:
+            text = bwt_encode(text, use_suffix_array=True)
+        self.alph = sorted(set(text))
         i = 0
-        for c, index in sorted([(c, i) for c, i in zip(word, range(len(word)))]):
+        for c, index in sorted([(c, i) for c, i in zip(text, range(len(text)))]):
             if c not in self.counter:
                 self.counter[c] = i
             i += 1
-        self.colums = len(word)
+        self.columns = len(text)
         self.occurrences = {}
         for a in self.alph:
             self.occurrences[a] = []
             i = 0
-            for c in word:
+            for c in text:
                 if c == a:
                     i += 1
                 self.occurrences[a].append(i)
@@ -39,7 +40,7 @@ class BackwardSearch:
         j = self.alph.index(c)
         first, last = self.counter[c], self.counter[self.alph[(j + 1) % len(self.alph)]] - 1
         if last < first:
-            last = self.colums - 1
+            last = self.columns - 1
         while first <= last and i >= 1:
             c = word[i - 1]
             first = self.counter[c] + self.__occ(c, first - 1)
@@ -51,9 +52,13 @@ class BackwardSearch:
 
     @staticmethod
     def searchin(string, text):
-        bs = BackwardSearch(text)
+        bs = BackwardSearch(text, True)
         return bs.search(string)
 
 
-def search(word: str, text: str) -> Tuple[int]:
-    return BackwardSearch.searchin(word, text)
+def search(word: str, text: str, text_is_bwt: bool=False) -> Dict:
+    first, last = BackwardSearch.searchin(word, text) if not text_is_bwt else BackwardSearch(text, False).search(word)
+    if (first, last) != (-1, -1):
+        return {"occurences": last - first + 1, "positions": (first, last)} 
+    else:
+        return {"error": f"{word} not found"} 
