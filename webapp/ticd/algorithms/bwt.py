@@ -46,12 +46,10 @@ def decode(encoded: str) -> str:
     :return:
     """
     t = encoded.index(min(encoded))
-    f = sorted(encoded)
+    pre = sorted(enumerate(encoded), key=lambda p, c: x[1])
+    f = ''.join(c for p, c in pre)
+    tao = [p for p, c in pre]
     w = f[t]
-    tao = {char: [] for char in set(f)}
-    for pos, char in enumerate(encoded):
-        tao[char].append(pos)
-    tao = reduce(list.__add__, map(lambda x: x[1], sorted(tao.items())))
     for _ in range(1, len(encoded)):
         t = tao[t]
         w += f[t]
