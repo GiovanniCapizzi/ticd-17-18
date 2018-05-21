@@ -3,10 +3,13 @@ import random
 import string
 from ctypes import CDLL, POINTER, c_int
 from functools import reduce
-from typing import List
 from os import path
+from typing import List
 
 from .logging_utils import logging
+
+__algorithm__ = 'Suffix Array'
+__group__ = "miscellaneous"
 
 
 def KS(input_string: str) -> List[int]:
@@ -33,6 +36,13 @@ def suffix_array(text):
     for pos, word in enumerate(sa):
         ordered[word].append(pos)
     return reduce(list.__add__, map(lambda x: x[1], sorted(ordered.items())))
+
+
+def sa(text: str):
+    try:
+        return KS(text)
+    except OSError:
+        return suffix_array(text)
 
 
 def test():

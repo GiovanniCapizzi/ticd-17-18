@@ -1,8 +1,6 @@
 # coding=utf-8
 from collections import deque
-from functools import reduce
-
-from .suffix_array import KS
+from .suffix_array import sa as suffix_array
 
 __algorithm__ = 'BWT'
 __group__ = "miscellaneous"
@@ -20,11 +18,7 @@ def encode(text: str, use_suffix_array: bool = False) -> str:
     text += chr(ord(min(text)) - 1)
 
     if use_suffix_array:
-        try:
-            sa = KS(text)
-        except OSError:
-            from .suffix_array import suffix_array
-            sa = suffix_array(text)
+        sa = suffix_array(text)
         return ''.join([text[sa[i] - 1] if sa[i] > 0 else text[-1] for i in range(len(text))])
 
     rotations = []
