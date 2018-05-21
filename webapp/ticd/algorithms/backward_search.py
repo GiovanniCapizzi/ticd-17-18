@@ -14,7 +14,7 @@ class BackwardSearch:
     def __init__(self, text, use_bwt=False):
         self.counter = {}
         if use_bwt:
-            text = bwt_encode(text, use_suffix_array=True)
+            text = bwt_encode(text, use_suffix_array=True)['encoded']
         self.alph = sorted(set(text))
         i = 0
         for c, index in sorted([(c, i) for c, i in zip(text, range(len(text)))]):
