@@ -12,9 +12,9 @@ __group__ = "miscellaneous"
 class BackwardSearch:
 
     def __init__(self, text, use_bwt=False):
-        self.counter = {}
         if use_bwt:
             text = bwt_encode(text, use_suffix_array=True)
+        self.counter = {}
         self.alph = sorted(set(text))
         i = 0
         for c, index in sorted([(c, i) for c, i in zip(text, range(len(text)))]):
@@ -52,8 +52,7 @@ class BackwardSearch:
 
     @staticmethod
     def searchin(string, text):
-        bs = BackwardSearch(text, True)
-        return bs.search(string)
+        return BackwardSearch(text, True).search(string)
 
 
 def search(word: str, text: str, text_is_bwt: bool=False) -> Dict:
