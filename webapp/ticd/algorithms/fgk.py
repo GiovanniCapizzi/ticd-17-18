@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from fire import Fire
 from gc import collect
 from typing import List
 from heapq import heappop, heappush
@@ -9,6 +8,7 @@ from matplotlib import pyplot
 import networkx as nx
 from timeit import default_timer
 
+from .utils import save_tree
 
 __algorithm__ = 'FGK'
 __group__ = "miscellaneous"
@@ -136,7 +136,7 @@ class FGK(object):
         # node.weight = node.left.weight + node.right.weight
 
         self.seen[symbol] = node.right
-        self.seen[node.symbol] = node           # needed only for plot
+        self.seen[node.symbol] = node  # needed only for plot
         self.weights[0] = self.weights.get(0, []) + [node.right, node]
         self.distinct_symbols += 1
         return node.right
@@ -150,7 +150,8 @@ class FGK(object):
             q = self.__create_new_node(symbol)
             symbol_code = 257 + ord(symbol.decode("unicode-escape"))
 
-        symbol_code = symbol_code if symbol_code != 0 else self.seen[symbol].N # self.__get_code(self.seen[symbol], self.root)
+        symbol_code = symbol_code if symbol_code != 0 else self.seen[
+            symbol].N  # self.__get_code(self.seen[symbol], self.root)
 
         # exchanges leaves
         if self.__is_nyt_sibling(q):
@@ -187,7 +188,7 @@ class FGK(object):
         self.__build_graph(x.left)
         self.__build_graph(x.right)
 
-    def __plot(self, text):
+    def plot(self, text):
         pyplot.cla()
         pyplot.clf()
 
@@ -209,8 +210,9 @@ class FGK(object):
         nx.draw_networkx_labels(self.graph, pos, font_color="k", font_size=8, labels=node_labels)
 
         pyplot.axis('off')
-        pyplot.show()
-        self.graph.clear()
+        # pyplot.show()
+        # self.graph.clear()
+        return save_tree()
 
     def __del_graph(self, x):
         if x is None:
@@ -232,7 +234,7 @@ class FGK(object):
         for s in text:
             result.append(self.__update(s.encode("unicode-escape")))
         if plot:
-            self.__plot(text)
+            self.plot(text)
         self.__clear_config()
         return result
 
@@ -262,7 +264,11 @@ class FGK(object):
 
 
 def encode(text: str):
-    return FGK(len(set(text))).encode(text)
+    fgk = FGK(len(set(text)))
+    return {
+        'encoded': fgk.encode(text),
+        'plot': fgk.plot(text)
+    }
 
 
 def decode(number_of_symbols: int, sequence: List[int]):
@@ -279,6 +285,5 @@ def test(word, plot=False):
     print("Decoding time -> {}".format(default_timer() - start))
     assert word == dec
 
-
-if __name__ == '__main__':
-    Fire()
+# if __name__ == '__main__':
+#    Fire()

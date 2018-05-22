@@ -1,6 +1,12 @@
 # coding=utf-8
 import time
 from random import randint
+import base64
+from os import path
+import networkx as nx
+from django.utils.crypto import get_random_string
+from matplotlib import pyplot
+from networkx.drawing.nx_pydot import graphviz_layout
 
 
 class timer(object):
@@ -40,6 +46,27 @@ def SturmGen(d_n, max_random):
         S0 = temp
 
     return S1
+
+
+directory = path.join(path.dirname(__file__), '../static/plot/')
+
+
+def save_tree():
+    name = get_random_string(32) + '.png'
+    pyplot.savefig(directory + name, dpi=300)
+    return name
+
+
+def plot_tree(g, root):
+    pyplot.cla()
+    pyplot.clf()
+    pos = graphviz_layout(nx.bfs_tree(g, root), prog='dot', root=root)
+    nx.draw_networkx_edges(g, pos)
+    nxnodes = nx.draw_networkx_nodes(g, pos, node_color="w")
+    nxnodes.set_edgecolor('k')
+    nx.draw_networkx_labels(g, pos, font_color="k", font_size=8)
+    pyplot.axis('off')
+    return save_tree()
 
 
 if __name__ == '__main__':

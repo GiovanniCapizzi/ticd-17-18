@@ -5,13 +5,14 @@ from .fibonacci import encode as fib_encode
 from .gamma import encode as gamma_encode
 from .levenshtein_coding import encode as lv_encode
 from .unary_coding import encode_unary as unary_encode
+from math import log2
 
 __algorithm__ = "Compare"
 __group__ = "integers"
 
 
-def compare(integers_count: str):
-    a, b = [int(x) + 1 for x in integers_count.split('-')]
+def compare(integers_range: str, step: int = 100):
+    a, b = [int(x) + 1 for x in integers_range.split('-')]
     lengths = []
 
     fib_lengths = []
@@ -20,9 +21,9 @@ def compare(integers_count: str):
     delta_lengths = []
     unary_lengths = []
 
-    for length in range(a, b, 100):
-        word = [randint(1, 300) for _ in range(length)]
-        lengths.append(len(word) * 4 * 8)
+    for length in range(a, b, step):
+        word = [length]
+        lengths.append(length)
 
         fibonacci = fib_encode(word)
         lev = lv_encode(word)

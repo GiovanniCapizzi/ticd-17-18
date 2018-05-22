@@ -3,11 +3,11 @@ import queue
 from collections import Counter
 from math import ceil
 from typing import Dict
-import matplotlib.pyplot as plt
+
 import networkx as nx
 
 # matplotlib.use("Agg")
-
+from .utils import plot_tree
 
 __algorithm__ = 'Huffman'
 __group__ = "miscellaneous"
@@ -26,7 +26,7 @@ class Node:
 
     # To String
     def __str__(self):
-        return ""
+        return self.c
         # return "(%s %s)" % (self.c, self.p)
 
     def __repr__(self):
@@ -35,6 +35,7 @@ class Node:
 
 def graph_maker(node, v_graph):
     # is an internal node so
+
     for i, child in enumerate(node.children):
         if child.children is None:
             v_graph.add_edge(node, child.c)
@@ -46,7 +47,7 @@ def graph_maker(node, v_graph):
 def generate_graph(node, path=''):
     g = nx.Graph()
     graph_maker(node, g)
-    return g.edges()
+    return plot_tree(g, node)
 
     # f = plt.figure()
     # pos = nx.spring_layout(g, k=0.15, iterations=500)
@@ -93,13 +94,16 @@ def encode(d: int, text: str, path=''):
 
     # print("Numero di simboli", pq.qsize(), "dopo il fix")
 
+    counter = 0
+
     # Group them by d elements
     while pq.qsize() >= d:
         # Take d nodes
         group = [pq.get() for _ in range(d)]
         # For each Node n in group
         probabilities = map(lambda n: n.p, group)
-        pq.put(Node("Internal Node", sum(probabilities), group))
+        pq.put(Node(f'in{counter}', sum(probabilities), group))
+        counter += 1
 
     # Creating the relative code
     root = pq.get()
@@ -110,12 +114,12 @@ def encode(d: int, text: str, path=''):
         encoded += encode_by[c]
 
     encode_by = dict(filter(lambda t: 'fake' not in t[0], encode_by.items()))
-    edges = generate_graph(root)
+    plot = generate_graph(root)
 
     return {
         'encoded': encoded,
         'codebook': encode_by,
-        'edges': edges
+        'plot': plot
     }
 
 
