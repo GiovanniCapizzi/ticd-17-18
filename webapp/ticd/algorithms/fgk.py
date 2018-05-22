@@ -8,7 +8,7 @@ from matplotlib import pyplot
 import networkx as nx
 from timeit import default_timer
 
-from .utils import save_tree
+from .utils import save_tree, plot_tree
 
 __algorithm__ = 'FGK'
 __group__ = "miscellaneous"

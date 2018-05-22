@@ -38,7 +38,7 @@ def graph_maker(node, v_graph):
 
     for i, child in enumerate(node.children):
         if child.children is None:
-            v_graph.add_edge(node, child.c)
+            v_graph.add_edge(node, child)
         else:
             v_graph.add_edge(node, child, length=100)
             graph_maker(child, v_graph)
@@ -114,12 +114,11 @@ def encode(d: int, text: str, path=''):
         encoded += encode_by[c]
 
     encode_by = dict(filter(lambda t: 'fake' not in t[0], encode_by.items()))
-    plot = generate_graph(root)
 
     return {
         'encoded': encoded,
         'codebook': encode_by,
-        'edges': plot
+        'edges': generate_graph(root)
     }
 
 
