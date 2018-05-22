@@ -233,9 +233,6 @@ class FGK(object):
         result = []
         for s in text:
             result.append(self.__update(s.encode("unicode-escape")))
-        if plot:
-            self.plot(text)
-        self.__clear_config()
         return result
 
     def decode(self, sequence):
