@@ -2,7 +2,7 @@
 import time
 from random import randint
 import base64
-from os import path, makedirs
+from os import path, makedirs, walk, remove
 import networkx as nx
 from django.utils.crypto import get_random_string
 from matplotlib import pyplot
@@ -54,6 +54,10 @@ directory = path.join(path.dirname(__file__), '../static/plot/')
 def save_tree():
     if not path.exists(directory):
         makedirs(directory)
+
+    for root, dirs, files in walk(directory):
+        for filename in files:
+            remove(path.join(root, filename))
 
     name = get_random_string(32) + '.png'
     pyplot.savefig(directory + name, dpi=300)
