@@ -264,7 +264,7 @@ def encode(text: str):
     fgk = FGK(len(set(text)))
     return {
         'encoded': fgk.encode(text),
-        'plot': fgk.plot(text)
+        'edges': fgk.plot(text)
     }
 
 
