@@ -118,3 +118,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR + '/ticd', "static")
 
 STATICFILES_DIRS = []
+
+LOGIN_REDIRECT_URL = '/algorithms'

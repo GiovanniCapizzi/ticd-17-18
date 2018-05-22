@@ -1,5 +1,5 @@
 # coding=utf-8
-
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .algorithms import algs, modules
@@ -11,6 +11,7 @@ import time
 import traceback
 
 
+@login_required
 def get_algorithms(request):
     return JsonResponse(algs, safe=False)
 
@@ -34,6 +35,7 @@ def get_algorithm(algorithm):
     return {fun.__name__: extract_info(fun) for fun in functions}
 
 
+@login_required
 def post_algorithm(request, algorithm):
     alg = modules[algorithm]
     try:
@@ -48,10 +50,12 @@ def post_algorithm(request, algorithm):
         return HttpResponse(status=400)
 
 
+@login_required
 def get_index(request):
     return render(request, 'index.html', context={})
 
 
+@login_required
 @csrf_exempt
 def algorithm_execute(request, algorithm=None):
     if request.method == 'GET':
