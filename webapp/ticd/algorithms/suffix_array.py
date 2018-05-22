@@ -42,6 +42,7 @@ def calculate(text: str):
     try:
         return KS(text)
     except OSError:
+        print('alternative mode')
         return suffix_array(text)
 
 

@@ -119,7 +119,7 @@ def encode(d: int, text: str, path=''):
     return {
         'encoded': encoded,
         'codebook': encode_by,
-        'plot': plot
+        'edges': plot
     }
 
 

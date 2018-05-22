@@ -43,7 +43,7 @@ def encode(text: str, window: int = 0) -> Dict:
         gram = text[p:p + 3]
 
         if window and gram in table:
-            
+
             ls = list(filter(lambda x: x >= p - window, table[gram]))
 
             if not ls:

@@ -105,3 +105,6 @@ ENV/
 .idea
 
 .sqlite3
+
+# plot
+plot/.*png
