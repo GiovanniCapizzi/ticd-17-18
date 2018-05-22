@@ -2,7 +2,7 @@
 import time
 from random import randint
 import base64
-from os import path
+from os import path, makedirs, walk, remove
 import networkx as nx
 from django.utils.crypto import get_random_string
 from matplotlib import pyplot
@@ -52,6 +52,13 @@ directory = path.join(path.dirname(__file__), '../static/plot/')
 
 
 def save_tree():
+    if not path.exists(directory):
+        makedirs(directory)
+
+    for root, dirs, files in walk(directory):
+        for filename in files:
+            remove(path.join(root, filename))
+
     name = get_random_string(32) + '.png'
     pyplot.savefig(directory + name, dpi=300)
     return name
@@ -60,12 +67,31 @@ def save_tree():
 def plot_tree(g, root):
     pyplot.cla()
     pyplot.clf()
+
+    edge_labels = {}
+    all_nodes = []
+    nodes = [root]
+    while len(nodes) > 0:
+        node = nodes.pop(0)
+        if node.children is not None:
+            all_nodes.append(node)
+            i = 0
+            for child in node.children:
+                nodes.append(child)
+                edge_labels[(node, child)] = str(i)
+                i += 1
+
     pos = graphviz_layout(nx.bfs_tree(g, root), prog='dot', root=root)
+    node_labels = dict([(v, v.c if len(v.c) == 1 else "") for v in g.nodes()])
+    node_sizes = [len(v) * 150 if len(v) > 0 else 40 for _, v in node_labels.items()]
     nx.draw_networkx_edges(g, pos)
-    nxnodes = nx.draw_networkx_nodes(g, pos, node_color="w")
+    nxnodes = nx.draw_networkx_nodes(g, pos, node_size=node_sizes, node_color="w")
     nxnodes.set_edgecolor('k')
-    nx.draw_networkx_labels(g, pos, font_color="k", font_size=8)
+    nx.draw_networkx_edge_labels(g, pos, font_size=8, edge_labels=edge_labels)
+    nx.draw_networkx_labels(g, pos, font_color="k", font_size=8, labels=node_labels)
     pyplot.axis('off')
+
+    del edge_labels, all_nodes, nodes
     return save_tree()
 
 
