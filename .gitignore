@@ -108,3 +108,5 @@ ENV/
 
 # plot
 plot/.*png
+
+.pytest_cache
