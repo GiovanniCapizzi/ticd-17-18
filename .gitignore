@@ -107,6 +107,6 @@ ENV/
 .sqlite3
 
 # plot
-plot/.*png
+.*png
 
 .pytest_cache
