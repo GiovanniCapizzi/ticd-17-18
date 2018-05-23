@@ -54,8 +54,8 @@ def encode(text: str, is_static: bool = True) -> Dict:
         real, codebook = enc_static(text)
         out = dec_static(real, codebook)
     else:
-        real, codebook = enc_static(text)
-        out = dec_static(real, codebook)
+        real, codebook = enc_dynamic(text)
+        out = dec_dynamic(real, codebook)
     return {'encoded': str(real), 'codebook': codebook, 'decoded': str(out)}
 
 
