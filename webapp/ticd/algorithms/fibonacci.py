@@ -1,5 +1,8 @@
 # coding=utf-8
 
+
+from .utils import input_example
+
 from typing import List
 
 sequences = [0, 1]
@@ -14,6 +17,7 @@ def fibonacci(value):
     return sequences
 
 
+@input_example(integers="5 5 5 8 13")
 def encode(integers: List[int]) -> str:
     """
     >>> encode([5, 5, 5, 8, 13])
@@ -38,6 +42,7 @@ def encode(integers: List[int]) -> str:
     return ''.join([symbols[integer] for integer in integers])
 
 
+@input_example(encoded="0001100011000110000110000011")
 def decode(encoded: str) -> List[int]:
     """
     >>> decode('0001100011000110000110000011')

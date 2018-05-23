@@ -1,17 +1,18 @@
 # coding=utf-8
 from collections import deque
-from typing import Dict
 
 from .suffix_array import calculate as suffix_array
+from .utils import input_example
 
 __algorithm__ = 'BWT'
 __group__ = "miscellaneous"
 
 
+@input_example(text='mississippi')
 def encode(text: str, use_suffix_array: bool = False) -> str:
     """
     >>> encode('mississippi', True)
-    'ipssmhpissii'
+    'ipssm$pissii'
 
     :param text:
     :param use_suffix_array:
@@ -33,9 +34,10 @@ def encode(text: str, use_suffix_array: bool = False) -> str:
     return ''.join(map(lambda rot: rot[-1], sorted(rotations)))
 
 
+@input_example(encoded='ipssm$pissii')
 def decode(encoded: str) -> str:
     """
-    >>> decode('ipssmhpissii')
+    >>> decode('ipssm$pissii')
     'mississippi'
 
     :param encoded:
