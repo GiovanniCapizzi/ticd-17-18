@@ -23,15 +23,33 @@ def lcp(text: str, start: int, initial: List[int]) -> (int, int):
     return initial[index.index(lcp_size)], lcp_size
 
 
-def encode(text: str, window: int = 0) -> Dict:
+def update(last_remove: int, start: int, l: int, text: str, table: Dict) -> int:
+    to_insert = [(text[i:i + 3], i) for i in range(start, l)]
+    to_remove = [text[i:i + 3] for i in range(last_remove, last_remove + l)]
+
+    for gram in to_remove:
+        if gram in table:
+            table[gram] = table[gram][1:]
+
+    for gram, i in to_insert:
+        if gram in table:
+            table[gram].append(i)
+        else:
+            table[gram] = [i]
+
+    return last_remove + l
+
+
+def encode(text: str) -> Dict:
     """
     >>> encode('mississippi')
     {'pairs': [(0, 'm'), (0, 'i'), (0, 's'), (0, 's'), (3, 4), (0, 'p'), (0, 'p'), (0, 'i')], 'encoded': 'm i s s 4,3 p p i'}
 
     :param text:
-    :param window:
     :return:
     """
+
+    last_remove = 0
     encoded = []
     table = {}
 
@@ -42,15 +60,6 @@ def encode(text: str, window: int = 0) -> Dict:
 
         gram = text[p:p + 3]
 
-        if window and gram in table:
-
-            ls = list(filter(lambda x: x >= p - window, table[gram]))
-
-            if not ls:
-                del table[gram]
-            else:
-                table[gram] = ls
-
         if gram not in table:
             table[gram] = [p]
             encoded.append((0, gram[0]))
@@ -59,6 +68,7 @@ def encode(text: str, window: int = 0) -> Dict:
             i, common = lcp(text, p, table[gram])
             encoded.append((p - i, common))
             table[gram].append(p)
+            last_remove = update(last_remove, p - i, p, text, table)
             p += common
 
         if p == size:
@@ -75,7 +85,7 @@ def decode(encoded: List[Tuple[int, str]]) -> str:
     :param encoded:
     :return:
     """
-    decoded = ""
+    decoded = ''
     size = 0
 
     for a, b in encoded:
@@ -97,5 +107,9 @@ def decode(encoded: List[Tuple[int, str]]) -> str:
 
 
 if __name__ == '__main__':
-    encode_result = encode('mississippi')
-    decode_result = decode(encode_result['pairs'])
+    with open('./divina_commedia.txt') as file:
+        content = file.read()
+        encode_result = encode(content)
+        #decode_result = decode(encode_result['pairs'])
+        print(encode_result)
+        #print(decode_result)

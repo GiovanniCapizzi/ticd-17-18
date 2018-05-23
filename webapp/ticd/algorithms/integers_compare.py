@@ -39,6 +39,7 @@ def compare(integers_range: str, step: int = 100):
 
     return {
         'plot': {
+            'y_unit': ' bit',
             'lengths': lengths,
             'fibonacci': fib_lengths,
             'levenshtein': lev_lengths,

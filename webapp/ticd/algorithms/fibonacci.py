@@ -7,10 +7,11 @@ sequences = [0, 1]
 __algorithm__ = 'Fibonacci'
 __group__ = 'integers'
 
-# initial computation
 
-for i in range(100):
-    sequences.append(sequences[-1] + sequences[-2])
+def fibonacci(value):
+    if sequences[-1] < value:
+        sequences.append(sequences[-1] + sequences[-2])
+    return sequences
 
 
 def encode(integers: List[int]) -> str:
@@ -28,7 +29,7 @@ def encode(integers: List[int]) -> str:
         fns = []
 
         while tmp > 0:
-            value = max(filter(lambda x: x <= tmp, sequences))
+            value = max(filter(lambda x: x <= tmp, fibonacci(tmp)))
             fns.append(max(0, sequences.index(value) - 2))
             tmp -= value
 
@@ -45,6 +46,9 @@ def decode(encoded: str) -> List[int]:
     :param encoded:
     :return:
     """
+
+    if encoded == '11':
+        return [1]
     integers = map(lambda x: x + '1', filter(lambda x: x, encoded.split('11')))
     return [sum([sequences[x + 2] for x, value in enumerate(integer) if value == '1']) for integer in integers]
 
