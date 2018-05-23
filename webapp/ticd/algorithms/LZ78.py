@@ -34,8 +34,8 @@ def encode(text: str) -> Dict[str, List[Tuple[int, str]]]:
     return {'pairs': output}
 
 
-@input_example(text="(0 , c),(1 , a),(1 , c),(0 , b),(2 , b),(5 , a)")
-def decode(list_: List[Tuple[int, str]]) -> str:
+@input_example(list_pairs="(0 , c),(1 , a),(1 , c),(0 , b),(2 , b),(5 , a)")
+def decode(list_pairs: List[Tuple[int, str]]) -> str:
     """
     >>> decode([(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')])
     'ccaccbcabcaba'
@@ -43,7 +43,7 @@ def decode(list_: List[Tuple[int, str]]) -> str:
     codebook = dict()
     codebook[0] = ''
     s = ''
-    for t in list_:
+    for t in list_pairs:
         tmp = codebook[t[0]] + t[1]
         codebook[len(codebook)] = tmp
         s += tmp
