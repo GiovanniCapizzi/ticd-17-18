@@ -3,10 +3,13 @@ from typing import List
 
 from bitstring import BitArray
 
+from .utils import input_example
+
 __algorithm__ = "Levenshtein"
 __group__ = "integers"
 
 
+@input_example(integers_list="10231 11 2")
 def encode(integers_list: List[int]) -> str:
     """
     >>> encode([10231])
@@ -30,12 +33,13 @@ def encode(integers_list: List[int]) -> str:
     return output
 
 
-def decode(binary_string: str) -> List[int]:
+@input_example(bit_string="1111011010011111110111111010111100")
+def decode(bit_string: str) -> List[int]:
     """
     >>> decode('11110000000011110000000011100111110011')
     [16, 16, 7, 7]
     """
-    in_list = list(binary_string)
+    in_list = list(bit_string)
     # print(in_list)
     results = list()
     s = None

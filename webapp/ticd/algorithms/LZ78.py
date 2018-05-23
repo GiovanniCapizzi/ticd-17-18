@@ -1,12 +1,13 @@
 # coding=utf-8
-from typing import List, Tuple, Dict
+from typing import Dict, List, Tuple
 
-from .utils import timer
+from .utils import input_example, timer
 
 __algorithm__ = "LZ78"
 __group__ = "LZ"
 
 
+@input_example(text="ccaccbcabcaba")
 def encode(text: str) -> Dict[str, List[Tuple[int, str]]]:
     """
     >>> encode('ccaccbcabcaba')['pairs']
@@ -33,6 +34,7 @@ def encode(text: str) -> Dict[str, List[Tuple[int, str]]]:
     return {'pairs': output}
 
 
+@input_example(text="(0 , c),(1 , a),(1 , c),(0 , b),(2 , b),(5 , a)")
 def decode(list_: List[Tuple[int, str]]) -> str:
     """
     >>> decode([(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')])
