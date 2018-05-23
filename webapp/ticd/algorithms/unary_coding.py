@@ -21,7 +21,7 @@ def encode_unary(list_of_integers: List[int]) -> str:
 
 
 @input_example(
-        list_of_integers="01000000000000000100000010000000000001")
+        binary_string="01000000000000000100000010000000000001")
 def decode_unary(binary_string: str) -> List[int]:
     """
     >>> decode_unary('00000000000010000000000000001')
