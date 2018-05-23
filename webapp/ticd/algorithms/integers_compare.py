@@ -1,16 +1,15 @@
-from random import randint
-
 from .delta_coder import encode as delta_encode
 from .fibonacci import encode as fib_encode
 from .gamma import encode as gamma_encode
 from .levenshtein_coding import encode as lv_encode
 from .unary_coding import encode_unary as unary_encode
-from math import log2
+from .utils import input_example
 
 __algorithm__ = "Compare"
 __group__ = "integers"
 
 
+@input_example(integers_range="1-500", step="5")
 def compare(integers_range: str, step: int = 100):
     a, b = [int(x) + 1 for x in integers_range.split('-')]
     lengths = []

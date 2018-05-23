@@ -17,7 +17,12 @@ def get_algorithms(request):
 
 
 def extract_info(fun):
-    return [(name, str(clazz), False if clazz.__name__ == 'bool' else '') for name, clazz in
+    samples = fun.input_example if hasattr(fun, 'input_example') else {}
+
+    def sample(key):
+        return samples[key] if key in samples else None
+
+    return [(name, str(clazz), False if clazz.__name__ == 'bool' else '', sample(name)) for name, clazz in
             fun.__annotations__.items() if name not in ['logging', 'return']]
 
 
