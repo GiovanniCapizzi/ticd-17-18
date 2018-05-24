@@ -1,9 +1,13 @@
 # coding=utf-8
 from typing import Dict, List, Tuple
 
+from .utils import input_example
+
 __algorithm__ = 'Run Length Encoding'
 __group__ = "miscellaneous"
 
+
+@input_example(input_string='aaaaaaaaaabbbbb')
 def encode(input_string: str) -> Dict:
     """
     >>> encode("aaaaaaaaaabbbbb")['pairs']
@@ -26,6 +30,7 @@ def encode(input_string: str) -> Dict:
     return {'pairs': result}
 
 
+@input_example(encoded='(a , 10), (b , 5)')
 def decode(encoded: List[Tuple[str, int]]) -> str:
     """
     >>> decode([('a', 10), ('b', 5)])
