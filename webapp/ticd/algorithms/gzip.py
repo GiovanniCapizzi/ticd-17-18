@@ -1,6 +1,8 @@
 # coding=utf-8
 from typing import List, Dict, Tuple
 
+from .utils import input_example
+
 __algorithm__ = 'GZIP'
 __group__ = "LZ"
 __author__ = 'Francesco Saverio Cannizzaro'
@@ -41,6 +43,7 @@ def update(last_remove: int, start: int, l: int, text: str, table: Dict) -> int:
     return last_remove + l
 
 
+@input_example(text='mississippi')
 def encode(text: str) -> Dict:
     """
     >>> encode('mississippi')
@@ -78,6 +81,7 @@ def encode(text: str) -> Dict:
     return {'pairs': encoded}
 
 
+@input_example(text='---')
 def decode(encoded: List[Tuple[int, str]]) -> str:
     """
     >>> decode([(0, 'm'), (0, 'i'), (0, 's'), (0, 's'), (3, 4), (0, 'p'), (0, 'p'), (0, 'i')])
@@ -111,6 +115,6 @@ if __name__ == '__main__':
     with open('./divina_commedia.txt') as file:
         content = file.read()
         encode_result = encode(content)
-        #decode_result = decode(encode_result['pairs'])
+        # decode_result = decode(encode_result['pairs'])
         print(encode_result)
-        #print(decode_result)
+        # print(decode_result)
