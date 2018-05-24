@@ -5,6 +5,7 @@ from .utils import input_example
 
 __algorithm__ = "Unary"
 __group__ = "integers"
+__author__ = "Mirko Avantaggiato"
 
 
 @input_example(list_of_integers="46 33 13 1 48 23 34 13 15 3")

@@ -5,6 +5,7 @@ from .utils import input_example
 
 __algorithm__ = 'Run Length Encoding'
 __group__ = "miscellaneous"
+__author__ = "Mirko Avantaggiato"
 
 
 @input_example(input_string='aaaaaaaaaabbbbb')

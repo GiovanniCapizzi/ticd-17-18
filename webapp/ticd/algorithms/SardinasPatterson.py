@@ -6,6 +6,7 @@ from typing import List, Dict, Set
 
 __algorithm__ = 'Sardinas-Patterson'
 __group__ = "miscellaneous"
+__author__ = "Mirko Avantaggiato"
 
 
 class Code(object):
