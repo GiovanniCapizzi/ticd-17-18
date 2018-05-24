@@ -3,6 +3,7 @@ from typing import List, Tuple, Dict
 
 __algorithm__ = "LZ77"
 __group__ = "LZ"
+__author__ = "Mirko Avantaggiato"
 
 
 def _get_index_length(sb: str, lab: str):
