@@ -4,6 +4,8 @@
 from typing import Tuple, Dict
 
 from .bwt import encode as bwt_encode
+from .suffix_array import calculate
+from .utils import input_example
 
 __algorithm__ = "Backward-Search"
 __group__ = "miscellaneous"
@@ -12,9 +14,10 @@ __group__ = "miscellaneous"
 class BackwardSearch:
 
     def __init__(self, text, use_bwt=False):
+        self.counter = {}
+        self.suffix_array = calculate(text + ("$" if use_bwt else ""))
         if use_bwt:
             text = bwt_encode(text, use_suffix_array=True)
-        self.counter = {}
         self.alph = sorted(set(text))
         i = 0
         for c, index in sorted([(c, i) for c, i in zip(text, range(len(text)))]):
@@ -47,17 +50,18 @@ class BackwardSearch:
             last = self.counter[c] + self.__occ(c, last) - 1
             i -= 1
         if first > last:
-            return -1, -1
-        return first, last
+            return (-1, [])
+        return (last - first + 1, sorted([self.suffix_array[i] for i in range(first, last + 1)]))
 
     @staticmethod
     def searchin(string, text):
         return BackwardSearch(text, True).search(string)
 
 
+@input_example(text="hellodasdahellodada", word="hello")
 def search(word: str, text: str, text_is_bwt: bool=False) -> Dict:
-    first, last = BackwardSearch.searchin(word, text) if not text_is_bwt else BackwardSearch(text, False).search(word)
-    if (first, last) != (-1, -1):
-        return {"occurences": last - first + 1, "positions": (first, last) if first != last else first} 
+    occ, pos = BackwardSearch.searchin(word, text) if not text_is_bwt else BackwardSearch(text, False).search(word)
+    if occ > 0:
+        return {"occurences": occ, "positions": pos} 
     else:
         return {"error": f"{word} not found"} 

@@ -2,6 +2,7 @@
 # @author Giuseppe Filippone
 
 from typing import Set, Tuple
+from .utils import input_example
 
 
 __algorithm__ = "Arithmetic Coding Adaptive"
@@ -79,9 +80,11 @@ class ArithmeticCoder:
                 high = float("0." + str(high)[len(pref):])
 
 
+@input_example(text="abbabaaaa", alphabet="a b")
 def encode(alphabet: Set[str], text: str) -> Tuple[str]:
     return ArithmeticCoder().encode(alphabet, text)
 
 
+@input_example(codeword="(0.43333333333333329, 0.43452380952380948)", alphabet="a b")
 def decode(codeword: Tuple[str, str], alphabet: Set[str]) -> str:
     return ArithmeticCoder().decode(codeword, [a.encode("unicode-escape") for a in alphabet]).decode()

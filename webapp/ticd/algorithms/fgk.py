@@ -8,7 +8,9 @@ from matplotlib import pyplot
 import networkx as nx
 from timeit import default_timer
 
+from .delta_coder import DeltaCoder
 from .utils import save_tree, plot_tree
+from .utils import input_example
 
 __algorithm__ = 'FGK'
 __group__ = "miscellaneous"
@@ -260,16 +262,19 @@ class FGK(object):
         return result.decode("unicode-escape")
 
 
+@input_example(text="we have the best prof ever")
 def encode(text: str):
     fgk = FGK(len(set(text)))
     return {
-        'encoded': fgk.encode(text),
+        'delta encoding': DeltaCoder().encode_sequence(fgk.encode(text)),
+        'number of symbols': len(set(text)),
         'edges': fgk.plot(text)
     }
 
 
-def decode(number_of_symbols: int, sequence: List[int]):
-    return FGK(number_of_symbols).decode(sequence)
+@input_example(number_of_symbols="13 symbols for \"we have the best prof ever\"", sequence="00010010111100000010010110011000010010010000100010010110100100010010110001000010...")
+def decode(number_of_symbols: int, sequence: str):
+    return FGK(number_of_symbols).decode(DeltaCoder().decode_text(sequence))
 
 
 def test(word, plot=False):
