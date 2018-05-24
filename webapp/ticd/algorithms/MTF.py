@@ -9,7 +9,7 @@ __author__ = "Mirko Avantaggiato"
 
 
 @input_example(input_string='hello')
-def encode_mtf(input_string: str) -> Dict[str][Any]:
+def encode_mtf(input_string: str) -> Dict[str, Any]:
     L = input_string
     X = sorted(set(L))
     output = []
