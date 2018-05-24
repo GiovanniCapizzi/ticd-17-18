@@ -5,6 +5,7 @@ from .utils import input_example, timer
 
 __algorithm__ = "LZ78"
 __group__ = "LZ"
+__author__ = "Francesco Landolina"
 
 
 @input_example(text="ccaccbcabcaba")

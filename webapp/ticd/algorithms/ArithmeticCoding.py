@@ -12,6 +12,7 @@ mp.prec = 1000000
 
 __algorithm__ = "Arithmetic Coding"
 __group__ = "miscellaneous"
+__author__ = "Francesco Landolina"
 
 
 class Range(object):

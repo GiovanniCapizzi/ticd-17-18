@@ -7,6 +7,7 @@ from .utils import input_example
 
 __algorithm__ = "Levenshtein"
 __group__ = "integers"
+__author__ = "Francesco Landolina"
 
 
 @input_example(integers_list="10231 11 2")
