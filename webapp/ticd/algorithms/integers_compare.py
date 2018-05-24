@@ -1,3 +1,4 @@
+# coding=utf-8
 from .delta_coder import encode as delta_encode
 from .fibonacci import encode as fib_encode
 from .gamma import encode as gamma_encode
@@ -5,7 +6,7 @@ from .levenshtein_coding import encode as lv_encode
 from .unary_coding import encode_unary as unary_encode
 from .utils import input_example
 
-__algorithm__ = "Compare"
+__algorithm__ = "Integers Compare"
 __group__ = "integers"
 
 

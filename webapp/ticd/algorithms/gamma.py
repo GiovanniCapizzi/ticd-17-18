@@ -3,10 +3,14 @@ from collections import deque  # https://docs.python.org/2/library/collections.h
 from math import log
 from typing import List
 
+from .utils import input_example
+
 __algorithm__ = 'Gamma'
 __group__ = "integers"
+__author__ = 'Giovanni Capizzi'
 
 
+@input_example(input_integers_list='46 33 13 1 48 23 34 13 15 3')
 def encode(input_integers_list: List[int]) -> str:
     """
     >>> encode([12, 12])
@@ -16,6 +20,7 @@ def encode(input_integers_list: List[int]) -> str:
     return "".join(['0' * int(log(n, 2)) + "{0:b}".format(n) for n in input_integers_list])
 
 
+@input_example(input_binary_string='000001011100000010000100011011000001100000000101110000010001000011010001111011')
 def decode(input_binary_string: str) -> List[int]:
     """
     >>> decode('00011000001100')

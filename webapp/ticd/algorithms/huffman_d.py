@@ -6,11 +6,11 @@ from typing import Dict
 
 import networkx as nx
 
-# matplotlib.use("Agg")
-from .utils import plot_tree
+from .utils import input_example, plot_tree
 
 __algorithm__ = 'Huffman'
 __group__ = "miscellaneous"
+__author__ = 'Giovanni Capizzi'
 
 
 class Node:
@@ -69,6 +69,7 @@ def code_maker(node, index, encode_by):
             code_maker(child, index + str(i), encode_by)
 
 
+@input_example(d='2', text='mississippi')
 def encode(d: int, text: str, path=''):
     # Text Length
     length = len(text)
@@ -122,6 +123,8 @@ def encode(d: int, text: str, path=''):
     }
 
 
+@input_example(encoded='100011110111101011010,',
+               codebook='{"i":"0","m":"100","p":"101","s":"11"}')
 def decode(encoded: str, codebook: Dict):
     decode_by = {v: k for k, v in codebook.items()}
     # Decoding

@@ -4,8 +4,8 @@ from typing import Any, Dict, List
 from .utils import input_example
 
 __algorithm__ = "Move To Front"
-__group__ = "miscellaneous"
 __author__ = "Mirko Avantaggiato"
+__group__ = "miscellaneous"
 
 
 @input_example(input_string='hello')

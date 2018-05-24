@@ -7,8 +7,8 @@ from typing import List, Dict, Set
 from .utils import input_example
 
 __algorithm__ = 'Sardinas-Patterson'
-__group__ = "miscellaneous"
 __author__ = "Mirko Avantaggiato"
+__group__ = "miscellaneous"
 
 
 class Code(object):

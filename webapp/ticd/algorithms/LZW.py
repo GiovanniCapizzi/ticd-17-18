@@ -1,6 +1,7 @@
 # coding=utf-8
-
 from typing import Dict, List
+
+from .utils import input_example
 
 #    _                               _      _______              _    _      _      _
 #   | |                             | |    |___  (_)            | |  | |    | |    | |
@@ -11,18 +12,17 @@ from typing import Dict, List
 #                        | |
 #                        |_|
 
-in_text = "La signora Aurora ha programmato in Java un software per la gestione dei ristoranti."
-
-# _in_text = "bcababbcbcbaaaabbc
 
 __algorithm__ = "LZW"
+__author__ = 'Giovanni Capizzi'
 __group__ = "LZ"
 
 
+@input_example(text='bcababbcbcbaaaabbc')
 def encode(text: str, logging: bool = False) -> Dict:
     """
     >>> encode("bcababbcbcbaaaabbc")
-    {'result': [2, 3, 1, 2, 6, 4, 9, 1, 11, 8, 3], 'codebook': {1: 'a', 2: 'b', 3: 'c'}}
+    {'encoded': [2, 3, 1, 2, 6, 4, 9, 1, 11, 8, 3], 'codebook': {1: 'a', 2: 'b', 3: 'c'}}
     """
 
     # Initialization -----------------------
@@ -61,7 +61,7 @@ def encode(text: str, logging: bool = False) -> Dict:
                 output.append(codebook[coding_word])
                 if logging:
                     print("and outputting the remaining", codebook[coding_word], "value")
-                return {'result': output, 'codebook': inverted_codebook}
+                return {'encoded': output, 'codebook': inverted_codebook}
 
         # add this new word to the codebook
         word = text[cursor:relative_index]
@@ -78,6 +78,7 @@ def encode(text: str, logging: bool = False) -> Dict:
         cursor += len(coding_word)
 
 
+@input_example(encoded='2 3 1 2 6 4 9 1 11 8 3', codebook='{"1":"a","2":"b","3":"c"}')
 def decode(encoded: List[int], codebook: Dict, logging: bool = False) -> str:
     """
     >>> decode([2, 3, 1, 2, 6, 4, 9, 1, 11, 8, 3], {1: 'a', 2: 'b', 3: 'c'})
@@ -127,6 +128,9 @@ def decode(encoded: List[int], codebook: Dict, logging: bool = False) -> str:
 # TEST CODE --------------
 
 if __name__ == '__main__':
+    in_text = "La signora Aurora ha programmato in Java un software per la gestione dei ristoranti."
+    # _in_text = "bcababbcbcbaaaabbc
     print("Testing code ")
-    code, inverted_cb = encode(in_text)
+    result = encode(in_text)
+    code, inverted_cb = result['encoded'], result['codebook']
     print(code, "\n", decode(code, inverted_cb))

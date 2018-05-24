@@ -2,8 +2,6 @@
 import importlib
 from os import listdir, path
 
-from . import unary_coding
-
 excluded = open(path.dirname(__file__) + '/.algorithmsignore', 'r').read().split('\n')
 
 files = [file for file in listdir(path.dirname(__file__)) if '__' not in file and file not in excluded]

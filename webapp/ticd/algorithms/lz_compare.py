@@ -1,16 +1,19 @@
+# coding=utf-8
+from math import log
+
 from .LZ77 import lz77_encode
 from .LZ78 import encode as lz78_c
 from .Lyndon import DeBruijnSequence
 from .bwt import encode as bwt_enc
 from .gzip import encode as gzip
-from math import log
 
-__algorithm__ = "Compare"
+__algorithm__ = "LZ Compare"
 __group__ = "LZ"
 
 
 def compare(word_length_range: str, alphabet_size: int):
     a, b = [int(x) + 1 for x in word_length_range.split('-')]
+    nlog = [n / log(n) for n in range(a, b)]
     alphabet = "abcdefghijklmnopqrstuvwxyz"
     lengths = list(range(a, b))
 
@@ -49,8 +52,6 @@ def compare(word_length_range: str, alphabet_size: int):
         lz77_lengths_rev.append(len(lz77word_rev))
         lz78_lengths_rev.append(len(lz78word_rev))
         gzip_lengths_rev.append(len(gzip_word_rev))
-
-        nlog = [n / log(n) for n in range(a, b)]
 
     return {
         'plot': {

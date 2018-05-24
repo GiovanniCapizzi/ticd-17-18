@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # @author Giuseppe Filippone
 
-from typing import List, Tuple, Dict
 from re import sub
-from .utils import input_example
+from typing import Dict, List, Tuple
 
+from .utils import input_example
 
 __author__ = "Giuseppe Filippone"
 __algorithm__ = "LZss"
