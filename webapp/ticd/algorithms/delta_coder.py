@@ -2,7 +2,7 @@
 # @author Giuseppe Filippone
 
 from math import log2
-from typing import List
+from typing import List, Dict
 
 from .gamma import encode as gamma_encode
 from .utils import input_example
@@ -63,8 +63,8 @@ class DeltaCoder:
 
 
 @input_example(integers="21 1 1 2 4 10")
-def encode(integers: List[int]) -> str:
-    return DeltaCoder().encode_sequence(integers)
+def encode(integers: List[int]) -> Dict[str, str]:
+    return {"text": DeltaCoder().encode_sequence(integers)}
 
 
 @input_example(text="0010101011101000110000100010")

@@ -267,8 +267,8 @@ class FGK(object):
 def encode(text: str):
     fgk = FGK(len(set(text)))
     return {
-        'delta encoding': DeltaCoder().encode_sequence(fgk.encode(text)),
-        'number of symbols': len(set(text)),
+        'sequence': DeltaCoder().encode_sequence(fgk.encode(text)),
+        'number_of_symbols': len(set(text)),
         'edges': fgk.plot(text)
     }
 

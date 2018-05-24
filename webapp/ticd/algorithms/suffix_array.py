@@ -7,6 +7,7 @@ from os import path
 from typing import List
 
 from .logging_utils import logging
+from .utils import input_example
 
 __algorithm__ = 'Suffix Array'
 __group__ = "miscellaneous"
@@ -38,11 +39,18 @@ def suffix_array(text):
     return reduce(list.__add__, map(lambda x: x[1], sorted(ordered.items())))
 
 
+class SuffixArray:
+    @staticmethod
+    def calculate(text: str):
+        try:
+            return KS(text)
+        except OSError:
+            return suffix_array(text)
+
+
+@input_example(text="mississippi")
 def calculate(text: str):
-    try:
-        return KS(text)
-    except OSError:
-        return suffix_array(text)
+    return SuffixArray.calculate(text)
 
 
 def test():

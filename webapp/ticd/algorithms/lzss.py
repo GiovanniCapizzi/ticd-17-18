@@ -2,7 +2,11 @@
 # @author Giuseppe Filippone
 
 from typing import List, Tuple, Dict
+from re import sub
+from .utils import input_example
 
+
+__author__ = "Giuseppe Filippone"
 __algorithm__ = "LZss"
 __group__ = "LZ"
 
@@ -57,9 +61,11 @@ class LZss(object):
         return decoded
 
 
+@input_example(text="mississippi")
 def encode(text: str) -> Dict:
-    return {'pairs': LZss.encode(text)}
+    return {'code': sub("\'|\[|\]", "", str(LZss.encode(text)))}
 
 
+@input_example(code="(0 , m),(0 , i),(0 , s),(1 , 1),(3 , 4),(0 , p),(1 , 1),(3 , 1)")
 def decode(code: List[Tuple[int, str]]) -> str:
     return LZss.decode(code)
