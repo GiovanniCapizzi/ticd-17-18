@@ -7,6 +7,7 @@ from typing import List
 from .gamma import encode as gamma_encode
 from .utils import input_example
 
+__author__ = "Giuseppe Filippone"
 __algorithm__ = "Delta"
 __group__ = "integers"
 

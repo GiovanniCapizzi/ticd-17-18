@@ -5,6 +5,7 @@ from typing import Set, Tuple
 from .utils import input_example
 
 
+__author__ = "Giuseppe Filippone"
 __algorithm__ = "Arithmetic Coding Adaptive"
 __group__ = "miscellaneous"
 

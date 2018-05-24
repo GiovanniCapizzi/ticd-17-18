@@ -12,6 +12,7 @@ from .delta_coder import DeltaCoder
 from .utils import save_tree, plot_tree
 from .utils import input_example
 
+__author__ = "all together passionately"
 __algorithm__ = 'FGK'
 __group__ = "miscellaneous"
 

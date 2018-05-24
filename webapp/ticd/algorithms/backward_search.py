@@ -7,6 +7,7 @@ from .bwt import encode as bwt_encode
 from .suffix_array import calculate
 from .utils import input_example
 
+__author__ = "Giuseppe Filippone"
 __algorithm__ = "Backward-Search"
 __group__ = "miscellaneous"
 
