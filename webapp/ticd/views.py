@@ -1,15 +1,17 @@
 # coding=utf-8
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from .algorithms import algs, modules
-from django.shortcuts import render
-from dotmap import DotMap
-from typing import List
 import json
 import time
 import traceback
 from itertools import chain
+from typing import List
+
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from dotmap import DotMap
+
+from .algorithms import algs, modules
 
 
 @login_required
@@ -69,7 +71,9 @@ def get_authors(request):
     groups = {author: [] for author in authors}
     for alg, _, author in mods:
         groups[author].append(alg)
-    return JsonResponse(groups)
+    return JsonResponse(
+            sorted(groups.items(), key=lambda x: x[0].split(' ')[-1].upper() if x[0] != 'GROUP' else 'Z'),
+            safe=False)
 
 
 @login_required
