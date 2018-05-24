@@ -19,7 +19,7 @@ def encode_mtf(input_string: str) -> Dict[str, Any]:
         X.insert(0, c)
 
     return {
-        "output": output,
+        "integer_list": output,
         "alphabet": " ".join(
                 list(
                         map(lambda x: str(ord(x)), sorted(set(input_string)))
