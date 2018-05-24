@@ -44,11 +44,11 @@ class DeltaCoder:
         decoded = []
         while i < len(text):
             N = 0
-            while text[i] == "0":
+            while i < len(text) and text[i] == "0":
                 N += 1
                 i += 1
             tmp = i + N + 1
-            N = int("0b" + text[i:tmp], 2) - 1
+            N = int("0b" + text[i:tmp], 2) - 1 if len(text[i:tmp]) > 0 else 0
             decoded.append(int("0b1" + text[tmp:tmp + N], 2))
             i = tmp + N
         return decoded
