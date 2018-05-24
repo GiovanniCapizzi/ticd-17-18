@@ -4,8 +4,9 @@
 from typing import Tuple, Dict
 
 from .bwt import encode as bwt_encode
-from .suffix_array import calculate
+from .suffix_array import SuffixArray
 from .utils import input_example
+
 
 __author__ = "Giuseppe Filippone"
 __algorithm__ = "Backward-Search"
@@ -16,7 +17,7 @@ class BackwardSearch:
 
     def __init__(self, text, use_bwt=False):
         self.counter = {}
-        self.suffix_array = calculate(text + ("$" if use_bwt else ""))
+        self.suffix_array = SuffixArray.calculate(text + ("$" if use_bwt else ""))
         if use_bwt:
             text = bwt_encode(text, use_suffix_array=True)
         self.alph = sorted(set(text))
