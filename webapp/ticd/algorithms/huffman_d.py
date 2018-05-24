@@ -44,15 +44,10 @@ def graph_maker(node, v_graph):
             graph_maker(child, v_graph)
 
 
-def generate_graph(node, path=''):
+def generate_graph(node):
     g = nx.Graph()
     graph_maker(node, g)
     return plot_tree(g, node)
-
-    # f = plt.figure()
-    # pos = nx.spring_layout(g, k=0.15, iterations=500)
-    # nx.draw(g, ax=f.add_subplot(111), with_labels=True, pos=pos)
-    # f.savefig(path)
 
 
 # Extract the encoding dict
@@ -70,7 +65,7 @@ def code_maker(node, index, encode_by):
 
 
 @input_example(d='2', text='mississippi')
-def encode(d: int, text: str, path=''):
+def encode(d: int, text: str):
     # Text Length
     length = len(text)
     # Queue
@@ -138,12 +133,8 @@ def decode(encoded: str, codebook: Dict):
     return output
 
 
-def main():
+if __name__ == '__main__':
     in_text = "La signora Aurora si ricorda che Mario cerca Giacomino ogni giorno alle 14"
-    output = encode(4, in_text, "D:\\graph.jpg")
+    output = encode(4, in_text)
     print(output['encoded'], "\n", output['codebook'])
     print(decode(output['encoded'], output['codebook']))
-
-
-if __name__ == '__main__':
-    main()

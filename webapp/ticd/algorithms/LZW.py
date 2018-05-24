@@ -125,8 +125,6 @@ def decode(encoded: List[int], codebook: Dict, logging: bool = False) -> str:
     return output
 
 
-# TEST CODE --------------
-
 if __name__ == '__main__':
     in_text = "La signora Aurora ha programmato in Java un software per la gestione dei ristoranti."
     # _in_text = "bcababbcbcbaaaabbc
