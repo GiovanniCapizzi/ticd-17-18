@@ -4,6 +4,8 @@ Sardinas-Patterson algorithm.
 """
 from typing import List, Dict, Set
 
+from .utils import input_example
+
 __algorithm__ = 'Sardinas-Patterson'
 __group__ = "miscellaneous"
 __author__ = "Mirko Avantaggiato"
@@ -91,10 +93,11 @@ def sardinas_patterson(code: Code) -> Dict:
         i += 1
 
 
+@input_example(code='010 0001 0110 1100 00011 00110 11110 101011')
 def verify(code: List[str]) -> Dict:
-    print(code)
+    # print(code)
     res = sardinas_patterson(Code(set(code)))
-    print(res)
+    # print(res)
     return res
 
 
