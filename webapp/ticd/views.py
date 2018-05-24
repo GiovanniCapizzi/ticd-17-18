@@ -72,7 +72,7 @@ def get_authors(request):
     for alg, _, author in mods:
         groups[author].append(alg)
     return JsonResponse(
-            sorted(groups.items(), key=lambda x: x[0].split(' ')[-1].upper() if x[0] != 'GROUP' else 'Z'),
+            sorted(groups.items(), key=lambda x: x[0].split(' ')[-1].upper() if x[0] != 'Group' else 'Z'),
             safe=False)
 
 
