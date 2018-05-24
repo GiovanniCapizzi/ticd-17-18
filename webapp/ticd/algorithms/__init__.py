@@ -13,6 +13,9 @@ modules = {file[:-3]: importlib.import_module('.' + file[:-3], package='ticd.alg
 algs = {module.__group__: [] for name, module in modules.items()}
 
 for name, module in modules.items():
-    algs[module.__group__].append((module.__algorithm__ if hasattr(module, '__algorithm__') else name, name))
+    algs[module.__group__].append((module.__algorithm__ if hasattr(module, '__algorithm__') else name,
+                                   name,
+                                   module.__author__ if hasattr(module, '__author__') else 'Group')
+                                  )
 
 algs = {name: sorted(value, key=lambda x: x[0]) for name, value in algs.items()}

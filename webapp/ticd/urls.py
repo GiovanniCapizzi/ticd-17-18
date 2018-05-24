@@ -6,5 +6,6 @@ from . import views
 urlpatterns = [
     path('', views.get_index),
     path('list', views.get_algorithms),
+    path('index', views.get_authors),
     path('<algorithm>', views.algorithm_execute)
 ]

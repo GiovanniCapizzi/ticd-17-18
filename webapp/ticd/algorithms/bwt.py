@@ -6,6 +6,7 @@ from .utils import input_example
 
 __algorithm__ = 'BWT'
 __group__ = "miscellaneous"
+__author__ = 'Francesco Saverio Cannizzaro'
 
 
 @input_example(text='mississippi')

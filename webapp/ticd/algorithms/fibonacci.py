@@ -9,6 +9,7 @@ sequences = [0, 1]
 
 __algorithm__ = 'Fibonacci'
 __group__ = 'integers'
+__author__ = 'Francesco Saverio Cannizzaro'
 
 
 def fibonacci(value):

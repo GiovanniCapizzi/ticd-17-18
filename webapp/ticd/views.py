@@ -9,6 +9,7 @@ from typing import List
 import json
 import time
 import traceback
+from itertools import chain
 
 
 @login_required
@@ -58,6 +59,18 @@ def post_algorithm(request, algorithm):
 @login_required
 def get_index(request):
     return render(request, 'index.html', context={})
+
+
+@login_required
+@csrf_exempt
+def get_authors(request):
+    mods = list(chain(*algs.values()))
+    authors = set([x[2] for x in mods])
+    groups = {author: [] for author in authors}
+    for alg, _, author in mods:
+        print(alg)
+        groups[author].append(alg)
+    return JsonResponse(groups)
 
 
 @login_required

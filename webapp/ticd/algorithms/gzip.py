@@ -3,6 +3,7 @@ from typing import List, Dict, Tuple
 
 __algorithm__ = 'GZIP'
 __group__ = "LZ"
+__author__ = 'Francesco Saverio Cannizzaro'
 
 
 def lcp(text: str, start: int, initial: List[int]) -> (int, int):
