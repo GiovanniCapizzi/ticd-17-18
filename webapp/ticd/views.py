@@ -68,7 +68,6 @@ def get_authors(request):
     authors = set([x[2] for x in mods])
     groups = {author: [] for author in authors}
     for alg, _, author in mods:
-        print(alg)
         groups[author].append(alg)
     return JsonResponse(groups)
 
