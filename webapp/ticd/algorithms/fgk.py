@@ -262,7 +262,7 @@ class FGK(object):
         return result.decode("unicode-escape")
 
 
-@input_example(text="we have the best prof ever")
+@input_example(text="mississippi")
 def encode(text: str):
     fgk = FGK(len(set(text)))
     return {
@@ -272,7 +272,8 @@ def encode(text: str):
     }
 
 
-@input_example(number_of_symbols="13 symbols for \"we have the best prof ever\"", sequence="00010010111100000010010110011000010010010000100010010110100100010010110001000010...")
+@input_example(number_of_symbols="4 (for \"mississippi\")",
+               sequence="0001001011011100001001011010100001001011101000110001110011110111101110000100101110001010001110")
 def decode(number_of_symbols: int, sequence: str):
     return FGK(number_of_symbols).decode(DeltaCoder().decode_text(sequence))
 
