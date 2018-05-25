@@ -1,6 +1,7 @@
 # coding=utf-8
 from math import log
 
+from .utils import input_example
 from .LZ77 import lz77_encode
 from .LZ78 import encode as lz78_c
 from .Lyndon import DeBruijnSequence
@@ -11,6 +12,7 @@ __algorithm__ = "LZ Compare"
 __group__ = "LZ"
 
 
+@input_example(word_length_range="1-15", alphabet_size="3")
 def compare(word_length_range: str, alphabet_size: int):
     a, b = [int(x) + 1 for x in word_length_range.split('-')]
     nlog = [n / log(n) for n in range(a, b)]

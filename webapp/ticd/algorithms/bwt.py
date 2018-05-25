@@ -61,7 +61,7 @@ def decode(encoded: str) -> str:
 @input_example(encoded='mississippi')
 def run_compression(text: str) -> Dict:
     res = encode(text, True)
-    res = ' '.join(str(i) for i in mtf(res)['integer_list'])
+    res = mtf(res['integer_list'])
     return rle(res)
 
 
