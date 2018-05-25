@@ -1,8 +1,11 @@
 # coding=utf-8
 from collections import deque
+from typing import Dict
 
 from .suffix_array import calculate as suffix_array
 from .utils import input_example
+from .MTF import encode_mtf as mtf
+from .RLE import encode as rle
 
 __algorithm__ = 'BWT'
 __group__ = "miscellaneous"
@@ -53,6 +56,13 @@ def decode(encoded: str) -> str:
         t = tao[t]
         w += f[t]
     return w[:-1]
+
+
+@input_example(encoded='mississippi')
+def run_compression(text: str) -> Dict:
+    res = encode(text, True)
+    res = mtf(res['integer_list'])
+    return rle(res)
 
 
 if __name__ == '__main__':

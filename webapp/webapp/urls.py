@@ -20,6 +20,7 @@ from django.urls import include
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
+    url('', include('ticd.urls')),
     url('algorithms/', include('ticd.urls')),
     url(r'^accounts/login/$', auth_views.login, name='login'),
     url(r'^accounts/logout/$', auth_views.logout, name='logout'),

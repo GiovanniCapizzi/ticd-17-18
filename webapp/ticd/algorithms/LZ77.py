@@ -1,6 +1,8 @@
 # coding=utf-8
 from typing import List, Tuple, Dict
 
+from .utils import input_example
+
 __algorithm__ = "LZ77"
 __group__ = "LZ"
 __author__ = "Mirko Avantaggiato"
@@ -63,10 +65,12 @@ def lz77_decode(input_tuples: List[Tuple[int, int, str]]) -> str:
     return "".join(s)
 
 
+@input_example(input_string='mississippi', window='4')
 def encode(input_string: str, window: int = 16) -> Dict:
     return {'pairs': lz77_encode(input_string, window)}
 
 
+@input_example(input_tuples='(0 , 0 , m),(0 , 0 , i),(0 , 0 , s),(1 , 1 , i),(3 , 3 , p),(1 , 1 , i)')
 def decode(input_tuples: List[Tuple[int, int, str]]) -> str:
     return lz77_decode(input_tuples)
 

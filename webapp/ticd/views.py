@@ -13,6 +13,8 @@ from dotmap import DotMap
 
 from .algorithms import algs, modules
 
+PREFIX = ['encode', 'decode', 'search', 'verify', 'compare', 'calculate', 'run']
+
 
 @login_required
 def get_algorithms(request):
@@ -38,8 +40,7 @@ def starts_with(text: str, items: List[str]):
 
 def get_algorithm(algorithm):
     alg = modules[algorithm]
-    functions = [getattr(alg, x) for x in dir(alg) if
-                 starts_with(x, ['encode', 'decode', 'search', 'verify', 'compare', 'calculate'])]
+    functions = [getattr(alg, x) for x in dir(alg) if starts_with(x, PREFIX)]
     return {fun.__name__: extract_info(fun) for fun in functions}
 
 
@@ -72,8 +73,8 @@ def get_authors(request):
     for alg, _, author in mods:
         groups[author].append(alg)
     return JsonResponse(
-            sorted(groups.items(), key=lambda x: x[0].split(' ')[-1].upper() if x[0] != 'Group' else 'Z'),
-            safe=False)
+        sorted(groups.items(), key=lambda x: x[0].split(' ')[-1].upper() if x[0] != 'Group' else 'Z'),
+        safe=False)
 
 
 @login_required

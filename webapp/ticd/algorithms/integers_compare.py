@@ -28,7 +28,7 @@ def compare(integers_range: str, step: int = 100):
         fibonacci = fib_encode(word)
         lev = lv_encode(word)
         gamma = gamma_encode(word)
-        delta = delta_encode(word)
+        delta = delta_encode(word)['text']
         unary = unary_encode(word)
 
         fib_lengths.append(len(fibonacci))
