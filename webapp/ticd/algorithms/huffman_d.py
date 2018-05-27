@@ -35,7 +35,6 @@ class Node:
 
 def graph_maker(node, v_graph):
     # is an internal node so
-
     for i, child in enumerate(node.children):
         if child.children is None:
             v_graph.add_edge(node, child)
@@ -75,6 +74,14 @@ def encode(d: int, text: str):
     # Frequency Dict
     freq = Counter(text)
     freq_len = len(freq)
+    if freq_len == 1:
+        coded = freq[text[0]]
+        patch = {text[0]: coded}
+        return {
+            'encoded': coded,
+            'codebook': patch,
+            'edges': None
+        }
 
     # print("Numero di simboli", freq_len, "prima del fix")
 
@@ -121,6 +128,9 @@ def encode(d: int, text: str):
 @input_example(encoded='100011110111101011010,',
                codebook='{"i":"0","m":"100","p":"101","s":"11"}')
 def decode(encoded: str, codebook: Dict):
+    if len(codebook) == 1:
+        item = list(codebook.items())[0]
+        return item[0]*item[1]
     decode_by = {v: k for k, v in codebook.items()}
     # Decoding
     buffer = ""
@@ -138,3 +148,4 @@ if __name__ == '__main__':
     output = encode(4, in_text)
     print(output['encoded'], "\n", output['codebook'])
     print(decode(output['encoded'], output['codebook']))
+
