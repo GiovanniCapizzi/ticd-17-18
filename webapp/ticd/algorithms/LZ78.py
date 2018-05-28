@@ -1,7 +1,7 @@
 # coding=utf-8
 from typing import Dict, List, Tuple
 
-from .utils import input_example, timer
+from .utils import input_example
 
 __algorithm__ = "LZ78"
 __group__ = "LZ"
@@ -53,12 +53,12 @@ def decode(pairs: List[Tuple[int, str]]) -> str:
 
 def main():
     lines = 'ccaccbcabcaba'
-    with timer('encoding lz78'):
-        encoded = encode(lines)
-        # print(encoded)
-    with timer('decoding lz78'):
-        decoded = decode(encoded)
-        # print(decoded)
+    # with timer('encoding lz78'):
+    encoded = encode(lines)
+    print(encoded)
+    # with timer('decoding lz78'):
+    decoded = decode(encoded['pairs'])
+    print(decoded)
     assert lines == decoded
 
 
