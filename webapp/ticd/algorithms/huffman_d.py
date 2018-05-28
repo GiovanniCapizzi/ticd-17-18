@@ -76,9 +76,9 @@ def encode(d: int, text: str):
     freq_len = len(freq)
     if freq_len == 1:
         coded = freq[text[0]]
-        patch = {text[0]: coded}
+        patch = {text[0]: '0'}
         return {
-            'encoded': coded,
+            'encoded': '0'*coded,
             'codebook': patch,
             'edges': None
         }
@@ -128,9 +128,7 @@ def encode(d: int, text: str):
 @input_example(encoded='100011110111101011010,',
                codebook='{"i":"0","m":"100","p":"101","s":"11"}')
 def decode(encoded: str, codebook: Dict):
-    if len(codebook) == 1:
-        item = list(codebook.items())[0]
-        return item[0]*item[1]
+
     decode_by = {v: k for k, v in codebook.items()}
     # Decoding
     buffer = ""
@@ -145,7 +143,8 @@ def decode(encoded: str, codebook: Dict):
 
 if __name__ == '__main__':
     in_text = "La signora Aurora si ricorda che Mario cerca Giacomino ogni giorno alle 14"
-    output = encode(4, in_text)
+    #in_text = "aaaaaaaaaa"
+    output = encode(2, in_text)
     print(output['encoded'], "\n", output['codebook'])
     print(decode(output['encoded'], output['codebook']))
 
