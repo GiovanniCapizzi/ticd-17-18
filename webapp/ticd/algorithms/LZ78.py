@@ -35,7 +35,7 @@ def encode(text: str) -> Dict[str, List[Tuple[int, str]]]:
     return {'pairs': output}
 
 
-@input_example(list_pairs="(0 , c),(1 , a),(1 , c),(0 , b),(2 , b),(5 , a)")
+@input_example(pairs="(0 , c),(1 , a),(1 , c),(0 , b),(2 , b),(5 , a)")
 def decode(pairs: List[Tuple[int, str]]) -> str:
     """
     >>> decode([(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')])
