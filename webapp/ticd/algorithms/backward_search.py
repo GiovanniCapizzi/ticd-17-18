@@ -21,7 +21,7 @@ class BackwardSearch:
             self.suffix_array = SuffixArray.calculate(text + ("$" if use_bwt else ""))
             text = bwt_encode(text, use_suffix_array=True)
         else:
-            self.suffix_array = SuffixArray.calculate(bwt_decode(text))
+            self.suffix_array = SuffixArray.calculate(bwt_decode(text) + "$")
         self.alph = sorted(set(text))
         i = 0
         for c, index in sorted([(c, i) for c, i in zip(text, range(len(text)))]):
