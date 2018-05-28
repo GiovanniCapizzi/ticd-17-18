@@ -12,7 +12,7 @@ __author__ = "Francesco Landolina"
 def encode(text: str) -> Dict[str, List[Tuple[int, str]]]:
     """
     >>> encode('ccaccbcabcaba')['pairs']
-    [(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')]
+    {'pairs': [(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')]}
     """
     codebook = dict()
     codebook[''] = 0
@@ -36,7 +36,7 @@ def encode(text: str) -> Dict[str, List[Tuple[int, str]]]:
 
 
 @input_example(list_pairs="(0 , c),(1 , a),(1 , c),(0 , b),(2 , b),(5 , a)")
-def decode(list_pairs: List[Tuple[int, str]]) -> str:
+def decode(pairs: List[Tuple[int, str]]) -> str:
     """
     >>> decode([(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')])
     'ccaccbcabcaba'
@@ -44,7 +44,7 @@ def decode(list_pairs: List[Tuple[int, str]]) -> str:
     codebook = dict()
     codebook[0] = ''
     s = ''
-    for t in list_pairs:
+    for t in pairs:
         tmp = codebook[t[0]] + t[1]
         codebook[len(codebook)] = tmp
         s += tmp

@@ -1,5 +1,5 @@
 # coding=utf-8
-from typing import List
+from typing import Dict, List
 
 from bitstring import BitArray
 
@@ -11,10 +11,10 @@ __author__ = "Francesco Landolina"
 
 
 @input_example(integers_list="10231 11 2")
-def encode(integers_list: List[int]) -> str:
+def encode(integers_list: List[int]) -> Dict[str, str]:
     """
     >>> encode([10231])
-    '1111011010011111110111'
+    {"bit_string": '1111011010011111110111'}
     """
     output = ''
     for x in integers_list:
@@ -31,7 +31,7 @@ def encode(integers_list: List[int]) -> str:
                 C += 1
             result = ('1' * C) + '0' + tmp
             output += str(BitArray(bin=result).bin)
-    return output
+    return {"bit_string": output}
 
 
 @input_example(bit_string="1111011010011111110111111010111100")
