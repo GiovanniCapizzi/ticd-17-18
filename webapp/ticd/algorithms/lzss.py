@@ -63,7 +63,7 @@ class LZss(object):
 
 @input_example(text="mississippi")
 def encode(text: str) -> Dict:
-    return {'code': sub("\'|\[|\]", "", str(LZss.encode(text)))}
+    return {'pairs': LZss.encode(text)}
 
 
 @input_example(code="(0 , m),(0 , i),(0 , s),(1 , 1),(3 , 4),(0 , p),(1 , 1),(3 , 1)")
