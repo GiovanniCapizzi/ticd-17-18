@@ -89,7 +89,7 @@ def encode(text: str) -> Dict:
     return {'pairs': encoded}
 
 
-@input_example(text='---')
+@input_example(encoded='(0 , m),(0 , i),(0 , s),(0 , s),(3 , 4),(0 , p),(0 , p),(0 , i)')
 def decode(encoded: List[Tuple[int, str]]) -> str:
     """
     >>> decode([(0, 'm'), (0, 'i'), (0, 's'), (0, 's'), (3, 4), (0, 'p'), (0, 'p'), (0, 'i')])
@@ -108,7 +108,6 @@ def decode(encoded: List[Tuple[int, str]]) -> str:
             end = start + b
             tmp = decoded[start: end]
             repeat = b - a
-            print(repeat)
             if repeat > 0:
                 tmp += tmp[:repeat]
             decoded += tmp
