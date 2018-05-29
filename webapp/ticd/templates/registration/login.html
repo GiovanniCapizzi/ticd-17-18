@@ -3,20 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 </head>
+<style>
+    body {
+        position: absolute;
+        width: calc(100% - 32px);
+        height: calc(100% - 32px);
+        background: #EEEEEE;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    * {
+        font-family: 'Roboto', sans-serif;
+    }
+    .card {
+        border-radius: 4px;
+        background: white;
+        padding: 16px;
+        padding-top: 8px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    button {
+        background: #3F51B5;
+        color: white;
+        border-radius: 4px;
+        padding: 8px;
+        outline: none;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+    }
+    h1 {
+        display: none;
+    }
+    input {
+        border: none;
+        outline: none;
+        background: none;
+        padding: 8px;
+        min-width: 250px;
+        border-bottom: 2px solid #eee;
+    }
+
+    label {
+        display: block;
+    }
+
+    input:focus {
+        border-color: #F51B5;
+    }
+</style>
 <body>
-{% if user.is_authenticated %}
-<p>Welcome {{ user.username }} !!!</p>
-<a href="/accounts/logout">Logout</a>
-{%else%}
-{% block content %}
-<h1>Login</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
-{% endblock %}
-{% endif %}
+<div class="card">
+    {% if user.is_authenticated %}
+    <p>Welcome {{ user.username }} !!!</p>
+    <a href="/accounts/logout">Logout</a>
+    {%else%}
+    {% block content %}
+    <h1>Login</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+    {% endblock %}
+    {% endif %}
+</div>
 </body>
 </html>
