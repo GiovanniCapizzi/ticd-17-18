@@ -13,8 +13,6 @@ def lcp(text: str, start: int, initial: List[int]) -> (int, int):
     index = [3] * len(initial)
     stop = [0] * len(initial)
 
-    print(start, initial, common)
-
     for i, pos in enumerate([x for x in initial]):
         for j in range(3, len(common)):
             if stop[i]:
