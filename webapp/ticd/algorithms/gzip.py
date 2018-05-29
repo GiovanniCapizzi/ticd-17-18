@@ -108,7 +108,8 @@ def decode(encoded: List[Tuple[int, str]]) -> str:
             end = start + b
             tmp = decoded[start: end]
             repeat = b - a
-            if repeat:
+            print(repeat)
+            if repeat > 0:
                 tmp += tmp[:repeat]
             decoded += tmp
             size += b
