@@ -13,6 +13,8 @@ def lcp(text: str, start: int, initial: List[int]) -> (int, int):
     index = [3] * len(initial)
     stop = [0] * len(initial)
 
+    print(start, initial, common)
+
     for i, pos in enumerate([x for x in initial]):
         for j in range(3, len(common)):
             if stop[i]:
@@ -33,6 +35,8 @@ def update(last_remove: int, start: int, l: int, text: str, table: Dict) -> int:
     for gram in to_remove:
         if gram in table:
             table[gram] = table[gram][1:]
+            if not len(table[gram]):
+                del table[gram]
 
     for gram, i in to_insert:
         if gram in table:
@@ -42,6 +46,10 @@ def update(last_remove: int, start: int, l: int, text: str, table: Dict) -> int:
 
     return last_remove + l
 
+def ensure_list(table, key):
+    if key not in table:
+        table[key] = []
+    return table[key]    
 
 @input_example(text='mississippi')
 def encode(text: str) -> Dict:
@@ -71,8 +79,8 @@ def encode(text: str) -> Dict:
         else:
             i, common = lcp(text, p, table[gram])
             encoded.append((p - i, common))
-            table[gram].append(p)
             last_remove = update(last_remove, p - i, p, text, table)
+            ensure_list(table, gram).append(p)
             p += common
 
         if p == size:
