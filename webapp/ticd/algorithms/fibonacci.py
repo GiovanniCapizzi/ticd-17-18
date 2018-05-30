@@ -13,9 +13,8 @@ __author__ = 'Francesco Saverio Cannizzaro'
 
 
 def fibonacci(value):
-    if sequences[-1] < value:
+    while sequences[-1] <= value:
         sequences.append(sequences[-1] + sequences[-2])
-    return sequences
 
 
 @input_example(integers="5 5 5 8 13")
@@ -29,12 +28,17 @@ def encode(integers: List[int]) -> str:
     """
     symbols = {}
 
+    if 0 in integers:
+        return 'Cannot encode.'
+
     for integer in set(integers):
         tmp = integer
         fns = []
 
+        fibonacci(tmp)
+
         while tmp > 0:
-            value = max(filter(lambda x: x <= tmp, fibonacci(tmp)))
+            value = max(filter(lambda x: x <= tmp, sequences))
             fns.append(max(0, sequences.index(value) - 2))
             tmp -= value
 
@@ -53,10 +57,13 @@ def decode(encoded: str) -> List[int]:
     :return:
     """
 
-    if encoded == '11':
-        return [1]
-    integers = map(lambda x: x + '1', filter(lambda x: x, encoded.split('11')))
-    return [sum([sequences[x + 2] for x, value in enumerate(integer) if value == '1']) for integer in integers]
+    parts = encoded.split('11')
+
+    if not parts[-1]:
+        parts = parts[:-1]
+
+    ints = map(lambda x: '1' if not x else x + '1', parts)
+    return [sum([sequences[x + 2] for x, value in enumerate(integer) if value == '1']) for integer in ints]
 
 
 if __name__ == '__main__':
