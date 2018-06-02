@@ -1,7 +1,7 @@
 # coding=utf-8
 
 
-from .utils import input_example
+from .utils import input_example, encode_numbers, decode_numbers
 
 from typing import List
 
@@ -30,6 +30,8 @@ def encode(integers: List[int]) -> str:
 
     if 0 in integers:
         return 'Cannot encode.'
+
+    integers = encode_numbers(integers)
 
     for integer in set(integers):
         tmp = integer
@@ -63,14 +65,15 @@ def decode(encoded: str) -> List[int]:
         parts = parts[:-1]
 
     ints = map(lambda x: '1' if not x else x + '1', parts)
-    return [sum([sequences[x + 2] for x, value in enumerate(integer) if value == '1']) for integer in ints]
+    res = [sum([sequences[x + 2] for x, value in enumerate(integer) if value == '1']) for integer in ints]
+    return decode_numbers(res)
 
 
 if __name__ == '__main__':
     import time
 
     start_time = time.clock()
-    to_encode = [5, 5, 5, 8, 13]
+    to_encode = [-5, 5, 5, 8, 13]
     enc = encode(to_encode)
     print(" >> encoding", to_encode, " to ", enc)
     decoded = decode(enc)
