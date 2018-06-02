@@ -95,11 +95,11 @@ def plot_tree(g, root):
     return save_tree()
 
 
-def encode_numbers(integers):
+def integers_encode(integers):
     return list(map(lambda number: number * 2 if number >= 0 else -number * 2 + 1, integers))
 
 
-def decode_numbers(integers):
+def integers_decode(integers):
     return list(map(lambda number: int(number / 2 if not number % 2 else (number - 1) / -2), integers))
 
 
