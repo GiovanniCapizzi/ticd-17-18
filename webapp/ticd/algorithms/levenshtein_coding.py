@@ -1,13 +1,11 @@
 # coding=utf-8
 from typing import Dict, List
 
-from bitstring import BitArray
-
 from .utils import input_example
 
 __algorithm__ = "Levenshtein"
-__group__ = "integers"
 __author__ = "Francesco Landolina"
+__group__ = "integers"
 
 
 @input_example(integers_list="10231 11 2")
@@ -19,7 +17,7 @@ def encode(integers_list: List[int]) -> Dict[str, str]:
     output = ''
     for x in integers_list:
         if x == 0:
-            output += str(BitArray(bin='0').bin)
+            output += '0'
         else:
             C = 1
             b_n = '{0:b}'.format(x)
@@ -30,7 +28,7 @@ def encode(integers_list: List[int]) -> Dict[str, str]:
                 tmp = M + tmp
                 C += 1
             result = ('1' * C) + '0' + tmp
-            output += str(BitArray(bin=result).bin)
+            output += result
     return {"bit_string": output}
 
 
@@ -50,6 +48,7 @@ def decode(bit_string: str) -> List[int]:
             in_list.pop(0)
             N += 1
         if N == 0:
+            in_list.pop(0)
             results.append(0)
         else:
             # print('N :' + str(N))
@@ -70,10 +69,10 @@ def decode(bit_string: str) -> List[int]:
 def main():
     print('-----Levenshtein-----')
     print('encode')
-    bits = encode([10231, 11])
+    bits = encode([0, 10231, 11])
     print(bits)
     print('decode')
-    integers = decode(bits)
+    integers = decode(bits["bit_string"])
     print(integers)
 
 
