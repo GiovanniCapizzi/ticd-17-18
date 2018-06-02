@@ -1,20 +1,21 @@
 # coding=utf-8
 from typing import Dict, List
 
-# from .utils import input_example
+from .utils import integers_decode, integers_encode, input_example
 
 __algorithm__ = "Levenshtein"
 __author__ = "Francesco Landolina"
 __group__ = "integers"
 
 
-# @input_example(integers_list="10231 11 2")
+@input_example(integers_list="10231 11 2")
 def encode(integers_list: List[int]) -> Dict[str, str]:
     """
     >>> encode([10231])
     {"bit_string": '1111011010011111110111'}
     """
     output = ''
+    integers_list = integers_encode(integers_list)
     for x in integers_list:
         if x == 0:
             output += '0'
@@ -32,7 +33,7 @@ def encode(integers_list: List[int]) -> Dict[str, str]:
     return {"bit_string": output}
 
 
-# @input_example(bit_string="1111011010011111110111111010111100")
+@input_example(bit_string="1111011010011111110111111010111100")
 def decode(bit_string: str) -> List[int]:
     """
     >>> decode('11110000000011110000000011100111110011')
@@ -62,7 +63,7 @@ def decode(bit_string: str) -> List[int]:
                 t = int(s, 2)
             results.append(int(s, 2))
 
-    return results
+    return integers_decode(results)
 
 
 def main():
