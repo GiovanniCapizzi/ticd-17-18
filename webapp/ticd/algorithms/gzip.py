@@ -28,7 +28,7 @@ def lcp(text: str, start: int, initial: List[int], max_limit: int = 100) -> (int
                 stop[i] = 1
 
     lcp_size = max(index)
-    return initial[index.index(lcp_size)], lcp_size
+    return initial[len(initial) - 1 - index[::-1].index(lcp_size)], lcp_size
 
 
 def update(last_remove: int, start: int, l: int, text: str, table: Dict) -> int:
@@ -110,6 +110,7 @@ def decode(encoded: List[Tuple[int, str]]) -> str:
     size = 0
 
     for a, b in encoded:
+        print(a, b)
         if a:
             b = int(b)
             start = size - a
@@ -117,7 +118,7 @@ def decode(encoded: List[Tuple[int, str]]) -> str:
             tmp = decoded[start: end]
             repeat = b - a
             if repeat > 0:
-                tmp += tmp[:repeat]
+                tmp += tmp * repeat
             decoded += tmp
             size += b
         else:
