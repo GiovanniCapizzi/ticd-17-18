@@ -8,13 +8,18 @@ __group__ = "LZ"
 __author__ = 'Francesco Saverio Cannizzaro'
 
 
-def lcp(text: str, start: int, initial: List[int]) -> (int, int):
+def lcp(text: str, start: int, initial: List[int], max_limit: int = 100) -> (int, int):
     common = text[start:]
     index = [3] * len(initial)
     stop = [0] * len(initial)
 
+    limit = 0
+
     for i, pos in enumerate([x for x in initial]):
         for j in range(3, len(common)):
+            limit += 1
+            if limit > max_limit:
+                break
             if stop[i]:
                 continue
             if text[pos + j] == common[j]:
@@ -44,13 +49,15 @@ def update(last_remove: int, start: int, l: int, text: str, table: Dict) -> int:
 
     return last_remove + l
 
+
 def ensure_list(table, key):
     if key not in table:
         table[key] = []
-    return table[key]    
+    return table[key]
+
 
 @input_example(text='mississippi')
-def encode(text: str) -> Dict:
+def encode(text: str, lcp_max_length: int = 100) -> Dict:
     """
     >>> encode('mississippi')
     {'pairs': [(0, 'm'), (0, 'i'), (0, 's'), (0, 's'), (3, 4), (0, 'p'), (0, 'p'), (0, 'i')], 'encoded': 'm i s s 4,3 p p i'}
@@ -66,8 +73,11 @@ def encode(text: str) -> Dict:
     p = 0
     size = len(text)
 
+    i = 0
+
     while True:
 
+        i += 1
         gram = text[p:p + 3]
 
         if gram not in table:
@@ -75,13 +85,13 @@ def encode(text: str) -> Dict:
             encoded.append((0, gram[0]))
             p += 1
         else:
-            i, common = lcp(text, p, table[gram])
+            i, common = lcp(text, p, table[gram], lcp_max_length)
             encoded.append((p - i, common))
             last_remove = update(last_remove, p - i, p, text, table)
             ensure_list(table, gram).append(p)
             p += common
 
-        if p == size:
+        if p >= size:
             break
 
     return {'pairs': encoded}
