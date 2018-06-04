@@ -20,8 +20,8 @@ def fibonacci(value):
 @input_example(integers="5 5 5 8 13")
 def encode(integers: List[int]) -> str:
     """
-    >>> encode([5, 5, 5, 8, 13])
-    '0001100011000110000110000011'
+    >>> encode([-5, 5, 5, 8, 13])
+    '001011010011010011001001100010011'
 
     :param integers:
     :return:
@@ -52,8 +52,8 @@ def encode(integers: List[int]) -> str:
 @input_example(encoded="0001100011000110000110000011")
 def decode(encoded: str) -> List[int]:
     """
-    >>> decode('0001100011000110000110000011')
-    [5, 5, 5, 8, 13]
+    >>> decode('001011010011010011001001100010011')
+    [-5, 5, 5, 8, 13]
 
     :param encoded:
     :return:
