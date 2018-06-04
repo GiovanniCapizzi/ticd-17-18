@@ -21,7 +21,7 @@ def encode(input_integers_list: List[int]) -> str:
     return "".join(['0' * int(log(n, 2)) + "{0:b}".format(n) for n in input_integers_list])
 
 
-@input_example(input_binary_string='000001011100000010000100011011000001100000000101110000010001000011010001111011')
+@input_example(input_binary_string='00000010111000000001000010000011010010000000110000000000101110000000100010000001101000001111000110')
 def decode(input_binary_string: str) -> List[int]:
     """
     >>> decode('00011000001100')
