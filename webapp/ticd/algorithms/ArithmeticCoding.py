@@ -5,7 +5,7 @@ from mpmath import mp, mpf
 
 from .utils import input_example
 
-mp.prec = 1000000
+mp.prec = 80
 
 # increase value up to very high values to increase precision
 
