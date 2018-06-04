@@ -14,7 +14,7 @@ __author__ = 'Giovanni Capizzi'
 def encode(input_integers_list: List[int]) -> str:
     """
     >>> encode([12, 12])
-    '00011000001100'
+    '000011000000011000'
     >>> assert decode(encode(list(range(1, 1000)))) == list(range(1, 1000))
     """
     input_integers_list = integers_encode(input_integers_list)
@@ -24,7 +24,7 @@ def encode(input_integers_list: List[int]) -> str:
 @input_example(input_binary_string='00000010111000000001000010000011010010000000110000000000101110000000100010000001101000001111000110')
 def decode(input_binary_string: str) -> List[int]:
     """
-    >>> decode('00011000001100')
+    >>> decode('000011000000011000')
     [12, 12]
     """
     queue = deque(input_binary_string)
