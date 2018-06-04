@@ -3,7 +3,7 @@ from collections import deque  # https://docs.python.org/2/library/collections.h
 from math import log
 from typing import List
 
-from .utils import input_example
+from .utils import input_example, integers_decode, integers_encode
 
 __algorithm__ = 'Gamma'
 __group__ = "integers"
@@ -17,6 +17,7 @@ def encode(input_integers_list: List[int]) -> str:
     '00011000001100'
     >>> assert decode(encode(list(range(1, 1000)))) == list(range(1, 1000))
     """
+    input_integers_list = integers_encode(input_integers_list)
     return "".join(['0' * int(log(n, 2)) + "{0:b}".format(n) for n in input_integers_list])
 
 
@@ -39,7 +40,7 @@ def decode(input_binary_string: str) -> List[int]:
                 temp += queue.popleft()
                 N -= 1
             output.append(int(temp, 2))
-    return output
+    return integers_decode(output)
 
 
 if __name__ == '__main__':
