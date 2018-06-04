@@ -1,11 +1,11 @@
 # coding=utf-8
 from typing import Dict, List, Tuple
 
-from .utils import input_example, timer
+from .utils import input_example
 
 __algorithm__ = "LZ78"
-__group__ = "LZ"
 __author__ = "Francesco Landolina"
+__group__ = "LZ"
 
 
 @input_example(text="ccaccbcabcaba")
@@ -35,8 +35,8 @@ def encode(text: str) -> Dict[str, List[Tuple[int, str]]]:
     return {'pairs': output}
 
 
-@input_example(list_pairs="(0 , c),(1 , a),(1 , c),(0 , b),(2 , b),(5 , a)")
-def decode(list_pairs: List[Tuple[int, str]]) -> str:
+@input_example(pairs="(0 , c),(1 , a),(1 , c),(0 , b),(2 , b),(5 , a)")
+def decode(pairs: List[Tuple[int, str]]) -> str:
     """
     >>> decode([(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')])
     'ccaccbcabcaba'
@@ -44,7 +44,7 @@ def decode(list_pairs: List[Tuple[int, str]]) -> str:
     codebook = dict()
     codebook[0] = ''
     s = ''
-    for t in list_pairs:
+    for t in pairs:
         tmp = codebook[t[0]] + t[1]
         codebook[len(codebook)] = tmp
         s += tmp
@@ -52,13 +52,11 @@ def decode(list_pairs: List[Tuple[int, str]]) -> str:
 
 
 def main():
-    lines = 'ccaccbcabcaba'
-    with timer('encoding lz78'):
-        encoded = encode(lines)
-        # print(encoded)
-    with timer('decoding lz78'):
-        decoded = decode(encoded)
-        # print(decoded)
+    lines = 'mississippi'
+    encoded = encode(lines)
+    print(encoded)
+    decoded = decode(encoded['pairs'])
+    print(decoded)
     assert lines == decoded
 
 

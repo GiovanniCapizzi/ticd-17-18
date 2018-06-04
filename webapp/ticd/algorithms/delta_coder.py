@@ -5,7 +5,7 @@ from math import log2
 from typing import List, Dict
 
 from .gamma import encode as gamma_encode
-from .utils import input_example
+from .utils import input_example, integers_encode, integers_decode
 
 __author__ = "Giuseppe Filippone"
 __algorithm__ = "Delta"
@@ -64,9 +64,9 @@ class DeltaCoder:
 
 @input_example(integers="21 1 1 2 4 10")
 def encode(integers: List[int]) -> Dict[str, str]:
-    return {"text": DeltaCoder().encode_sequence(integers)}
+    return {"text": DeltaCoder().encode_sequence(integers_encode(integers))}
 
 
 @input_example(text="0010101011101000110000100010")
 def decode(text: str) -> List[int]:
-    return DeltaCoder().decode_text(text)
+    return integers_decode(DeltaCoder().decode_text(text))

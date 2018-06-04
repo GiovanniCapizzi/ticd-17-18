@@ -3,7 +3,7 @@
 
 from typing import Tuple, Dict
 
-from .bwt import encode as bwt_encode
+from .bwt import encode as bwt_encode, decode as bwt_decode
 from .suffix_array import SuffixArray
 from .utils import input_example
 
@@ -17,9 +17,11 @@ class BackwardSearch:
 
     def __init__(self, text, use_bwt=False):
         self.counter = {}
-        self.suffix_array = SuffixArray.calculate(text + ("$" if use_bwt else ""))
         if use_bwt:
+            self.suffix_array = SuffixArray.calculate(text + ("$" if use_bwt else ""))
             text = bwt_encode(text, use_suffix_array=True)
+        else:
+            self.suffix_array = SuffixArray.calculate(bwt_decode(text) + "$")
         self.alph = sorted(set(text))
         i = 0
         for c, index in sorted([(c, i) for c, i in zip(text, range(len(text)))]):

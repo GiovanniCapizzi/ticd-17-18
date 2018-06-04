@@ -5,7 +5,7 @@ from mpmath import mp, mpf
 
 from .utils import input_example
 
-mp.prec = 1000000
+mp.prec = 80
 
 # increase value up to very high values to increase precision
 
@@ -52,8 +52,9 @@ def source_prob(s: str):
     return _dict
 
 
-@input_example(text="abbabaaaa")
-def encode(text: str, is_static: bool = True) -> Dict:
+@input_example(text="abbabaaaa", precision="10000")
+def encode(text: str, precision: int = 100, is_static: bool = True) -> Dict:
+    mp.prec = precision
     if is_static:
         real, codebook = enc_static(text)
         out = dec_static(real, codebook)
@@ -203,5 +204,5 @@ def main():
 
 if __name__ == '__main__':
     main()
-    output = encode('ciao come va bella bionda')
+    output = encode('ciao come', precision=30)
     print(output)

@@ -95,6 +95,14 @@ def plot_tree(g, root):
     return save_tree()
 
 
+def integers_encode(integers):
+    return list(map(lambda number: number * 2 if number >= 0 else -number * 2 + 1, integers))
+
+
+def integers_decode(integers):
+    return list(map(lambda number: int(number / 2 if not number % 2 else (number - 1) / -2), integers))
+
+
 class input_example(object):
     """
     @input_example(list_of_integers="46 33 13 1 48 23 34 13 15 3")

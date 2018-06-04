@@ -92,7 +92,7 @@ def encode(text: str) -> Dict[str, Any]:
 def decode(codeword: Tuple[str, str], alphabet: Set[str]) -> str:
     try:
         alphabet = list(map(int, alphabet))
+        alphabet = sorted(list(map(chr, alphabet)))
     except:
-        pass
-    alphabet = sorted(list(map(chr, alphabet)))
+        alphabet = sorted(list(alphabet))
     return ArithmeticCoder().decode(codeword, [a.encode("unicode-escape") for a in alphabet]).decode()
