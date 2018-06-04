@@ -17,6 +17,12 @@ def fibonacci(value):
         sequences.append(sequences[-1] + sequences[-2])
 
 
+def ensure_sequences(value):
+    while len(sequences) <= value:
+        sequences.append(sequences[-1] + sequences[-2])
+    return sequences
+
+
 @input_example(integers="5 5 5 8 13")
 def encode(integers: List[int]) -> str:
     """
@@ -65,7 +71,7 @@ def decode(encoded: str) -> List[int]:
         parts = parts[:-1]
 
     ints = map(lambda x: '1' if not x else x + '1', parts)
-    res = [sum([sequences[x + 2] for x, value in enumerate(integer) if value == '1']) for integer in ints]
+    res = [sum([ensure_sequences(x + 2)[x + 2] for x, value in enumerate(integer) if value == '1']) for integer in ints]
     return integers_decode(res)
 
 
