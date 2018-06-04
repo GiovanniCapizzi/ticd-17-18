@@ -69,7 +69,7 @@ def ensure_window_positions(table: Dict, gram: str, p: int, window: int):
 def encode(text: str, window: int = 16) -> Dict:
     """
     >>> encode('mississippi')
-    {'pairs': [(0, 'm'), (0, 'i'), (0, 's'), (0, 's'), (3, 4), (0, 'p'), (0, 'p'), (0, 'i')], 'encoded': 'm i s s 4,3 p p i'}
+    {'pairs': [(0, 'm'), (0, 'i'), (0, 's'), (0, 's'), (3, 4), (0, 'p'), (0, 'p'), (0, 'i')]}
 
     :param window:
     :param text:
