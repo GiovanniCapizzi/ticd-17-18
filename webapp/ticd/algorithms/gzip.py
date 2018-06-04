@@ -2,13 +2,14 @@
 from typing import List, Dict, Tuple
 
 from .utils import input_example
+from math import ceil
 
 __algorithm__ = 'GZIP'
 __group__ = "LZ"
 __author__ = 'Francesco Saverio Cannizzaro'
 
 
-def lcp(text: str, start: int, initial: List[int], max_limit: int = 100) -> (int, int):
+def lcp(text: str, start: int, initial: List[int]) -> (int, int):
     common = text[start:]
     index = [3] * len(initial)
     stop = [0] * len(initial)
@@ -18,8 +19,6 @@ def lcp(text: str, start: int, initial: List[int], max_limit: int = 100) -> (int
     for i, pos in enumerate([x for x in initial]):
         for j in range(3, len(common)):
             limit += 1
-            if limit > max_limit:
-                break
             if stop[i]:
                 continue
             if text[pos + j] == common[j]:
@@ -31,9 +30,9 @@ def lcp(text: str, start: int, initial: List[int], max_limit: int = 100) -> (int
     return initial[len(initial) - 1 - index[::-1].index(lcp_size)], lcp_size
 
 
-def update(last_remove: int, start: int, l: int, text: str, table: Dict) -> int:
+def update(window: int, start: int, l: int, text: str, table: Dict) -> int:
     to_insert = [(text[i:i + 3], i) for i in range(start, l)]
-    to_remove = [text[i:i + 3] for i in range(last_remove, last_remove + l)]
+    to_remove = [text[i:i + 3] for i in range(start - window, start - window + l)]
 
     for gram in to_remove:
         if gram in table:
@@ -47,8 +46,6 @@ def update(last_remove: int, start: int, l: int, text: str, table: Dict) -> int:
         else:
             table[gram] = [i]
 
-    return last_remove + l
-
 
 def ensure_list(table, key):
     if key not in table:
@@ -56,17 +53,32 @@ def ensure_list(table, key):
     return table[key]
 
 
+def ensure_window_positions(table: Dict, gram: str, p: int, window: int):
+    if gram not in table:
+        return
+
+    table[gram] = list(filter(lambda x: p - x <= window, table[gram]))
+
+    if len(table[gram]):
+        return
+
+    del table[gram]
+
+
 @input_example(text='mississippi')
-def encode(text: str, lcp_max_length: int = 100) -> Dict:
+def encode(text: str, window: int = 16) -> Dict:
     """
     >>> encode('mississippi')
     {'pairs': [(0, 'm'), (0, 'i'), (0, 's'), (0, 's'), (3, 4), (0, 'p'), (0, 'p'), (0, 'i')], 'encoded': 'm i s s 4,3 p p i'}
 
+    :param window:
     :param text:
     :return:
     """
 
-    last_remove = 0
+    if not window:
+        window = 16
+
     encoded = []
     table = {}
 
@@ -80,14 +92,16 @@ def encode(text: str, lcp_max_length: int = 100) -> Dict:
         i += 1
         gram = text[p:p + 3]
 
+        ensure_window_positions(table, gram, p, window)
+
         if gram not in table:
             table[gram] = [p]
             encoded.append((0, gram[0]))
             p += 1
         else:
-            i, common = lcp(text, p, table[gram], lcp_max_length)
+            i, common = lcp(text, p, table[gram])
             encoded.append((p - i, common))
-            last_remove = update(last_remove, p - i, p, text, table)
+            update(window, p - i, p, text, table)
             ensure_list(table, gram).append(p)
             p += common
 
@@ -110,7 +124,6 @@ def decode(encoded: List[Tuple[int, str]]) -> str:
     size = 0
 
     for a, b in encoded:
-        print(a, b)
         if a:
             b = int(b)
             start = size - a
@@ -118,8 +131,8 @@ def decode(encoded: List[Tuple[int, str]]) -> str:
             tmp = decoded[start: end]
             repeat = b - a
             if repeat > 0:
-                tmp += tmp * repeat
-            decoded += tmp
+                tmp += tmp * ceil(b / a)
+            decoded += tmp[:b]
             size += b
         else:
             decoded += b
