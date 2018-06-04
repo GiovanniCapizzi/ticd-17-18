@@ -12,7 +12,7 @@ __group__ = "LZ"
 def encode(text: str) -> Dict[str, List[Tuple[int, str]]]:
     """
     >>> encode('ccaccbcabcaba')['pairs']
-    {'pairs': [(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')]}
+    [(0, 'c'), (1, 'a'), (1, 'c'), (0, 'b'), (2, 'b'), (5, 'a')]
     """
     codebook = dict()
     codebook[''] = 0

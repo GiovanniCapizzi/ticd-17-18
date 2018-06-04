@@ -8,11 +8,11 @@ __author__ = "Francesco Landolina"
 __group__ = "integers"
 
 
-@input_example(integers_list="10231 11 2")
+@input_example(integers_list="1, 0, 2, 10231, 11")
 def encode(integers_list: List[int]) -> Dict[str, str]:
     """
-    >>> encode([10231])
-    {"bit_string": '1111011010011111110111'}
+    >>> encode([1, 0, 2, 10231, 11])['bit_string']
+    '11000111000011110111000111111101110111100000110'
     """
     output = ''
     integers_list = integers_encode(integers_list)
@@ -33,11 +33,11 @@ def encode(integers_list: List[int]) -> Dict[str, str]:
     return {"bit_string": output}
 
 
-@input_example(bit_string="1111011010011111110111111010111100")
+@input_example(bit_string="11000111000011110111000111111101110111100000110")
 def decode(bit_string: str) -> List[int]:
     """
-    >>> decode('11110000000011110000000011100111110011')
-    [16, 16, 7, 7]
+    >>> decode('11000111000011110111000111111101110111100000110')
+    [1, 0, 2, 10231, 11]
     """
     in_list = list(bit_string)
     # print(in_list)
