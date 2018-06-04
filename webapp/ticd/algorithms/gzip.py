@@ -65,7 +65,7 @@ def ensure_window_positions(table: Dict, gram: str, p: int, window: int):
     del table[gram]
 
 
-@input_example(text='mississippi')
+@input_example(text='mississippi', window='16')
 def encode(text: str, window: int = 16) -> Dict:
     """
     >>> encode('mississippi')
