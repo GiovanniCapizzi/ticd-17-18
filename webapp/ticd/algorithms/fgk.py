@@ -10,7 +10,7 @@ from timeit import default_timer
 
 from .delta_coder import DeltaCoder
 from .utils import save_tree, plot_tree
-from .utils import input_example
+from .utils import input_example, integers_decode, integers_encode
 
 __algorithm__ = 'FGK'
 __group__ = "miscellaneous"
@@ -266,7 +266,7 @@ class FGK(object):
 def encode(text: str):
     fgk = FGK(len(set(text)))
     return {
-        'sequence': DeltaCoder().encode_sequence(fgk.encode(text)),
+        'sequence': DeltaCoder().encode(integers_encode(fgk.encode(text))),
         'number_of_symbols': len(set(text)),
         'edges': fgk.plot(text)
     }
@@ -275,7 +275,7 @@ def encode(text: str):
 @input_example(number_of_symbols="4 (for \"mississippi\")",
                sequence="0001001011011100001001011010100001001011101000110001110011110111101110000100101110001010001110")
 def decode(number_of_symbols: int, sequence: str):
-    return FGK(number_of_symbols).decode(DeltaCoder().decode_text(sequence))
+    return FGK(number_of_symbols).decode(integers_decode(DeltaCoder().decode(sequence)))
 
 
 def test(word, plot=False):
